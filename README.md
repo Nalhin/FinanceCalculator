@@ -1,0 +1,2 @@
+# FinanceCalculator
+Finance calculator
