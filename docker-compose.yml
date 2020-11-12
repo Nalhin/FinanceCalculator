@@ -2,13 +2,13 @@ version: '3.7'
 
 services:
   db:
-    container_name: finanse_calculator_db
+    container_name: fc_db
     image: postgres:12.3
     ports:
       - "5432:5432"
     environment:
       - POSTGRES_USER=user
       - POSTGRES_PASSWORD=password
-      - POSTGRES_DB=finanse_calculator_db
+      - POSTGRES_DB=fc_db
 volumes:
   db:

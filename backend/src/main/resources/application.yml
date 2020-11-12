@@ -3,7 +3,7 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/finanse_calculator_db
+    url: jdbc:postgresql://localhost:5432/fc_db
     username: user
     password: password
   jpa:
