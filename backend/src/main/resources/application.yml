@@ -1,0 +1,11 @@
+server:
+  port: 8000
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/finanse_calculator_db
+    username: user
+    password: password
+  jpa:
+    hibernate:
+      ddl-auto: validate
