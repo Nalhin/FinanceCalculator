@@ -5,7 +5,7 @@ import com.github.javafaker.Faker
 class TestFaker extends Faker {
 
 
-  long id() {
+  Long id() {
     return number().numberBetween(1, Long.MAX_VALUE)
   }
 

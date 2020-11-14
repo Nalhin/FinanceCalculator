@@ -11,10 +11,10 @@ class UserTestFactory {
       Map map = Collections.EMPTY_MAP
   ) {
     return new User(
-        email: map.getOrDefault("email", faker.internet().emailAddress()),
-        username: map.getOrDefault("username", faker.name().username()),
-        password: map.getOrDefault("password", faker.internet().password()),
-        id: faker.id()
+        email: map.email ?: faker.internet().emailAddress(),
+        username: map.username ?: faker.name().username(),
+        password: map.password ?: faker.internet().password(),
+        id: (map.id ?: faker.id()) as Long
     )
   }
 }
