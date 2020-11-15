@@ -48,7 +48,7 @@ public class AuthController {
   @ApiOperation(value = "Create an account")
   @ApiResponses(
       value = {
-        @ApiResponse(code = 200, message = "Account created"),
+        @ApiResponse(code = 200, message = "Account createdDate"),
         @ApiResponse(code = 400, message = "Request body is invalid"),
         @ApiResponse(code = 409, message = "Username or email is already taken")
       })
