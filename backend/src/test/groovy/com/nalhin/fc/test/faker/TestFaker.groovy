@@ -11,6 +11,9 @@ class TestFaker extends Faker {
 
   double positiveDouble() {
     return Math.abs(random().nextDouble())
+  }
 
+  int positiveInt(){
+    return random().nextInt(0, Integer.MAX_VALUE - 1)
   }
 }
