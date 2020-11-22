@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.nalhin</groupId>
-    <artifactId>financecalculator</artifactId>
+    <artifactId>fc</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>financecalculator</name>
+    <name>financialcalculator</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
@@ -111,7 +111,7 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        
+
         <dependency>
             <groupId>com.intellij</groupId>
             <artifactId>annotations</artifactId>

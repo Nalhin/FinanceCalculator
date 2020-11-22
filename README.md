@@ -1,3 +1,3 @@
-# FinanceCalculator
+# Financial Calculator
 
-Finance calculator
+Financial calculator
