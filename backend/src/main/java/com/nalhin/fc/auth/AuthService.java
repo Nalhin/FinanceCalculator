@@ -1,7 +1,7 @@
 package com.nalhin.fc.auth;
 
 import com.nalhin.fc.jwt.JwtService;
-import com.nalhin.fc.security.models.AppUser;
+import com.nalhin.fc.security.AppUser;
 import com.nalhin.fc.user.User;
 import com.nalhin.fc.user.UserService;
 import lombok.RequiredArgsConstructor;

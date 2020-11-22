@@ -1,6 +1,5 @@
 package com.nalhin.fc.security;
 
-import com.nalhin.fc.security.models.AppUser;
 import org.springframework.security.core.Authentication;
 
 import java.util.Optional;

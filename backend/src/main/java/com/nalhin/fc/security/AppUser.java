@@ -1,4 +1,4 @@
-package com.nalhin.fc.security.models;
+package com.nalhin.fc.security;
 
 import com.nalhin.fc.user.User;
 import lombok.Builder;

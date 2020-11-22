@@ -4,7 +4,7 @@ import com.nalhin.fc.basket.dto.BasketResponseDto;
 import com.nalhin.fc.basket.dto.SaveBasketRequestDto;
 import com.nalhin.fc.basket.dto.UpdateBasketRequestDto;
 import com.nalhin.fc.common.annotations.CurrentAppUser;
-import com.nalhin.fc.security.models.AppUser;
+import com.nalhin.fc.security.AppUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

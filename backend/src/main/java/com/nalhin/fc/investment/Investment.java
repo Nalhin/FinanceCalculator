@@ -20,36 +20,36 @@ public class Investment {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(name = "id")
-  private Long id;
+  @Column(name = "id", nullable = false)
+  private long id;
 
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
   @JoinColumn(name = "basket_id", nullable = false)
   @OnDelete(action = OnDeleteAction.CASCADE)
   private Basket basket;
 
-  @Column(name = "start_amount")
-  private Long startAmount;
+  @Column(name = "start_amount", nullable = false)
+  private long startAmount;
 
-  @Column(name = "years_of_growth")
-  private Integer yearsOfGrowth;
+  @Column(name = "years_of_growth", nullable = false)
+  private int yearsOfGrowth;
 
-  @Column(name = "payment_frequency")
-  private Integer paymentFrequency;
+  @Column(name = "payment_frequency", nullable = false)
+  private int paymentFrequency;
 
-  @Column(name = "annual_interest_rate")
-  private Integer annualInterestRate;
+  @Column(name = "annual_interest_rate", nullable = false)
+  private int annualInterestRate;
 
-  @Column(name = "payment")
-  private Integer payment;
+  @Column(name = "payment", nullable = false)
+  private int payment;
 
-  @Column(name = "risk")
+  @Column(name = "risk", nullable = false)
   private String risk;
 
-  @Column(name = "category")
+  @Column(name = "category", nullable = false)
   private String category;
 
-  @Column(name = "created")
+  @Column(name = "created", nullable = false)
   @CreatedDate
   private Date created;
 

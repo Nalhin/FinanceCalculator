@@ -1,6 +1,6 @@
 package com.nalhin.fc.security
 
-import com.nalhin.fc.security.models.AppUser
+
 import org.springframework.security.core.Authentication
 
 class SecurityContextFacadeInMemory implements SecurityContextFacade {

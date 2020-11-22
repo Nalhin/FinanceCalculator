@@ -1,7 +1,8 @@
 package com.nalhin.fc.config;
 
-import com.nalhin.fc.security.models.AppUser;
+import com.nalhin.fc.security.AppUser;
 import com.nalhin.fc.user.User;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
@@ -14,6 +15,7 @@ import java.util.Optional;
 @EnableJpaAuditing
 public class JpaAuditingConfiguration implements AuditorAware<User> {
 
+  @NotNull
   @Override
   public Optional<User> getCurrentAuditor() {
 

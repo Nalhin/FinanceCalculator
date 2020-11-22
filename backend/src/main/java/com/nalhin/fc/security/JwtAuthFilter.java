@@ -2,6 +2,7 @@ package com.nalhin.fc.security;
 
 import com.nalhin.fc.jwt.JwtService;
 import lombok.RequiredArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -30,7 +31,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
   @Override
   protected void doFilterInternal(
-      HttpServletRequest request, HttpServletResponse response, FilterChain chain)
+      HttpServletRequest request, @NotNull HttpServletResponse response, FilterChain chain)
       throws ServletException, IOException {
 
     bearerHeaderTokenResolver

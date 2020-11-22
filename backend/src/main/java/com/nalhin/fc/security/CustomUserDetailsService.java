@@ -1,6 +1,5 @@
 package com.nalhin.fc.security;
 
-import com.nalhin.fc.security.models.AppUser;
 import com.nalhin.fc.user.User;
 import com.nalhin.fc.user.UserService;
 import org.springframework.security.core.userdetails.UserDetails;

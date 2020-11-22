@@ -1,7 +1,7 @@
 package com.nalhin.fc.user;
 
 import com.nalhin.fc.common.annotations.CurrentAppUser;
-import com.nalhin.fc.security.models.AppUser;
+import com.nalhin.fc.security.AppUser;
 import com.nalhin.fc.user.dto.UserResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;

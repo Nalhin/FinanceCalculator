@@ -16,13 +16,13 @@ import java.time.LocalDateTime;
 public class Basket {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(name = "id")
-  private Long id;
+  @Column(name = "id", nullable = false)
+  private long id;
 
-  @Column(name = "name")
+  @Column(name = "name", nullable = false)
   private String name;
 
-  @Column(name = "created_date")
+  @Column(name = "created_date", nullable = false)
   @CreatedDate
   private LocalDateTime createdDate;
 
