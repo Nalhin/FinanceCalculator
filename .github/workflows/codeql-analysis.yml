@@ -23,6 +23,11 @@ jobs:
         uses: github/codeql-action/init@v1
         with:
           languages: ${{ matrix.language }}
+      - if: matrix.language == 'java'
+        name: Setup Java
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
       - name: Autobuild
         uses: github/codeql-action/autobuild@v1
       - name: Perform CodeQL Analysis
