@@ -4,9 +4,9 @@
 [![CodeFactor](https://www.codefactor.io/repository/github/nalhin/financecalculator/badge)](https://www.codefactor.io/repository/github/nalhin/financecalculator)
 [![License](https://img.shields.io/github/license/nalhin/Chess)](LICENSE.md)
 
-# Financial Calculator
+# Finance Calculator
 
-Financial calculator with investment planning, persistence and visualization.
+Finance calculator with investment planning, visualization and persistence.
 
 ## Table of contents
 
