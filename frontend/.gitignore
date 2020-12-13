@@ -4,10 +4,10 @@
 /node_modules
 /.pnp
 .pnp.js
-
+.eslintcache
 # testing
 /coverage
-
+junit.xml
 # production
 /build
 

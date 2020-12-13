@@ -11,6 +11,7 @@ public class SaveInvestmentDto {
   @NotNull private Integer yearsOfGrowth;
   @NotNull private Integer paymentFrequency;
   @NotNull private Integer annualInterestRate;
+  @NotNull private Integer compoundFrequency;
   @NotNull private Integer payment;
   @NotNull private String risk;
   @NotNull private String category;

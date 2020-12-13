@@ -43,6 +43,9 @@ public class Investment {
   @Column(name = "payment", nullable = false)
   private int payment;
 
+  @Column(name = "compound_frequency", nullable = false)
+  private int compoundFrequency;
+
   @Column(name = "risk", nullable = false)
   private String risk;
 

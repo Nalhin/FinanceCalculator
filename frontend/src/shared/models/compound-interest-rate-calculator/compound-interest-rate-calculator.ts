@@ -24,7 +24,7 @@ export interface InvestmentConfig {
    */
   readonly paymentFrequency: number;
   /**
-   * Number of compounding periods per year
+   * Number of compounding periods per year (n)
    */
   readonly compoundFrequency: number;
 }

@@ -1,7 +1,4 @@
-import {
-  CompoundInterestRateCalculator,
-  InvestmentConfig,
-} from './compound-interest-rate-calculator';
+import { CompoundInterestRateCalculator } from './compound-interest-rate-calculator';
 
 describe('CompoundInterestRateCalculator Class', () => {
   describe('total payments', () => {

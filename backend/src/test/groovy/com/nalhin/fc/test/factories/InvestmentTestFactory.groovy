@@ -24,6 +24,7 @@ class InvestmentTestFactory {
         paymentFrequency: (map.paymentFrequency ?: 12) as int,
         annualInterestRate: (map.annualInterestRate ?: faker.positiveInt()) as int,
         payment: (map.payment ?: faker.positiveInt()) as int,
+        compoundFrequency: (map.compoundFrequency ?: faker.positiveInt()) as int,
         risk: (map.risk ?: "low"),
         category: (map.category ?: "none"),
     )
@@ -37,6 +38,7 @@ class InvestmentTestFactory {
         yearsOfGrowth: (map.yearsOfGrowth ?: faker.positiveInt()) as int,
         paymentFrequency: (map.paymentFrequency ?: 12) as int,
         annualInterestRate: (map.annualInterestRate ?: faker.positiveInt()) as int,
+        compoundFrequency: (map.compoundFrequency ?: faker.positiveInt()) as int,
         payment: (map.payment ?: faker.positiveInt()) as int,
         risk: (map.risk ?: "low"),
         category: (map.category ?: "none"),
@@ -51,6 +53,7 @@ class InvestmentTestFactory {
         yearsOfGrowth: (map.yearsOfGrowth ?: faker.positiveInt()) as int,
         paymentFrequency: (map.paymentFrequency ?: 12) as int,
         annualInterestRate: (map.annualInterestRate ?: faker.positiveInt()) as int,
+        compoundFrequency: (map.compoundFrequency ?: faker.positiveInt()) as int,
         payment: (map.payment ?: faker.positiveInt()) as int,
         risk: (map.risk ?: "low"),
         category: (map.category ?: "none"),
