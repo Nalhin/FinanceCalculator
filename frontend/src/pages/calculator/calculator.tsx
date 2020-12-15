@@ -8,19 +8,11 @@ import { InvestmentSummary } from '../../shared/components/investment/investment
 import WithInvestmentConfig from '../../shared/components/forms/with-investment-config/with-investment-config';
 import InvestmentChart from '../../shared/components/investment/investment-chart';
 import { calculateCompoundInterestTimeSeries } from '../../shared/models/compound-interest-rate-calculator/compound-interest-time-series';
-
-const DEFAULT_VALUES = {
-  startAmount: 1000,
-  annualInterestRate: 5,
-  yearsOfGrowth: 5,
-  payment: 50,
-  paymentFrequency: 1,
-  compoundFrequency: 1,
-};
+import { DEFAULT_INVESTMENT_CONFIG } from '../../shared/constants/default-investment-config';
 
 const Calculator = () => {
   const { control } = useForm<InvestmentConfig>({
-    defaultValues: DEFAULT_VALUES,
+    defaultValues: DEFAULT_INVESTMENT_CONFIG,
   });
 
   return (

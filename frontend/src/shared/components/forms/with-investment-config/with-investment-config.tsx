@@ -1,6 +1,7 @@
 import React from 'react';
 import { Control, useWatch } from 'react-hook-form';
 import { InvestmentConfig } from '../../../models/compound-interest-rate-calculator/compound-interest-rate-calculator';
+import { DEFAULT_INVESTMENT_CONFIG } from '../../../constants/default-investment-config';
 
 interface Props {
   control: Control;
@@ -8,10 +9,12 @@ interface Props {
 }
 
 const WithInvestmentConfig = ({ control, render }: Props) => {
-  const config = useWatch<InvestmentConfig>({ control });
+  const config = useWatch<InvestmentConfig>({
+    control,
+    defaultValue: DEFAULT_INVESTMENT_CONFIG,
+  });
 
-  // @ts-ignore
-  return render(config);
+  return render(config as InvestmentConfig);
 };
 
 export default WithInvestmentConfig;
