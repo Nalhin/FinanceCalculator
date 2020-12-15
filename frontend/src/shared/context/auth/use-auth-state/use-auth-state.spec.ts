@@ -12,7 +12,7 @@ jest.mock('../../../models/cookies/app-cookies');
 jest.mock('../../../../core/api/me/me.api');
 
 describe('useAuthState', () => {
-  beforeEach(() => {
+  afterEach(() => {
     jest.clearAllMocks();
   });
 

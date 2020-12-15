@@ -2,8 +2,7 @@ import React from 'react';
 import { renderHook } from '@testing-library/react-hooks';
 import { mocked } from 'ts-jest/utils';
 import { useAuthState } from '../use-auth-state/use-auth-state';
-import { AuthenticatedUser } from '../../../models/user/user';
-import { userPropertiesFactory } from '../../../../../test/factory/user/user';
+import { authenticatedUserFactory } from '../../../../../test/factory/user/user';
 import { AuthProvider } from '../auth-provider/auth-provider';
 import { useUser } from './use-user';
 
@@ -17,9 +16,7 @@ describe('useUser', () => {
   });
 
   it('should return auth context state', () => {
-    const expectedUser = new AuthenticatedUser(
-      userPropertiesFactory.buildOne(),
-    );
+    const expectedUser = authenticatedUserFactory.buildOne();
     mocked(useAuthState).mockReturnValue({
       user: expectedUser,
     } as ReturnType<typeof useAuthState>);

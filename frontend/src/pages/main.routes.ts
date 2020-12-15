@@ -14,6 +14,8 @@ export const MAIN_ROUTES = {
   CALCULATOR: '/calculator',
   HOME: '/home',
   INVESTMENT_DETAILS: '/investment-details',
+  SIGN_UP: '/sign-up',
+  LOGIN: '/login',
 } as const;
 
 export const MAIN_ROUTING: Route[] = [
@@ -34,5 +36,13 @@ export const MAIN_ROUTING: Route[] = [
     component: React.lazy(
       () => import('./investment-details/investment-details'),
     ),
+  },
+  {
+    path: MAIN_ROUTES.LOGIN,
+    component: React.lazy(() => import('./login/login')),
+  },
+  {
+    path: MAIN_ROUTES.SIGN_UP,
+    component: React.lazy(() => import('./sign-up/sign-up')),
   },
 ];
