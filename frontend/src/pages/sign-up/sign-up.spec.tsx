@@ -1,23 +1,23 @@
-import React from 'react';
 import { setupServer } from 'msw/node';
 import { rest } from 'msw';
-import { useAuth } from '../../shared/context/auth/use-auth/use-auth';
 import { mocked } from 'ts-jest/utils';
+import { useAuth } from '../../shared/context/auth/use-auth/use-auth';
 import { renderWithProviders } from '../../../test/render/render-with-providers';
-import Login from './login';
-import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { LoginUserRequestDto } from '../../core/api/api.interface';
+import { screen, waitFor } from '@testing-library/react';
+import React from 'react';
+import { SignUpUserRequestDto } from '../../core/api/api.interface';
+import SignUp from './sign-up';
 
 jest.mock('../../shared/context/auth/use-auth/use-auth');
 
-describe('LoginPage', () => {
+describe('SignUp page', () => {
   const server = setupServer(
-    rest.post<LoginUserRequestDto>('/api/auth/login', (req, res, ctx) => {
+    rest.post<SignUpUserRequestDto>('/api/auth/sign-up', (req, res, ctx) => {
       return res(
         ctx.status(200),
         ctx.json({
-          user: { username: req.body.username, email: 'email' },
+          user: { username: req.body.username, email: req.body.email },
           token: 'token',
         }),
       );
@@ -45,32 +45,34 @@ describe('LoginPage', () => {
       authenticateUser,
       logoutUser: jest.fn(),
     });
-    renderWithProviders(<Login />);
+    renderWithProviders(<SignUp />);
 
     userEvent.type(screen.getByLabelText(/username/i), 'username');
     userEvent.type(screen.getByLabelText(/password/i), 'password');
-    userEvent.click(screen.getByRole('button', { name: /login/i }));
+    userEvent.type(screen.getByLabelText(/email/i), 'email@gmail.com');
+    userEvent.click(screen.getByRole('button', { name: /sign up/i }));
 
     await waitFor(() => {
       expect(authenticateUser).toBeCalledTimes(1);
       expect(authenticateUser).toBeCalledWith({
-        user: { username: 'username', email: 'email' },
+        user: { username: 'username', email: 'email@gmail.com' },
         token: 'token',
       });
     });
   });
 
-  it('should not authenticate when login is unsuccessful', async () => {
+  it('should not authenticate when sign up is unsuccessful', async () => {
     server.use(
-      rest.post('/api/auth/login', (req, res, ctx) => {
+      rest.post('/api/auth/sign-up', (req, res, ctx) => {
         return res(ctx.status(401));
       }),
     );
-    renderWithProviders(<Login />);
+    renderWithProviders(<SignUp />);
 
     userEvent.type(screen.getByLabelText(/username/i), 'username');
     userEvent.type(screen.getByLabelText(/password/i), 'password');
-    const submitButton = screen.getByRole('button', { name: /login/i });
+    userEvent.type(screen.getByLabelText(/email/i), 'email@gmail.com');
+    const submitButton = screen.getByRole('button', { name: /sign up/i });
     userEvent.click(submitButton);
 
     await waitFor(() => {
@@ -80,20 +82,21 @@ describe('LoginPage', () => {
   });
 
   it('should display form errors when form is invalid', async () => {
-    renderWithProviders(<Login />);
+    renderWithProviders(<SignUp />);
 
-    userEvent.click(screen.getByRole('button', { name: /login/i }));
+    userEvent.click(screen.getByRole('button', { name: /sign up/i }));
 
     await waitFor(() => {
       expect(screen.getByText(/username is required/i)).toBeInTheDocument();
+      expect(screen.getByText(/email is required/i)).toBeInTheDocument();
       expect(screen.getByText(/password is required/i)).toBeInTheDocument();
     });
   });
 
   it('should not submit request when form is invalid', async () => {
-    renderWithProviders(<Login />);
+    renderWithProviders(<SignUp />);
 
-    userEvent.click(screen.getByRole('button', { name: /login/i }));
+    userEvent.click(screen.getByRole('button', { name: /sign up/i }));
 
     await waitFor(() =>
       expect(screen.getByText(/password is required/i)).toBeInTheDocument(),

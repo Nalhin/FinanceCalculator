@@ -28,8 +28,8 @@ const Login = () => {
     formState,
   } = useForm<LoginUserRequestDto>({ mode: 'onBlur' });
 
-  const onSubmit = async (form: LoginUserRequestDto) => {
-    await mutate(form);
+  const onSubmit = (form: LoginUserRequestDto) => {
+    mutate(form);
   };
 
   return (
