@@ -1,5 +1,5 @@
 describe('Investment Details', () => {
-  it('should ', () => {
+  it('should', () => {
     expect(true).toEqual(true);
   });
 });

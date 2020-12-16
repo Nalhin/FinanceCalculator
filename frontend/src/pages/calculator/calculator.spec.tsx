@@ -1,5 +1,5 @@
 describe('Calculator', () => {
-  it('should ', () => {
+  it('should', () => {
     expect(true).toEqual(true);
   });
 });

@@ -1,5 +1,5 @@
 describe('BasketSummary', () => {
-  it('should ', () => {
+  it('should', () => {
     expect(true).toEqual(true);
   });
 });

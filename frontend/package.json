@@ -5,6 +5,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "lint": "eslint \"{src,test}/**/*.{ts,tsx}\" --fix",
     "test": "jest",
     "test:cov": "jest --coverage",
     "gen-typings": "swagger-typescript-api -p http://localhost:8000/v3/api-docs -o ./src/core/api -n api.interface.ts --no-client"
