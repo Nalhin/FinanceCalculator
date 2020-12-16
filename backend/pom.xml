@@ -11,7 +11,7 @@
     <groupId>com.nalhin</groupId>
     <artifactId>fc</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>financialcalculator</name>
+    <name>financecalculator</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
@@ -32,6 +32,10 @@
         <maven-failsafe-plugin.version>3.0.0-M5</maven-failsafe-plugin.version>
         <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
         <jacoco-maven-plugin.version>0.8.6</jacoco-maven-plugin.version>
+        <sonar.projectName>FinanceCalculator_backend</sonar.projectName>
+        <sonar.projectKey>FinanceCalculator_backend</sonar.projectKey>
+        <sonar.organization>nalhin</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
 
     <dependencies>
