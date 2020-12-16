@@ -1,4 +1,4 @@
-package com.nalhin.fc.security
+package com.nalhin.fc.core.security
 
 import spock.lang.Specification
 import spock.lang.Subject

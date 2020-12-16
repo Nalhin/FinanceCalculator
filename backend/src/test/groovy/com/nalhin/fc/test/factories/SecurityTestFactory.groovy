@@ -1,6 +1,6 @@
 package com.nalhin.fc.test.factories
 
-import com.nalhin.fc.security.AppUser
+import com.nalhin.fc.core.security.AppUser
 import com.nalhin.fc.user.User
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication

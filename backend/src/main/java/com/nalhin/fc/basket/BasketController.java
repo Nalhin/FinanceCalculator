@@ -4,7 +4,7 @@ import com.nalhin.fc.basket.dto.BasketResponseDto;
 import com.nalhin.fc.basket.dto.SaveBasketRequestDto;
 import com.nalhin.fc.basket.dto.UpdateBasketRequestDto;
 import com.nalhin.fc.common.annotations.CurrentAppUser;
-import com.nalhin.fc.security.AppUser;
+import com.nalhin.fc.core.security.AppUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,7 +17,7 @@ import java.net.URI;
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
-public class BasketController {
+class BasketController {
 
   private final BasketService basketService;
   private final BasketMapper basketMapper;

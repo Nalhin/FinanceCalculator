@@ -1,4 +1,4 @@
-package com.nalhin.fc.jwt;
+package com.nalhin.fc.core.jwt;
 
 import io.jsonwebtoken.Clock;
 import io.jsonwebtoken.JwtException;

@@ -1,6 +1,6 @@
-package com.nalhin.fc.config;
+package com.nalhin.fc.core.config;
 
-import com.nalhin.fc.security.AppUser;
+import com.nalhin.fc.core.security.AppUser;
 import com.nalhin.fc.user.User;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.context.annotation.Configuration;

@@ -1,4 +1,4 @@
-package com.nalhin.fc.security;
+package com.nalhin.fc.core.security;
 
 import org.springframework.security.core.Authentication;
 

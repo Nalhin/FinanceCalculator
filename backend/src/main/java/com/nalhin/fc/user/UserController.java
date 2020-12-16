@@ -1,7 +1,7 @@
 package com.nalhin.fc.user;
 
 import com.nalhin.fc.common.annotations.CurrentAppUser;
-import com.nalhin.fc.security.AppUser;
+import com.nalhin.fc.core.security.AppUser;
 import com.nalhin.fc.user.dto.UserResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
-public class UserController {
+class UserController {
 
   private final UserMapper userMapper;
 

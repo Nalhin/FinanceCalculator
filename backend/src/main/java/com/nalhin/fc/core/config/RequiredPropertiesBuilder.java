@@ -1,4 +1,4 @@
-package com.nalhin.fc.config;
+package com.nalhin.fc.core.config;
 
 import com.fasterxml.classmate.ResolvedType;
 import org.jetbrains.annotations.NotNull;

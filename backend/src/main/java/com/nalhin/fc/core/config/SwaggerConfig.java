@@ -1,11 +1,9 @@
-package com.nalhin.fc.config;
+package com.nalhin.fc.core.config;
 
-import com.nalhin.fc.security.AppUser;
+import com.nalhin.fc.core.security.AppUser;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.web.bind.annotation.RestController;
-import springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;

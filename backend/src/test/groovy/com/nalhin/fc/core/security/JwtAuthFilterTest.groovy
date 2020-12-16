@@ -1,7 +1,7 @@
-package com.nalhin.fc.security
+package com.nalhin.fc.core.security
 
-import com.nalhin.fc.jwt.JwtClock
-import com.nalhin.fc.jwt.JwtService
+import com.nalhin.fc.core.jwt.JwtClock
+import com.nalhin.fc.core.jwt.JwtService
 import com.nalhin.fc.test.clock.TestClock
 import com.nalhin.fc.test.factories.SecurityTestFactory
 import org.springframework.security.core.userdetails.UserDetailsService

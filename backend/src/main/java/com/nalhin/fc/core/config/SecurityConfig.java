@@ -1,6 +1,6 @@
-package com.nalhin.fc.config;
+package com.nalhin.fc.core.config;
 
-import com.nalhin.fc.security.JwtAuthFilter;
+import com.nalhin.fc.core.security.JwtAuthFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -55,6 +55,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   }
 
   @Bean
+  @Override
   public AuthenticationManager authenticationManagerBean() throws Exception {
     return super.authenticationManagerBean();
   }

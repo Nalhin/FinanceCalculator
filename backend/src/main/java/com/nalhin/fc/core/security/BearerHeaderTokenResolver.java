@@ -1,4 +1,4 @@
-package com.nalhin.fc.security;
+package com.nalhin.fc.core.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

@@ -4,7 +4,7 @@ import com.nalhin.fc.common.annotations.CurrentAppUser;
 import com.nalhin.fc.investment.dto.InvestmentResponseDto;
 import com.nalhin.fc.investment.dto.SaveInvestmentDto;
 import com.nalhin.fc.investment.dto.UpdateInvestmentRequestDto;
-import com.nalhin.fc.security.AppUser;
+import com.nalhin.fc.core.security.AppUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

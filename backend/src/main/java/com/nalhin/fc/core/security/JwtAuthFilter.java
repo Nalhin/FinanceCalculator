@@ -1,6 +1,6 @@
-package com.nalhin.fc.security;
+package com.nalhin.fc.core.security;
 
-import com.nalhin.fc.jwt.JwtService;
+import com.nalhin.fc.core.jwt.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

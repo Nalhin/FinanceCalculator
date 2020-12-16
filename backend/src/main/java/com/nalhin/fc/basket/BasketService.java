@@ -10,7 +10,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 @Service
 @RequiredArgsConstructor
-public class BasketService {
+class BasketService {
   private final BasketRepository basketRepository;
 
   public Page<Basket> findAll(Pageable page, Long userId) {
@@ -25,7 +25,6 @@ public class BasketService {
                 () ->
                     new ResponseStatusException(
                         HttpStatus.NOT_FOUND, "Basket not found with id " + basketId));
-    System.out.println(basket);
     if (!basket.getOwner().getId().equals(userId)) {
       throw new ResponseStatusException(HttpStatus.FORBIDDEN);
     }

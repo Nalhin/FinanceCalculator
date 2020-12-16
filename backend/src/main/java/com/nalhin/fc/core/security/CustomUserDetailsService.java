@@ -1,7 +1,7 @@
-package com.nalhin.fc.security;
+package com.nalhin.fc.core.security;
 
 import com.nalhin.fc.user.User;
-import com.nalhin.fc.user.UserService;
+import com.nalhin.fc.user.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -11,15 +11,15 @@ import java.util.Collections;
 
 @Service
 class CustomUserDetailsService implements UserDetailsService {
-  private final UserService userService;
+  private final UserRepository userRepository;
 
-  public CustomUserDetailsService(UserService userService) {
-    this.userService = userService;
+  public CustomUserDetailsService(UserRepository userRepository) {
+    this.userRepository = userRepository;
   }
 
   @Override
   public UserDetails loadUserByUsername(String username) {
-    return userService
+    return userRepository
         .findOneByUsername(username)
         .map(this::toUserDetails)
         .orElseThrow(() -> new UsernameNotFoundException(username + " not found"));

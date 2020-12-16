@@ -1,6 +1,6 @@
 package com.nalhin.fc.user
 
-import com.nalhin.fc.jwt.JwtService
+import com.nalhin.fc.core.jwt.JwtService
 import com.nalhin.fc.test.factories.UserTestFactory
 import groovy.json.JsonSlurper
 import io.restassured.RestAssured

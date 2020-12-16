@@ -1,4 +1,4 @@
-package com.nalhin.fc.config;
+package com.nalhin.fc.core.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;

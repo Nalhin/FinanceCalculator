@@ -12,7 +12,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class InvestmentService {
+class InvestmentService {
 
   private final InvestmentRepository investmentRepository;
   private final InvestmentMapper investmentMapper;

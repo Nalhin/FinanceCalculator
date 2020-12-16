@@ -1,6 +1,6 @@
 package com.nalhin.fc.basket
 
-import com.nalhin.fc.jwt.JwtService
+import com.nalhin.fc.core.jwt.JwtService
 import com.nalhin.fc.test.factories.BasketTestFactory
 import com.nalhin.fc.test.factories.UserTestFactory
 import com.nalhin.fc.user.User

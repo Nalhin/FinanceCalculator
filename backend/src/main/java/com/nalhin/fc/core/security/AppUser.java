@@ -1,11 +1,13 @@
-package com.nalhin.fc.security;
+package com.nalhin.fc.core.security;
 
 import com.nalhin.fc.user.User;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Collection;
 
+@EqualsAndHashCode(callSuper = true)
 public class AppUser extends org.springframework.security.core.userdetails.User {
 
   private final User user;

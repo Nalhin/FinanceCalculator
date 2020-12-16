@@ -1,4 +1,4 @@
-package com.nalhin.fc.jwt
+package com.nalhin.fc.core.jwt
 
 import com.nalhin.fc.test.clock.TestClock
 import spock.lang.Specification
