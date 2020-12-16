@@ -1,6 +1,6 @@
 import { CompoundInterestRateCalculator } from './compound-interest-rate-calculator';
 
-describe('CompoundInterestRateCalculator Class', () => {
+describe('compoundInterestRateCalculator Class', () => {
   describe('total payments', () => {
     it('should summarize total amount payed', () => {
       const calculator = new CompoundInterestRateCalculator({
@@ -12,7 +12,7 @@ describe('CompoundInterestRateCalculator Class', () => {
         compoundFrequency: 1,
       });
 
-      expect(calculator.totalPayments).toEqual(500);
+      expect(calculator.totalPayments).toBe(500);
     });
 
     it('should calculate totalPayments with quarterly paymentFrequency', () => {
@@ -25,7 +25,7 @@ describe('CompoundInterestRateCalculator Class', () => {
         compoundFrequency: 1,
       });
 
-      expect(calculator.totalPayments).toEqual(3000);
+      expect(calculator.totalPayments).toBe(3000);
     });
   });
 
@@ -40,7 +40,7 @@ describe('CompoundInterestRateCalculator Class', () => {
         compoundFrequency: 1,
       });
 
-      expect(calculator.totalInterest).toEqual(0);
+      expect(calculator.totalInterest).toBe(0);
     });
 
     it('should not overflow when paymentFrequency equals zero', () => {
@@ -53,7 +53,7 @@ describe('CompoundInterestRateCalculator Class', () => {
         compoundFrequency: 1,
       });
 
-      expect(calculator.totalInterest).toEqual(0);
+      expect(calculator.totalInterest).toBe(0);
     });
 
     it('should calculate totalInterest properly without payments', () => {
@@ -107,7 +107,7 @@ describe('CompoundInterestRateCalculator Class', () => {
         compoundFrequency: 1,
       });
 
-      expect(calculator.futureValue).toEqual(1000);
+      expect(calculator.futureValue).toBe(1000);
     });
 
     it('should not overflow when payment frequency equals zero', () => {
@@ -120,7 +120,7 @@ describe('CompoundInterestRateCalculator Class', () => {
         compoundFrequency: 1,
       });
 
-      expect(calculator.futureValue).toEqual(1000);
+      expect(calculator.futureValue).toBe(1000);
     });
 
     it('should calculate FutureValue properly with yearly payments', () => {
@@ -133,7 +133,7 @@ describe('CompoundInterestRateCalculator Class', () => {
         compoundFrequency: 1,
       });
 
-      expect(calculator.futureValue).toEqual(1500);
+      expect(calculator.futureValue).toBe(1500);
     });
 
     it('should calculate futureValue properly when no payments are provided', () => {
@@ -187,7 +187,7 @@ describe('CompoundInterestRateCalculator Class', () => {
         compoundFrequency: 1,
       });
 
-      expect(calculator.percentageInterest).toEqual(0);
+      expect(calculator.percentageInterest).toBe(0);
     });
 
     it('should display correct percentage interest rate', () => {
@@ -200,7 +200,7 @@ describe('CompoundInterestRateCalculator Class', () => {
         compoundFrequency: 1,
       });
 
-      expect(calculator.percentageInterest).toEqual(100);
+      expect(calculator.percentageInterest).toBe(100);
     });
   });
 
@@ -216,7 +216,7 @@ describe('CompoundInterestRateCalculator Class', () => {
       });
 
       expect(calculator.totalInterest).toBeCloseTo(5827.95, 2);
-      expect(calculator.totalPayments).toEqual(0);
+      expect(calculator.totalPayments).toBe(0);
       expect(calculator.futureValue).toBeCloseTo(6827.95, 2);
     });
   });

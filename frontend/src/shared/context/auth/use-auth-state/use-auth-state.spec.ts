@@ -28,8 +28,8 @@ describe('useAuthState', () => {
 
     await waitForNextUpdate();
 
-    expect(cookies.getAuthCookie).toBeCalledTimes(1);
-    expect(getMe).toBeCalledTimes(1);
+    expect(cookies.getAuthCookie).toHaveBeenCalledTimes(1);
+    expect(getMe).toHaveBeenCalledTimes(1);
     expect(result.current.user.isAuthenticated).toBeTruthy();
     expect(result.current.isLoading).toBeFalsy();
   });
@@ -42,8 +42,8 @@ describe('useAuthState', () => {
 
     await waitForNextUpdate();
 
-    expect(cookies.getAuthCookie).toBeCalledTimes(1);
-    expect(getMe).toBeCalledTimes(1);
+    expect(cookies.getAuthCookie).toHaveBeenCalledTimes(1);
+    expect(getMe).toHaveBeenCalledTimes(1);
     expect(result.current.isLoading).toBeFalsy();
     expect(result.current.user.isAuthenticated).toBeFalsy();
   });
@@ -53,7 +53,7 @@ describe('useAuthState', () => {
 
     const { result } = renderHook(() => useAuthState());
 
-    expect(cookies.getAuthCookie).toBeCalledTimes(1);
+    expect(cookies.getAuthCookie).toHaveBeenCalledTimes(1);
     expect(result.current.isLoading).toBeFalsy();
   });
 
@@ -66,7 +66,7 @@ describe('useAuthState', () => {
       result.current.logoutUser();
     });
 
-    expect(cookies.removeAuthCookie).toBeCalledTimes(1);
+    expect(cookies.removeAuthCookie).toHaveBeenCalledTimes(1);
     expect(result.current.user.isAuthenticated).toBeFalsy();
   });
 
@@ -79,7 +79,7 @@ describe('useAuthState', () => {
       result.current.authenticateUser({ user, token: 'token' });
     });
 
-    expect(cookies.setAuthCookie).toBeCalledTimes(1);
+    expect(cookies.setAuthCookie).toHaveBeenCalledTimes(1);
     expect(result.current.user.isAuthenticated).toBeTruthy();
   });
 
@@ -93,7 +93,7 @@ describe('useAuthState', () => {
       result.current.authenticateUser({ user, token: 'token' }, { onAuth });
     });
 
-    expect(onAuth).toBeCalledTimes(1);
-    expect(onAuth).toBeCalledWith(user);
+    expect(onAuth).toHaveBeenCalledTimes(1);
+    expect(onAuth).toHaveBeenCalledWith(user);
   });
 });

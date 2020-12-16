@@ -11,7 +11,7 @@ import SignUp from './sign-up';
 
 jest.mock('../../shared/context/auth/use-auth/use-auth');
 
-describe('SignUp page', () => {
+describe('signUp page', () => {
   const server = setupServer(
     rest.post<SignUpUserRequestDto>('/api/auth/sign-up', (req, res, ctx) => {
       return res(
@@ -40,11 +40,6 @@ describe('SignUp page', () => {
   afterAll(() => server.close());
 
   it('should authenticate user after successful login', async () => {
-    const authenticateUser = jest.fn();
-    mocked(useAuth).mockReturnValue({
-      authenticateUser,
-      logoutUser: jest.fn(),
-    });
     renderWithProviders(<SignUp />);
 
     userEvent.type(screen.getByLabelText(/username/i), 'username');
@@ -53,8 +48,8 @@ describe('SignUp page', () => {
     userEvent.click(screen.getByRole('button', { name: /sign up/i }));
 
     await waitFor(() => {
-      expect(authenticateUser).toBeCalledTimes(1);
-      expect(authenticateUser).toBeCalledWith({
+      expect(mockedUseAuth.authenticateUser).toHaveBeenCalledTimes(1);
+      expect(mockedUseAuth.authenticateUser).toHaveBeenCalledWith({
         user: { username: 'username', email: 'email@gmail.com' },
         token: 'token',
       });
@@ -78,7 +73,7 @@ describe('SignUp page', () => {
     await waitFor(() => {
       expect(submitButton).not.toBeDisabled();
     });
-    expect(mockedUseAuth.authenticateUser).toBeCalledTimes(0);
+    expect(mockedUseAuth.authenticateUser).toHaveBeenCalledTimes(0);
   });
 
   it('should display form errors when form is invalid', async () => {
@@ -101,6 +96,6 @@ describe('SignUp page', () => {
     await waitFor(() =>
       expect(screen.getByText(/password is required/i)).toBeInTheDocument(),
     );
-    expect(mockedUseAuth.authenticateUser).toBeCalledTimes(0);
+    expect(mockedUseAuth.authenticateUser).toHaveBeenCalledTimes(0);
   });
 });

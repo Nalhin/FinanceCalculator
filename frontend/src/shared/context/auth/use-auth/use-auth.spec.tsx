@@ -27,6 +27,6 @@ describe('useAuth', () => {
       wrapper: ({ children }) => <AuthProvider>{children}</AuthProvider>,
     });
 
-    expect(result.current).toEqual(expectedReturn);
+    expect(result.current).toStrictEqual(expectedReturn);
   });
 });

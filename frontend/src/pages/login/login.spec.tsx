@@ -11,7 +11,7 @@ import { LoginUserRequestDto } from '../../core/api/api.interface';
 
 jest.mock('../../shared/context/auth/use-auth/use-auth');
 
-describe('LoginPage', () => {
+describe('loginPage', () => {
   const server = setupServer(
     rest.post<LoginUserRequestDto>('/api/auth/login', (req, res, ctx) => {
       return res(
@@ -40,11 +40,6 @@ describe('LoginPage', () => {
   afterAll(() => server.close());
 
   it('should authenticate user after successful login', async () => {
-    const authenticateUser = jest.fn();
-    mocked(useAuth).mockReturnValue({
-      authenticateUser,
-      logoutUser: jest.fn(),
-    });
     renderWithProviders(<Login />);
 
     userEvent.type(screen.getByLabelText(/username/i), 'username');
@@ -52,8 +47,8 @@ describe('LoginPage', () => {
     userEvent.click(screen.getByRole('button', { name: /login/i }));
 
     await waitFor(() => {
-      expect(authenticateUser).toBeCalledTimes(1);
-      expect(authenticateUser).toBeCalledWith({
+      expect(mockedUseAuth.authenticateUser).toHaveBeenCalledTimes(1);
+      expect(mockedUseAuth.authenticateUser).toHaveBeenCalledWith({
         user: { username: 'username', email: 'email' },
         token: 'token',
       });
@@ -76,10 +71,11 @@ describe('LoginPage', () => {
     await waitFor(() => {
       expect(submitButton).not.toBeDisabled();
     });
-    expect(mockedUseAuth.authenticateUser).toBeCalledTimes(0);
+    expect(mockedUseAuth.authenticateUser).toHaveBeenCalledTimes(0);
   });
 
   it('should display form errors when form is invalid', async () => {
+    expect.assertions(2);
     renderWithProviders(<Login />);
 
     userEvent.click(screen.getByRole('button', { name: /login/i }));
@@ -91,6 +87,7 @@ describe('LoginPage', () => {
   });
 
   it('should not submit request when form is invalid', async () => {
+    expect.assertions(2);
     renderWithProviders(<Login />);
 
     userEvent.click(screen.getByRole('button', { name: /login/i }));
@@ -98,6 +95,6 @@ describe('LoginPage', () => {
     await waitFor(() =>
       expect(screen.getByText(/password is required/i)).toBeInTheDocument(),
     );
-    expect(mockedUseAuth.authenticateUser).toBeCalledTimes(0);
+    expect(mockedUseAuth.authenticateUser).toHaveBeenCalledTimes(0);
   });
 });

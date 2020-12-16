@@ -6,7 +6,7 @@ import { mocked } from 'ts-jest/utils';
 
 jest.mock('../use-auth-state/use-auth-state');
 
-describe('AuthProvider', () => {
+describe('authProvider', () => {
   it('should block rendering when user is being fetched', async () => {
     mocked(useAuthState).mockReturnValue({
       isLoading: true,

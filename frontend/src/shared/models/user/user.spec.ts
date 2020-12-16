@@ -1,6 +1,6 @@
 import { AnonymousUser, AuthenticatedUser } from './user';
 
-describe('AnonymousUser', () => {
+describe('anonymousUser', () => {
   describe('constructor', () => {
     it('should initialize empty values', () => {
       const anonymousUser = new AnonymousUser();
@@ -19,7 +19,7 @@ describe('AnonymousUser', () => {
   });
 });
 
-describe('AuthenticatedUser', () => {
+describe('authenticatedUser', () => {
   describe('constructor', () => {
     it('should initialize user interface properties', () => {
       const authenticatedUser = new AuthenticatedUser({

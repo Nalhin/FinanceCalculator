@@ -1,7 +1,7 @@
 import { roundNumber } from './round-number';
 
 describe('roundNumber', () => {
-  test.each([
+  it.each([
     [1.111111111, 1.11],
     [1.00001, 1],
     [9.99999999, 10],
@@ -10,7 +10,7 @@ describe('roundNumber', () => {
     (input: number, expectedResult: number) => {
       const actualResult = roundNumber(input);
 
-      expect(actualResult).toEqual(expectedResult);
+      expect(actualResult).toBe(expectedResult);
     },
   );
 });

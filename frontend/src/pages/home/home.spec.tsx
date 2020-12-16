@@ -1,5 +1,5 @@
-describe('Home', () => {
+describe('home', () => {
   it('should', () => {
-    expect(true).toEqual(true);
+    expect(true).toBe(true);
   });
 });

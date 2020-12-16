@@ -1,5 +1,5 @@
-describe('Investment Details', () => {
+describe('investment Details', () => {
   it('should', () => {
-    expect(true).toEqual(true);
+    expect(true).toBe(true);
   });
 });

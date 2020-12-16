@@ -16,7 +16,6 @@ interface Props {
 }
 
 const InvestmentChart = ({ series }: Props) => {
-  console.log(series);
   return (
     <ResponsiveContainer aspect={4 / 3} maxHeight={400}>
       <AreaChart data={series}>

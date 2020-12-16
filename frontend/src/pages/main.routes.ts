@@ -4,8 +4,8 @@ interface Route {
   path: string;
   exact?: boolean;
   component:
-    | React.ComponentType<any>
-    | React.LazyExoticComponent<React.ComponentType<any>>;
+    | React.ComponentType<unknown>
+    | React.LazyExoticComponent<React.ComponentType<unknown>>;
   redirectTo?: string;
 }
 

@@ -25,6 +25,6 @@ describe('useUser', () => {
       wrapper: ({ children }) => <AuthProvider>{children}</AuthProvider>,
     });
 
-    expect(result.current.user).toEqual(expectedUser);
+    expect(result.current.user).toStrictEqual(expectedUser);
   });
 });
