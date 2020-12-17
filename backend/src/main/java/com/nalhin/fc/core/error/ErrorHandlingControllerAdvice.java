@@ -1,0 +1,26 @@
+package com.nalhin.fc.core.error;
+
+import com.nalhin.fc.core.error.dto.ValidationErrorResponseDto;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+
+import javax.validation.ConstraintViolationException;
+
+@ControllerAdvice
+public class ErrorHandlingControllerAdvice {
+  @ExceptionHandler(ConstraintViolationException.class)
+  ResponseEntity<ValidationErrorResponseDto> onConstraintValidationException(
+      ConstraintViolationException e) {
+    return ResponseEntity.badRequest()
+        .body(ValidationErrorResponseDto.from(e.getConstraintViolations()));
+  }
+
+  @ExceptionHandler(MethodArgumentNotValidException.class)
+  ResponseEntity<ValidationErrorResponseDto> onMethodArgumentNotValidException(
+      MethodArgumentNotValidException e) {
+    return ResponseEntity.badRequest()
+        .body(ValidationErrorResponseDto.from(e.getBindingResult().getFieldErrors()));
+  }
+}
