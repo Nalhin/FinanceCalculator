@@ -29,7 +29,7 @@ export const MAIN_ROUTING: Route[] = [
   },
   {
     path: MAIN_ROUTES.BASKET_SUMMARY,
-    component: React.lazy(() => import('./basket-summary/basket-summary')),
+    component: React.lazy(() => import('./basket/basket')),
   },
   {
     path: MAIN_ROUTES.INVESTMENT_DETAILS,

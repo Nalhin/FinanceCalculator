@@ -10,6 +10,7 @@
     "test:cov": "jest --coverage",
     "gen-typings": "swagger-typescript-api -p http://localhost:8000/v3/api-docs -o ./src/core/api -n api.interface.ts --no-client"
   },
+  "proxy": "http://localhost:8000",
   "eslintConfig": {
     "extends": [
       "react-app",

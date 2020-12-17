@@ -16,7 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
-public class InvestmentController {
+class InvestmentController {
   private final InvestmentService investmentService;
   private final InvestmentMapper investmentMapper;
 
