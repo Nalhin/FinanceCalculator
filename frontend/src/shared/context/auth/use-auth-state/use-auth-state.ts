@@ -9,7 +9,7 @@ import { cookies } from '../../../models/cookies/app-cookies';
 import { getMe } from '../../../../core/api/me/me.api';
 
 export const useAuthState = (defaultUser: User = new AnonymousUser()) => {
-  const [user, setUser] = React.useState<User>(defaultUser);
+  const [currUser, setCurrUser] = React.useState<User>(defaultUser);
   const [isLoading, setIsLoading] = React.useState(true);
 
   const authenticateUser = React.useCallback(
@@ -19,7 +19,7 @@ export const useAuthState = (defaultUser: User = new AnonymousUser()) => {
     ) => {
       cookies.setAuthCookie(token);
       const authUser = new AuthenticatedUser(user);
-      setUser(authUser);
+      setCurrUser(authUser);
       options.onAuth?.(authUser);
     },
     [],
@@ -27,16 +27,16 @@ export const useAuthState = (defaultUser: User = new AnonymousUser()) => {
 
   const logoutUser = React.useCallback(() => {
     cookies.removeAuthCookie();
-    setUser(new AnonymousUser());
+    setCurrUser(new AnonymousUser());
   }, []);
 
   React.useEffect(() => {
-    (async () => {
+    void (async () => {
       const token = cookies.getAuthCookie();
       if (token) {
         try {
           const resp = await getMe();
-          setUser(new AuthenticatedUser(resp.data));
+          setCurrUser(new AuthenticatedUser(resp.data));
         } catch (e) {
           cookies.removeAuthCookie();
         }
@@ -45,5 +45,5 @@ export const useAuthState = (defaultUser: User = new AnonymousUser()) => {
     })();
   }, []);
 
-  return { authenticateUser, user, logoutUser, isLoading };
+  return { authenticateUser, user: currUser, logoutUser, isLoading };
 };

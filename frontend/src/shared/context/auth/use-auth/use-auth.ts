@@ -5,10 +5,7 @@ export const AuthContext = React.createContext<AuthContextProps | null>(null);
 
 export interface AuthContextProps {
   authenticateUser: (
-    {
-      user: UserProperties,
-      token: string,
-    }: { user: UserProperties; token: string },
+    { user, token }: { user: UserProperties; token: string },
     config?: { onAuth?: (user: User) => void },
   ) => void;
   logoutUser: () => void;

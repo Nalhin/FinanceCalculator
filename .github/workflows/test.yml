@@ -1,7 +1,6 @@
 name: Test
-
-on: [ push ]
-
+on:
+  - push
 jobs:
   frontend-lint:
     name: Frontend lint
@@ -35,6 +34,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
       - name: Setup Node
         uses: actions/setup-node@v1
         with:
@@ -62,14 +63,6 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           projectBaseDir: frontend
-          args: >
-            -D sonar.organization=nalhin
-            -D sonar.projectKey=FinanceCalculator_frontend
-            -D sonar.sources=src
-            -D sonar.tests=src
-            -D sonar.test.inclusions=src/**/*.spec.ts,src/**/*.spec.tsx
-            -D sonar.javascript.lcov.reportPaths=coverage/lcov.info
-            -D sonar.testExecutionReportPaths=coverage/sonar-report.xml
       - name: Upload coverage
         uses: codecov/codecov-action@v1
 
@@ -79,6 +72,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
       - name: Setup Java
         uses: actions/setup-java@v1
         with:

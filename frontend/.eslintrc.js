@@ -10,7 +10,7 @@ module.exports = {
     'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:react/recommended',
-    'plugin:jest/all',
+    'plugin:jest/recommended',
     'plugin:testing-library/react',
     'prettier/@typescript-eslint',
     'prettier/react',
@@ -24,11 +24,10 @@ module.exports = {
   rules: {
     camelcase: 'error',
     'no-console': 'warn',
-    'jest/no-hooks': 0,
     '@typescript-eslint/explicit-module-boundary-types': 0,
     'react/prop-types': 0,
     'react/display-name': 0,
-    'jest/prefer-expect-assertions': 0,
+    '@typescript-eslint/no-shadow': 'error',
   },
   settings: {
     react: {
