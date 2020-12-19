@@ -48,10 +48,13 @@ describe('loginPage', () => {
 
     await waitFor(() => {
       expect(mockedUseAuth.authenticateUser).toHaveBeenCalledTimes(1);
-      expect(mockedUseAuth.authenticateUser).toHaveBeenCalledWith({
-        user: { username: 'username', email: 'email' },
-        token: 'token',
-      });
+      expect(mockedUseAuth.authenticateUser).toHaveBeenCalledWith(
+        {
+          user: { username: 'username', email: 'email' },
+          token: 'token',
+        },
+        { onAuth: expect.any(Function) },
+      );
     });
   });
 
@@ -75,7 +78,6 @@ describe('loginPage', () => {
   });
 
   it('should display form errors when form is invalid', async () => {
-    expect.assertions(2);
     renderWithProviders(<Login />);
 
     userEvent.click(screen.getByRole('button', { name: /login/i }));

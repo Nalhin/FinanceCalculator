@@ -12,12 +12,31 @@ import {
   Input,
 } from '@chakra-ui/react';
 import { postSignUp } from '../../core/api/auth/auth.api';
+import { useHistory } from 'react-router-dom';
+import { MAIN_ROUTES } from '../main.routes';
+import * as H from 'history';
 
-const SignUp = () => {
+interface Props {
+  location?: H.Location<{ from: string }>;
+}
+
+const SignUp = ({ location }: Props) => {
+  const history = useHistory();
   const { authenticateUser } = useAuth();
   const { mutate, isLoading } = useMutation(postSignUp, {
     onSuccess: ({ data }) => {
-      authenticateUser({ user: data.user, token: data.token });
+      authenticateUser(
+        { user: data.user, token: data.token },
+        {
+          onAuth: () => {
+            if (location?.state?.from) {
+              history.push(location.state.from);
+            } else {
+              history.push(MAIN_ROUTES.HOME);
+            }
+          },
+        },
+      );
     },
   });
   const {

@@ -10,13 +10,12 @@ import {
   ModalContent,
   ModalFooter,
   ModalHeader,
-  ModalOverlay,
 } from '@chakra-ui/react';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { SaveBasketRequestDto } from '../../core/api/api.interface';
+import { SaveBasketRequestDto } from '../../../core/api/api.interface';
 import { useMutation } from 'react-query';
-import { saveBasket } from '../../core/api/baskets/basket.api';
+import { saveBasket } from '../../../core/api/baskets/basket.api';
 
 interface Props {
   isOpen: boolean;

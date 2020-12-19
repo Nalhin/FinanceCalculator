@@ -43,6 +43,7 @@
     "@chakra-ui/react": "^1.0.3",
     "@emotion/react": "^11.1.2",
     "@emotion/styled": "^11.0.0",
+    "date-fns": "^2.16.1",
     "framer-motion": "^2.9.5",
     "msw": "^0.24.2",
     "react": "^17.0.1",

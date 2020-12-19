@@ -1,3 +1,6 @@
+import React from 'react';
+import { useQuery } from 'react-query';
+import { getMyBaskets } from '../../../core/api/baskets/basket.api';
 import {
   Box,
   Button,
@@ -10,35 +13,35 @@ import {
   DrawerOverlay,
   useDisclosure,
 } from '@chakra-ui/react';
-import React from 'react';
-import { useQuery } from 'react-query';
-import { getMyBaskets } from '../../core/api/baskets/basket.api';
 import AddBasketModal from './add-basket-modal';
+import BasketItem from './basket-item';
 
-const Basket = () => {
+interface Props {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+const BasketsDrawer = ({ isOpen, onClose }: Props) => {
+  const modal = useDisclosure({ defaultIsOpen: false });
   const { data, refetch } = useQuery('baskets', getMyBaskets, {
     select: (response) => response.data,
+    enabled: isOpen,
   });
-
-  const drawer = useDisclosure();
-  const modal = useDisclosure({ defaultIsOpen: false });
-
   return (
-    <Box>
-      <Button onClick={drawer.onOpen}>Drawer</Button>
+    <>
       <AddBasketModal
         isOpen={modal.isOpen}
         onClose={modal.onClose}
         onAdd={refetch}
       />
-      <Drawer isOpen={drawer.isOpen} placement="right" onClose={drawer.onClose}>
+      <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
         <DrawerOverlay>
           <DrawerContent>
             <DrawerCloseButton />
             <DrawerHeader>Baskets</DrawerHeader>
             <DrawerBody>
               {data?.content.map((item) => (
-                <div key={item.id}>{item.name}</div>
+                <BasketItem key={item.id} {...item} />
               ))}
             </DrawerBody>
             <DrawerFooter>
@@ -49,8 +52,8 @@ const Basket = () => {
           </DrawerContent>
         </DrawerOverlay>
       </Drawer>
-    </Box>
+    </>
   );
 };
 
-export default Basket;
+export default BasketsDrawer;

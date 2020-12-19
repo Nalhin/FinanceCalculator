@@ -49,10 +49,13 @@ describe('signUp page', () => {
 
     await waitFor(() => {
       expect(mockedUseAuth.authenticateUser).toHaveBeenCalledTimes(1);
-      expect(mockedUseAuth.authenticateUser).toHaveBeenCalledWith({
-        user: { username: 'username', email: 'email@gmail.com' },
-        token: 'token',
-      });
+      expect(mockedUseAuth.authenticateUser).toHaveBeenCalledWith(
+        {
+          user: { username: 'username', email: 'email@gmail.com' },
+          token: 'token',
+        },
+        { onAuth: expect.any(Function) },
+      );
     });
   });
 

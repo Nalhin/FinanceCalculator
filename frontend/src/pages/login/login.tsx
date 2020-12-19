@@ -12,12 +12,31 @@ import { LoginUserRequestDto } from '../../core/api/api.interface';
 import { useMutation } from 'react-query';
 import { postLogin } from '../../core/api/auth/auth.api';
 import { useAuth } from '../../shared/context/auth/use-auth/use-auth';
+import { Link, useHistory } from 'react-router-dom';
+import { MAIN_ROUTES } from '../main.routes';
+import * as H from 'history';
 
-const Login = () => {
+interface Props {
+  location?: H.Location<{ from: string }>;
+}
+
+const Login = ({ location }: Props) => {
+  const history = useHistory();
   const { authenticateUser } = useAuth();
   const { mutate, isLoading } = useMutation(postLogin, {
     onSuccess: ({ data }) => {
-      authenticateUser({ user: data.user, token: data.token });
+      authenticateUser(
+        { user: data.user, token: data.token },
+        {
+          onAuth: () => {
+            if (location?.state?.from) {
+              history.push(location.state.from);
+            } else {
+              history.push(MAIN_ROUTES.HOME);
+            }
+          },
+        },
+      );
     },
   });
 
@@ -58,6 +77,9 @@ const Login = () => {
           />
           <FormErrorMessage>{errors.password?.message}</FormErrorMessage>
         </FormControl>
+        <Link to={{ pathname: MAIN_ROUTES.SIGN_UP, state: location?.state }}>
+          No account? Sign up
+        </Link>
         <Button
           colorScheme="teal"
           size="md"

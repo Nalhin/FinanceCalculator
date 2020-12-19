@@ -30,7 +30,7 @@ const Navigation = () => {
       </Box>
       <Box
         as={Link}
-        to={MAIN_ROUTES.BASKET_SUMMARY}
+        to={MAIN_ROUTES.MY_SPACE}
         textColor="blue.400"
         fontWeight="bold"
         fontSize="xl"
