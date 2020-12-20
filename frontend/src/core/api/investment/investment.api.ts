@@ -14,13 +14,20 @@ export const getInvestmentById = (basketId: number, investmentId: number) => {
 };
 
 export const saveInvestment = (body: SaveInvestmentDto, basketId: number) => {
-  return axios.post(`/me/baskets/${basketId}/investments`, body);
+  return axios.post<InvestmentResponseDto>(
+    `/me/baskets/${basketId}/investments`,
+    body,
+  );
 };
 
 export const updateInvestment = (basketId: number, investmentId: number) => {
-  return axios.put(`/me/baskets/${basketId}/investments/${investmentId}`);
+  return axios.put<InvestmentResponseDto>(
+    `/me/baskets/${basketId}/investments/${investmentId}`,
+  );
 };
 
 export const deleteInvestment = (basketId: number, investmentId: number) => {
-  return axios.delete(`/me/baskets/${basketId}/investments/${investmentId}`);
+  return axios.delete<void>(
+    `/me/baskets/${basketId}/investments/${investmentId}`,
+  );
 };

@@ -6,7 +6,6 @@ export const MAIN_ROUTES = {
   MY_SPACE: '/my-space',
   CALCULATOR: '/calculator',
   HOME: '/home',
-  INVESTMENT_DETAILS: '/investment-details',
   SIGN_UP: '/sign-up',
   LOGIN: '/login',
 } as const;
@@ -28,16 +27,6 @@ export const MAIN_ROUTING: Route[] = [
   {
     path: MAIN_ROUTES.MY_SPACE,
     component: React.lazy(() => import('./my-space/my-space')),
-    canActivate: {
-      validation: authRequired,
-      redirectTo: MAIN_ROUTES.LOGIN,
-    },
-  },
-  {
-    path: MAIN_ROUTES.INVESTMENT_DETAILS,
-    component: React.lazy(
-      () => import('./investment-details/investment-details'),
-    ),
     canActivate: {
       validation: authRequired,
       redirectTo: MAIN_ROUTES.LOGIN,

@@ -13,20 +13,30 @@ import {
 } from '@chakra-ui/react';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { SaveBasketRequestDto } from '../../../core/api/api.interface';
+import { SaveBasketRequestDto } from '../../../../core/api/api.interface';
 import { useMutation } from 'react-query';
-import { saveBasket } from '../../../core/api/baskets/basket.api';
+import { saveBasket } from '../../../../core/api/basket/basket.api';
 
 interface Props {
   isOpen: boolean;
   onClose: () => void;
-  onAdd: () => void;
+  onAdd?: () => void;
 }
 
 const AddBasketModal = ({ isOpen, onClose, onAdd }: Props) => {
-  const { mutate, isLoading } = useMutation(saveBasket, { onSuccess: onAdd });
-  const { handleSubmit, register, errors } = useForm<SaveBasketRequestDto>({
+  const {
+    handleSubmit,
+    register,
+    errors,
+    reset,
+  } = useForm<SaveBasketRequestDto>({
     defaultValues: { name: '' },
+  });
+  const { mutate, isLoading } = useMutation(saveBasket, {
+    onSuccess: () => {
+      onAdd?.();
+      reset();
+    },
   });
 
   const addBasket = (form: SaveBasketRequestDto) => {
@@ -55,7 +65,7 @@ const AddBasketModal = ({ isOpen, onClose, onAdd }: Props) => {
         </ModalBody>
         <ModalFooter>
           <Button colorScheme="blue" mr={3} onClick={onClose}>
-            Close
+            Cancel
           </Button>
           <Button
             variant="ghost"
@@ -63,7 +73,7 @@ const AddBasketModal = ({ isOpen, onClose, onAdd }: Props) => {
             type="submit"
             form="add-basket"
           >
-            Add Basket
+            Add a Basket
           </Button>
         </ModalFooter>
       </ModalContent>

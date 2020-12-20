@@ -9,10 +9,10 @@ import {
   XAxis,
   YAxis,
 } from 'recharts';
-import { CompoundInterestTimeSeries } from '../../models/compound-interest-rate-calculator/compound-interest-time-series';
+import { CalculateCompoundInterestTimeSeries } from '../../models/compound-interest-rate-calculator/calculate-compound-interest-time-series/calculate-compound-interest-time-series';
 
 interface Props {
-  series: CompoundInterestTimeSeries[];
+  series: CalculateCompoundInterestTimeSeries[];
 }
 
 const InvestmentChart = ({ series }: Props) => {
@@ -20,7 +20,7 @@ const InvestmentChart = ({ series }: Props) => {
     <ResponsiveContainer aspect={4 / 3} maxHeight={400}>
       <AreaChart data={series}>
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="index" />
+        <XAxis dataKey="year" />
         <YAxis />
         <Tooltip />
         <Legend />

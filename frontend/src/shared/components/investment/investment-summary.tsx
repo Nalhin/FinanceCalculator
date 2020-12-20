@@ -10,33 +10,23 @@ import React from 'react';
 import {
   CompoundInterestRateCalculator,
   InvestmentConfig,
-} from '../../models/compound-interest-rate-calculator/compound-interest-rate-calculator';
+} from '../../models/compound-interest-rate-calculator/compound-interest-rate-calculator/compound-interest-rate-calculator';
+import { calculateYearlyInvestmentSummary } from '../../models/compound-interest-rate-calculator/calculate-yearly-investment-sumary/calculate-yearly-investment-summary';
 
 interface Props {
   config: InvestmentConfig;
 }
 
-function calculateInvestmentSummary(config: InvestmentConfig) {
-  const totalPeriodCalculator = new CompoundInterestRateCalculator(config);
-  const yearlyCalculator = new CompoundInterestRateCalculator({
-    ...config,
-    yearsOfGrowth: config.yearsOfGrowth ? 1 : 0,
-  });
-  return {
-    totalInterest: totalPeriodCalculator.totalInterest,
-    percentageInterest: totalPeriodCalculator.percentageInterest,
-    yearlyProfit: yearlyCalculator.totalInterest,
-    yearlyPercentageProfit: yearlyCalculator.percentageInterest,
-  };
-}
-
-export const InvestmentSummary = ({ config }: Props) => {
+const InvestmentSummary = ({ config }: Props) => {
   const {
-    yearlyProfit,
-    percentageInterest,
     totalInterest,
-    yearlyPercentageProfit,
-  } = calculateInvestmentSummary(config);
+    percentageInterest,
+  } = new CompoundInterestRateCalculator(config);
+
+  const {
+    yearlyInterest,
+    yearlyPercentageInterest,
+  } = calculateYearlyInvestmentSummary(config);
 
   return (
     <StatGroup>
@@ -52,12 +42,14 @@ export const InvestmentSummary = ({ config }: Props) => {
       </Stat>
       <Stat p={2}>
         <StatLabel>Estimated Yearly Profit</StatLabel>
-        <StatNumber>{yearlyProfit.toFixed(2)} $</StatNumber>
+        <StatNumber>{yearlyInterest.toFixed(2)} $</StatNumber>
         <StatHelpText>
           <StatArrow type="increase" />
-          {yearlyPercentageProfit.toFixed(2)} %
+          {yearlyPercentageInterest.toFixed(2)} %
         </StatHelpText>
       </Stat>
     </StatGroup>
   );
 };
+
+export default InvestmentSummary;

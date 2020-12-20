@@ -31,7 +31,7 @@ export const useAuthState = (defaultUser: User = new AnonymousUser()) => {
   }, []);
 
   React.useEffect(() => {
-    void (async () => {
+    (async () => {
       const token = cookies.getAuthCookie();
       if (token) {
         try {
