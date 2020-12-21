@@ -1,10 +1,10 @@
 import { Flex } from '@chakra-ui/react';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { InvestmentConfig } from '../../shared/models/compound-interest-rate-calculator/compound-interest-rate-calculator/compound-interest-rate-calculator';
+import { InvestmentConfig } from '../../shared/models/interest-calculator/compound-interest-rate-calculator/compound-interest-rate-calculator';
 import WithInvestmentConfig from '../../shared/components/forms/with-investment-config/with-investment-config';
 import InvestmentChart from '../../shared/components/investment/investment-chart';
-import { calculateCompoundInterestTimeSeries } from '../../shared/models/compound-interest-rate-calculator/calculate-compound-interest-time-series/calculate-compound-interest-time-series';
+import { calculateCompoundInterestTimeSeries } from '../../shared/models/interest-calculator/calculate-compound-interest-time-series/calculate-compound-interest-time-series';
 import { DEFAULT_INVESTMENT_CONFIG } from '../../shared/constants/default-investment-config';
 import InvestmentConfigFormControlGroup from '../../shared/components/forms/investment-config-form-control-group/investment-config-form-control-group';
 import InvestmentSummary from '../../shared/components/investment/investment-summary';

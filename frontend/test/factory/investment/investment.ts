@@ -1,5 +1,5 @@
 import { FactoryBuilder } from 'factory.io';
-import { InvestmentConfig } from '../../../src/shared/models/compound-interest-rate-calculator/compound-interest-rate-calculator/compound-interest-rate-calculator';
+import { InvestmentConfig } from '../../../src/shared/models/interest-calculator/compound-interest-rate-calculator/compound-interest-rate-calculator';
 import * as faker from 'faker';
 
 export const investmentConfigFactory = FactoryBuilder.of<InvestmentConfig>()

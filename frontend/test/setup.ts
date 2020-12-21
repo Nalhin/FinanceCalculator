@@ -10,3 +10,4 @@ setLogger({
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   error: () => {},
 });
+jest.setTimeout(30000);

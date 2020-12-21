@@ -73,7 +73,7 @@ const AddBasketModal = ({ isOpen, onClose, onAdd }: Props) => {
             type="submit"
             form="add-basket"
           >
-            Add a Basket
+            Add
           </Button>
         </ModalFooter>
       </ModalContent>

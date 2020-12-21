@@ -34,5 +34,6 @@ export const renderWithProviders = <Q extends Queries>(
       </AuthProvider>,
     ),
     history,
+    queryClient,
   };
 };

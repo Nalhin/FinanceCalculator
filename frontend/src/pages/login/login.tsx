@@ -14,10 +14,10 @@ import { postLogin } from '../../core/api/auth/auth.api';
 import { useAuth } from '../../shared/context/auth/use-auth/use-auth';
 import { Link, useHistory } from 'react-router-dom';
 import { MAIN_ROUTES } from '../main.routes';
-import * as H from 'history';
+import { RouterLocation } from '../../shared/types/router';
 
 interface Props {
-  location?: H.Location<{ from: string }>;
+  location?: RouterLocation<{ from: string }>;
 }
 
 const Login = ({ location }: Props) => {

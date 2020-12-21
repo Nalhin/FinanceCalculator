@@ -12,4 +12,8 @@ export const MY_SPACE_ROUTING: Route[] = [
     component: React.lazy(() => import('./no-basket/no-basket')),
     exact: true,
   },
+  {
+    path: MY_SPACE_ROUTES.BASKET_DETAILS,
+    component: React.lazy(() => import('./basket-details/basket-details')),
+  },
 ];

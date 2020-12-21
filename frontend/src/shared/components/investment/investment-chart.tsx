@@ -9,7 +9,7 @@ import {
   XAxis,
   YAxis,
 } from 'recharts';
-import { CalculateCompoundInterestTimeSeries } from '../../models/compound-interest-rate-calculator/calculate-compound-interest-time-series/calculate-compound-interest-time-series';
+import { CalculateCompoundInterestTimeSeries } from '../../models/interest-calculator/calculate-compound-interest-time-series/calculate-compound-interest-time-series';
 
 interface Props {
   series: CalculateCompoundInterestTimeSeries[];

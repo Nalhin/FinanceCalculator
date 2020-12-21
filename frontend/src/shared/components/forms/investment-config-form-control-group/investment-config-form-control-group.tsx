@@ -1,6 +1,6 @@
 import React from 'react';
 import { Control } from 'react-hook-form/dist/types/form';
-import { InvestmentConfig } from '../../../models/compound-interest-rate-calculator/compound-interest-rate-calculator/compound-interest-rate-calculator';
+import { InvestmentConfig } from '../../../models/interest-calculator/compound-interest-rate-calculator/compound-interest-rate-calculator';
 import { Controller } from 'react-hook-form';
 import SliderInput from '../slider-input/slider-input';
 import FrequencySelect from '../frequency-select/frequency-select';

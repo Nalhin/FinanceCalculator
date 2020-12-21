@@ -13,7 +13,7 @@ describe('AddBasketModal component', () => {
   const server = setupServer(
     rest.post<SaveBasketRequestDto>('/api/me/baskets', (req, res, ctx) => {
       return res(
-        ctx.status(200),
+        ctx.status(201),
         ctx.json(saveBasketRequestFactory.buildOne({ name: req.body.name })),
       );
     }),
@@ -43,7 +43,7 @@ describe('AddBasketModal component', () => {
       <AddBasketModal isOpen onClose={jest.fn()} onAdd={jest.fn()} />,
     );
 
-    userEvent.click(screen.getByRole('button', { name: /add a basket/i }));
+    userEvent.click(screen.getByRole('button', { name: /add/i }));
 
     await waitFor(() =>
       expect(screen.getByText(/basket name is required/i)).toBeInTheDocument(),
@@ -62,7 +62,7 @@ describe('AddBasketModal component', () => {
       screen.getByLabelText(/basket name/i),
       saveBasketRequest.name,
     );
-    userEvent.click(screen.getByRole('button', { name: /add a basket/i }));
+    userEvent.click(screen.getByRole('button', { name: /add/i }));
 
     await waitFor(() => {
       expect(screen.getByLabelText(/basket name/i)).toHaveValue('');
