@@ -15,6 +15,16 @@ import { useAuth } from '../../shared/context/auth/use-auth/use-auth';
 import { Link, useHistory } from 'react-router-dom';
 import { MAIN_ROUTES } from '../main.routes';
 import { RouterLocation } from '../../shared/types/router';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+
+const schema = yup.object().shape({
+  username: yup.string().required('Username is required'),
+  password: yup
+    .string()
+    .required('Password is required')
+    .min(6, 'Password must be at least 6 character long'),
+});
 
 interface Props {
   location?: RouterLocation<{ from: string }>;
@@ -39,13 +49,15 @@ const Login = ({ location }: Props) => {
       );
     },
   });
-
   const {
     handleSubmit,
     register,
     errors,
     formState,
-  } = useForm<LoginUserRequestDto>({ mode: 'onBlur' });
+  } = useForm<LoginUserRequestDto>({
+    mode: 'onBlur',
+    resolver: yupResolver(schema),
+  });
 
   const onSubmit = (form: LoginUserRequestDto) => {
     mutate(form);

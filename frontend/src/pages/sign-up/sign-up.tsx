@@ -15,6 +15,20 @@ import { postSignUp } from '../../core/api/auth/auth.api';
 import { useHistory } from 'react-router-dom';
 import { MAIN_ROUTES } from '../main.routes';
 import { RouterLocation } from '../../shared/types/router';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+
+const schema = yup.object().shape({
+  username: yup.string().required('Username is required'),
+  password: yup
+    .string()
+    .required('Password is required')
+    .min(6, 'Password must be at least 6 character long'),
+  email: yup
+    .string()
+    .email('Email must be valid')
+    .required('Email is required'),
+});
 
 interface Props {
   location?: RouterLocation<{ from: string }>;
@@ -44,7 +58,10 @@ const SignUp = ({ location }: Props) => {
     register,
     errors,
     formState,
-  } = useForm<SignUpUserRequestDto>({ mode: 'onBlur' });
+  } = useForm<SignUpUserRequestDto>({
+    mode: 'onBlur',
+    resolver: yupResolver(schema),
+  });
 
   const onSubmit = (form: SignUpUserRequestDto) => {
     mutate(form);
@@ -55,36 +72,17 @@ const SignUp = ({ location }: Props) => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormControl isInvalid={!!errors.username}>
           <FormLabel htmlFor="username">Username</FormLabel>
-          <Input
-            id="username"
-            name="username"
-            ref={register({
-              required: 'Username is required',
-            })}
-          />
+          <Input id="username" name="username" ref={register} />
           <FormErrorMessage>{errors.username?.message}</FormErrorMessage>
         </FormControl>
         <FormControl isInvalid={!!errors.username}>
           <FormLabel htmlFor="email">Email</FormLabel>
-          <Input
-            id="email"
-            name="email"
-            ref={register({
-              required: 'Email is required',
-            })}
-          />
+          <Input id="email" name="email" ref={register} />
           <FormErrorMessage>{errors.email?.message}</FormErrorMessage>
         </FormControl>
         <FormControl isInvalid={!!errors.password}>
           <FormLabel htmlFor="password">Password</FormLabel>
-          <Input
-            id="password"
-            name="password"
-            type="password"
-            ref={register({
-              required: 'Password is required',
-            })}
-          />
+          <Input id="password" name="password" type="password" ref={register} />
           <FormErrorMessage>{errors.password?.message}</FormErrorMessage>
         </FormControl>
         <Button

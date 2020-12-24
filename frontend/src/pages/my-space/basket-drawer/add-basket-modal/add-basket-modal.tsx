@@ -16,6 +16,12 @@ import { useForm } from 'react-hook-form';
 import { SaveBasketRequestDto } from '../../../../core/api/api.interface';
 import { useMutation } from 'react-query';
 import { saveBasket } from '../../../../core/api/basket/basket.api';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+
+const schema = yup.object().shape({
+  name: yup.string().required('Basket name is required'),
+});
 
 interface Props {
   isOpen: boolean;
@@ -31,6 +37,7 @@ const AddBasketModal = ({ isOpen, onClose, onAdd }: Props) => {
     reset,
   } = useForm<SaveBasketRequestDto>({
     defaultValues: { name: '' },
+    resolver: yupResolver(schema),
   });
   const { mutate, isLoading } = useMutation(saveBasket, {
     onSuccess: () => {

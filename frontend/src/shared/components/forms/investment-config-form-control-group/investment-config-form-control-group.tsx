@@ -2,7 +2,7 @@ import React from 'react';
 import { Control } from 'react-hook-form/dist/types/form';
 import { InvestmentConfig } from '../../../models/interest-calculator/compound-interest-rate-calculator/compound-interest-rate-calculator';
 import { Controller } from 'react-hook-form';
-import SliderInput from '../slider-input/slider-input';
+import NumberInput from '../number-form-control/number-form-control';
 import FrequencySelect from '../frequency-select/frequency-select';
 
 interface Props {
@@ -15,11 +15,11 @@ const InvestmentConfigFormControlGroup = ({ control }: Props) => {
       <Controller
         control={control}
         name="startAmount"
-        render={({ ref, ...props }) => (
-          <SliderInput
+        render={(props) => (
+          <NumberInput
             label="Initial amount"
             min={1}
-            max={1_000_000_000}
+            max={10_000_000}
             {...props}
           />
         )}
@@ -27,8 +27,8 @@ const InvestmentConfigFormControlGroup = ({ control }: Props) => {
       <Controller
         control={control}
         name="annualInterestRate"
-        render={({ ref, ...props }) => (
-          <SliderInput
+        render={(props) => (
+          <NumberInput
             min={1}
             max={15}
             label="Estimated annual rate of return"
@@ -39,22 +39,22 @@ const InvestmentConfigFormControlGroup = ({ control }: Props) => {
       <Controller
         control={control}
         name="compoundFrequency"
-        render={({ ref, ...props }) => (
+        render={(props) => (
           <FrequencySelect label="Compound frequency" {...props} />
         )}
       />
       <Controller
         control={control}
         name="yearsOfGrowth"
-        render={({ ref, ...props }) => (
-          <SliderInput min={1} max={15} label="Years of growth" {...props} />
+        render={(props) => (
+          <NumberInput min={1} max={15} label="Years of growth" {...props} />
         )}
       />
       <Controller
         control={control}
         name="payment"
-        render={({ ref, ...props }) => (
-          <SliderInput
+        render={(props) => (
+          <NumberInput
             min={1}
             max={1_000_000}
             label="Additional payment"
@@ -65,7 +65,7 @@ const InvestmentConfigFormControlGroup = ({ control }: Props) => {
       <Controller
         control={control}
         name="paymentFrequency"
-        render={({ ref, ...props }) => (
+        render={(props) => (
           <FrequencySelect label="Payment frequency" {...props} />
         )}
       />

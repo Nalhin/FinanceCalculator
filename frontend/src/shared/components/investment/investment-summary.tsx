@@ -1,4 +1,5 @@
 import {
+  Flex,
   Stat,
   StatArrow,
   StatGroup,
@@ -29,7 +30,7 @@ const InvestmentSummary = ({ config }: Props) => {
   } = calculateYearlyInvestmentSummary(config);
 
   return (
-    <StatGroup>
+    <StatGroup width="100%" as={Flex} justify="space-around" textAlign="center">
       <Stat p={2}>
         <StatLabel>Estimated Total Interest</StatLabel>
         <StatNumber aria-label="estimated total interest">

@@ -14,16 +14,24 @@ import {
   ModalContent,
   ModalFooter,
   ModalHeader,
+  ModalOverlay,
 } from '@chakra-ui/react';
 import InvestmentConfigFormControlGroup from '../../../../shared/components/forms/investment-config-form-control-group/investment-config-form-control-group';
 import { useMutation } from 'react-query';
 import { saveInvestment } from '../../../../core/api/investment/investment.api';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 
-interface Props {
-  basketId: number;
-  isOpen: boolean;
-  onClose: () => void;
-}
+const schema = yup.object().shape({
+  annualInterestRate: yup.number().min(0),
+  compoundFrequency: yup.number().min(0),
+  payment: yup.number().min(0),
+  paymentFrequency: yup.number().min(0),
+  startAmount: yup.number().min(0),
+  yearsOfGrowth: yup.number().min(0),
+  risk: yup.string().required('Risk is required'),
+  category: yup.string().required('Category is required'),
+});
 
 const DEFAULT_FORM_VALUES: SaveInvestmentDto = {
   ...DEFAULT_INVESTMENT_CONFIG,
@@ -31,10 +39,17 @@ const DEFAULT_FORM_VALUES: SaveInvestmentDto = {
   risk: '',
 };
 
+interface Props {
+  basketId: number;
+  isOpen: boolean;
+  onClose: () => void;
+}
+
 const AddInvestmentModal = ({ basketId, isOpen, onClose }: Props) => {
   const { control, register, handleSubmit, reset } = useForm<SaveInvestmentDto>(
     {
       defaultValues: DEFAULT_FORM_VALUES,
+      resolver: yupResolver(schema),
     },
   );
   const { mutate, isLoading } = useMutation(
@@ -51,7 +66,8 @@ const AddInvestmentModal = ({ basketId, isOpen, onClose }: Props) => {
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <Modal isOpen={isOpen} onClose={onClose} scrollBehavior="inside">
+      <ModalOverlay />
       <ModalContent>
         <ModalHeader>Add an investment</ModalHeader>
         <ModalCloseButton />
@@ -64,23 +80,11 @@ const AddInvestmentModal = ({ basketId, isOpen, onClose }: Props) => {
           >
             <FormControl>
               <FormLabel htmlFor="category">Category</FormLabel>
-              <Input
-                id="category"
-                name="category"
-                ref={register({
-                  required: 'Category is required',
-                })}
-              />
+              <Input id="category" name="category" ref={register} />
             </FormControl>
             <FormControl>
               <FormLabel htmlFor="risk">Risk level</FormLabel>
-              <Input
-                id="risk"
-                name="risk"
-                ref={register({
-                  required: 'Risk level is required',
-                })}
-              />
+              <Input id="risk" name="risk" ref={register} />
             </FormControl>
             <InvestmentConfigFormControlGroup control={control} />
           </Box>

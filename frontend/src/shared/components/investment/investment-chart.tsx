@@ -21,7 +21,12 @@ const InvestmentChart = ({ series }: Props) => {
       <AreaChart data={series}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="year" />
-        <YAxis />
+        <YAxis
+          dataKey="futureValue"
+          tickFormatter={(value) =>
+            value >= 1_000_000 ? `${value / 1000}k` : value
+          }
+        />
         <Tooltip />
         <Legend />
         <Area
