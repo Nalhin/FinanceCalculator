@@ -120,7 +120,6 @@ class InvestmentIntegrationTest extends Specification {
     respBody.payment == requestBody.payment
     respBody.startAmount == requestBody.startAmount
     respBody.yearsOfGrowth == requestBody.yearsOfGrowth
-    respBody.risk == requestBody.risk
   }
 
 

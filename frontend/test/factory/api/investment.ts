@@ -5,12 +5,13 @@ import {
   SaveInvestmentDto,
 } from '../../../src/core/api/api.interface';
 import { investmentConfigFactory } from '../investment/investment';
+import { INVESTMENT_CATEGORIES } from '../../../src/shared/constants/investment-category';
 
 export const saveInvestmentRequestFactory = FactoryBuilder.of<SaveInvestmentDto>()
   .mixins([investmentConfigFactory])
   .props({
-    category: faker.random.word,
-    risk: faker.random.word,
+    category: () =>
+      faker.random.arrayElement(Object.values(INVESTMENT_CATEGORIES)),
   })
   .build();
 

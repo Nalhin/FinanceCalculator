@@ -3,6 +3,7 @@ package com.nalhin.fc.test.factories
 import com.github.javafaker.Faker
 import com.nalhin.fc.basket.Basket
 import com.nalhin.fc.investment.Investment
+import com.nalhin.fc.investment.InvestmentCategory
 import com.nalhin.fc.investment.dto.SaveInvestmentDto
 import com.nalhin.fc.investment.dto.UpdateInvestmentRequestDto
 import com.nalhin.fc.test.faker.TestFaker
@@ -25,8 +26,7 @@ class InvestmentTestFactory {
         annualInterestRate: (map.annualInterestRate ?: faker.positiveInt()) as int,
         payment: (map.payment ?: faker.positiveInt()) as int,
         compoundFrequency: (map.compoundFrequency ?: faker.positiveInt()) as int,
-        risk: (map.risk ?: "low"),
-        category: (map.category ?: "none"),
+        category: (map.category ?: faker.randomEnum(InvestmentCategory)) as InvestmentCategory,
     )
   }
 
@@ -40,8 +40,7 @@ class InvestmentTestFactory {
         annualInterestRate: (map.annualInterestRate ?: faker.positiveInt()) as int,
         compoundFrequency: (map.compoundFrequency ?: faker.positiveInt()) as int,
         payment: (map.payment ?: faker.positiveInt()) as int,
-        risk: (map.risk ?: "low"),
-        category: (map.category ?: "none"),
+        category: (map.category ?: faker.randomEnum(InvestmentCategory)) as InvestmentCategory,
     )
   }
 
@@ -55,8 +54,7 @@ class InvestmentTestFactory {
         annualInterestRate: (map.annualInterestRate ?: faker.positiveInt()) as int,
         compoundFrequency: (map.compoundFrequency ?: faker.positiveInt()) as int,
         payment: (map.payment ?: faker.positiveInt()) as int,
-        risk: (map.risk ?: "low"),
-        category: (map.category ?: "none"),
+        category: (map.category ?: faker.randomEnum(InvestmentCategory)) as InvestmentCategory,
     )
   }
 }

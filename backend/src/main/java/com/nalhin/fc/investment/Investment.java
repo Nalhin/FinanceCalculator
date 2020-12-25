@@ -46,11 +46,9 @@ public class Investment {
   @Column(name = "compound_frequency", nullable = false)
   private int compoundFrequency;
 
-  @Column(name = "risk", nullable = false)
-  private String risk;
-
   @Column(name = "category", nullable = false)
-  private String category;
+  @Enumerated(value = EnumType.STRING)
+  private InvestmentCategory category;
 
   @Column(name = "created", nullable = false)
   @CreatedDate

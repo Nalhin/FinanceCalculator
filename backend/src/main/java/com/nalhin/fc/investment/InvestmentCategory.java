@@ -1,0 +1,12 @@
+package com.nalhin.fc.investment;
+
+public enum InvestmentCategory {
+  SAVINGS_ACCOUNT,
+  RENTAL_HOUSING,
+  STOCK_FUND,
+  CERTIFICATE_OF_DEPOSIT,
+  TREASURY_SECURITIES,
+  MONEY_MARKET_ACCOUNT,
+  GOVERNMENT_BOND_FUNDS,
+  OTHER
+}

@@ -1,5 +1,6 @@
 package com.nalhin.fc.investment.dto;
 
+import com.nalhin.fc.investment.InvestmentCategory;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
@@ -13,6 +14,5 @@ public class UpdateInvestmentRequestDto {
   @NotNull private Integer annualInterestRate;
   @NotNull private Integer compoundFrequency;
   @NotNull private Integer payment;
-  @NotNull private String risk;
-  @NotNull private String category;
+  @NotNull private InvestmentCategory category;
 }

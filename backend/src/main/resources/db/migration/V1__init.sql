@@ -28,7 +28,6 @@ CREATE TABLE investments
     basket_id            int8         NOT NULL,
     created              timestamp    NOT NULL,
     category             varchar(255) NOT NULL,
-    risk                 varchar(255) NOT NULL,
     payment              int4         NOT NULL,
     annual_interest_rate int4         NOT NULL,
     payment_frequency    int4         NOT NULL,

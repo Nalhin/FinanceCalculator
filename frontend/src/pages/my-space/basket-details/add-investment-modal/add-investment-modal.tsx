@@ -5,9 +5,6 @@ import { SaveInvestmentDto } from '../../../../core/api/api.interface';
 import {
   Box,
   Button,
-  FormControl,
-  FormLabel,
-  Input,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -21,6 +18,7 @@ import { useMutation } from 'react-query';
 import { saveInvestment } from '../../../../core/api/investment/investment.api';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import InvestmentCategoryFormSelect from '../../../../shared/components/forms/investment-category-form-select/investment-category-form-select';
 
 const schema = yup.object().shape({
   annualInterestRate: yup.number().min(0),
@@ -29,14 +27,12 @@ const schema = yup.object().shape({
   paymentFrequency: yup.number().min(0),
   startAmount: yup.number().min(0),
   yearsOfGrowth: yup.number().min(0),
-  risk: yup.string().required('Risk is required'),
   category: yup.string().required('Category is required'),
 });
 
 const DEFAULT_FORM_VALUES: SaveInvestmentDto = {
   ...DEFAULT_INVESTMENT_CONFIG,
-  category: '',
-  risk: '',
+  category: 'CERTIFICATE_OF_DEPOSIT',
 };
 
 interface Props {
@@ -78,14 +74,11 @@ const AddInvestmentModal = ({ basketId, isOpen, onClose }: Props) => {
             onSubmit={handleSubmit(sendForm)}
             id="add-modal"
           >
-            <FormControl>
-              <FormLabel htmlFor="category">Category</FormLabel>
-              <Input id="category" name="category" ref={register} />
-            </FormControl>
-            <FormControl>
-              <FormLabel htmlFor="risk">Risk level</FormLabel>
-              <Input id="risk" name="risk" ref={register} />
-            </FormControl>
+            <InvestmentCategoryFormSelect
+              label="Investment category"
+              name="category"
+              ref={register}
+            />
             <InvestmentConfigFormControlGroup control={control} />
           </Box>
         </ModalBody>

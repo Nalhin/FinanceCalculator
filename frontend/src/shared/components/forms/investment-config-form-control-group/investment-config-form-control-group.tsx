@@ -3,7 +3,7 @@ import { Control } from 'react-hook-form/dist/types/form';
 import { InvestmentConfig } from '../../../models/interest-calculator/compound-interest-rate-calculator/compound-interest-rate-calculator';
 import { Controller } from 'react-hook-form';
 import NumberInput from '../number-form-control/number-form-control';
-import FrequencySelect from '../frequency-select/frequency-select';
+import FrequencySelect from '../frequency-form-select/frequency-select';
 
 interface Props {
   control: Control<InvestmentConfig>;
@@ -36,12 +36,10 @@ const InvestmentConfigFormControlGroup = ({ control }: Props) => {
           />
         )}
       />
-      <Controller
-        control={control}
+      <FrequencySelect
         name="compoundFrequency"
-        render={(props) => (
-          <FrequencySelect label="Compound frequency" {...props} />
-        )}
+        label="Compound frequency"
+        ref={control.register({ valueAsNumber: true })}
       />
       <Controller
         control={control}

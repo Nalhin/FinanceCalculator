@@ -75,13 +75,9 @@ describe('AddInvestmentModal component', () => {
       screen.getByLabelText(/additional payment/i),
       `{selectall}${expectedFormValues.payment}`,
     );
-    userEvent.type(
-      screen.getByLabelText(/risk level/i),
-      `${expectedFormValues.risk}`,
-    );
-    userEvent.type(
+    userEvent.selectOptions(
       screen.getByLabelText(/category/i),
-      `${expectedFormValues.category}`,
+      expectedFormValues.category,
     );
     userEvent.selectOptions(
       screen.getByLabelText(/payment frequency/i),
