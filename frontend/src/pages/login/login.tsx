@@ -1,11 +1,4 @@
-import {
-  Button,
-  Flex,
-  FormControl,
-  FormErrorMessage,
-  FormLabel,
-  Input,
-} from '@chakra-ui/react';
+import { Button, Flex } from '@chakra-ui/react';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { LoginUserRequestDto } from '../../core/api/api.interface';
@@ -17,6 +10,7 @@ import { MAIN_ROUTES } from '../main.routes';
 import { RouterLocation } from '../../shared/types/router';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import InputFormControl from '../../shared/components/forms/input-form-control/input-form-control';
 
 const schema = yup.object().shape({
   username: yup.string().required('Username is required'),
@@ -66,29 +60,19 @@ const Login = ({ location }: Props) => {
   return (
     <Flex justify="center" align="center">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <FormControl isInvalid={!!errors.username}>
-          <FormLabel htmlFor="username">Username</FormLabel>
-          <Input
-            id="username"
-            name="username"
-            ref={register({
-              required: 'Username is required',
-            })}
-          />
-          <FormErrorMessage>{errors.username?.message}</FormErrorMessage>
-        </FormControl>
-        <FormControl isInvalid={!!errors.password}>
-          <FormLabel htmlFor="password">Password</FormLabel>
-          <Input
-            id="password"
-            name="password"
-            type="password"
-            ref={register({
-              required: 'Password is required',
-            })}
-          />
-          <FormErrorMessage>{errors.password?.message}</FormErrorMessage>
-        </FormControl>
+        <InputFormControl
+          label="Username"
+          name="username"
+          error={errors.username}
+          ref={register}
+        />
+        <InputFormControl
+          label="Password"
+          name="password"
+          type="password"
+          error={errors.password}
+          ref={register}
+        />
         <Link to={{ pathname: MAIN_ROUTES.SIGN_UP, state: location?.state }}>
           No account? Sign up
         </Link>

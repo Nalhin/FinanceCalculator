@@ -3,20 +3,14 @@ import { useAuth } from '../../shared/context/auth/use-auth/use-auth';
 import { useMutation } from 'react-query';
 import { useForm } from 'react-hook-form';
 import { SignUpUserRequestDto } from '../../core/api/api.interface';
-import {
-  Button,
-  Flex,
-  FormControl,
-  FormErrorMessage,
-  FormLabel,
-  Input,
-} from '@chakra-ui/react';
+import { Button, Flex } from '@chakra-ui/react';
 import { postSignUp } from '../../core/api/auth/auth.api';
 import { useHistory } from 'react-router-dom';
 import { MAIN_ROUTES } from '../main.routes';
 import { RouterLocation } from '../../shared/types/router';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import InputFormControl from '../../shared/components/forms/input-form-control/input-form-control';
 
 const schema = yup.object().shape({
   username: yup.string().required('Username is required'),
@@ -70,21 +64,25 @@ const SignUp = ({ location }: Props) => {
   return (
     <Flex justify="center" align="center">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <FormControl isInvalid={!!errors.username}>
-          <FormLabel htmlFor="username">Username</FormLabel>
-          <Input id="username" name="username" ref={register} />
-          <FormErrorMessage>{errors.username?.message}</FormErrorMessage>
-        </FormControl>
-        <FormControl isInvalid={!!errors.username}>
-          <FormLabel htmlFor="email">Email</FormLabel>
-          <Input id="email" name="email" ref={register} />
-          <FormErrorMessage>{errors.email?.message}</FormErrorMessage>
-        </FormControl>
-        <FormControl isInvalid={!!errors.password}>
-          <FormLabel htmlFor="password">Password</FormLabel>
-          <Input id="password" name="password" type="password" ref={register} />
-          <FormErrorMessage>{errors.password?.message}</FormErrorMessage>
-        </FormControl>
+        <InputFormControl
+          label="Username"
+          name="username"
+          error={errors.username}
+          ref={register}
+        />
+        <InputFormControl
+          label="Email"
+          name="email"
+          error={errors.email}
+          ref={register}
+        />
+        <InputFormControl
+          label="Password"
+          name="password"
+          error={errors.password}
+          type="password"
+          ref={register}
+        />
         <Button
           colorScheme="teal"
           size="md"

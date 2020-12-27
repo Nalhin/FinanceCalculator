@@ -15,6 +15,7 @@ CREATE TABLE baskets
 (
     id           int8         NOT NULL,
     name         varchar(255) NOT NULL,
+    description  varchar(255) NOT NULL,
     owner_id     int8         NOT NULL,
     created_date timestamp    NOT NULL,
     CONSTRAINT baskets_users_fk FOREIGN KEY (owner_id) REFERENCES users (id),
@@ -35,6 +36,6 @@ CREATE TABLE investments
     years_of_growth      int4         NOT NULL,
     start_amount         int8         NOT NULL,
     CONSTRAINT investments_pk PRIMARY KEY (id),
-    CONSTRAINT investments_basket_fk FOREIGN KEY (basket_id) REFERENCES baskets (id),
+    CONSTRAINT investments_basket_fk FOREIGN KEY (basket_id) REFERENCES baskets (id) ON DELETE CASCADE,
     CONSTRAINT investments_users_fk FOREIGN KEY (owner_id) REFERENCES users (id)
 )

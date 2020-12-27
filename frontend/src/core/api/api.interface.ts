@@ -1,5 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
+
 /*
  * ---------------------------------------------------------------
  * ## THIS FILE WAS GENERATED VIA SWAGGER-TYPESCRIPT-API        ##
@@ -16,6 +17,7 @@ export interface AuthResponseDto {
 
 export interface BasketResponseDto {
   createdDate: string;
+  description: string;
   id: number;
   name: string;
 }
@@ -23,14 +25,14 @@ export interface BasketResponseDto {
 export interface InvestmentResponseDto {
   annualInterestRate: number;
   category:
-    | "CERTIFICATE_OF_DEPOSIT"
-    | "GOVERNMENT_BOND_FUNDS"
-    | "MONEY_MARKET_ACCOUNT"
-    | "OTHER"
-    | "RENTAL_HOUSING"
-    | "SAVINGS_ACCOUNT"
-    | "STOCK_FUND"
-    | "TREASURY_SECURITIES";
+    | 'CERTIFICATE_OF_DEPOSIT'
+    | 'GOVERNMENT_BOND_FUNDS'
+    | 'MONEY_MARKET_ACCOUNT'
+    | 'OTHER'
+    | 'RENTAL_HOUSING'
+    | 'SAVINGS_ACCOUNT'
+    | 'STOCK_FUND'
+    | 'TREASURY_SECURITIES';
   created: string;
   id: number;
   payment: number;
@@ -68,20 +70,21 @@ export interface PageBasketResponseDto {
 }
 
 export interface SaveBasketRequestDto {
+  description: string;
   name: string;
 }
 
 export interface SaveInvestmentDto {
   annualInterestRate: number;
   category:
-    | "CERTIFICATE_OF_DEPOSIT"
-    | "GOVERNMENT_BOND_FUNDS"
-    | "MONEY_MARKET_ACCOUNT"
-    | "OTHER"
-    | "RENTAL_HOUSING"
-    | "SAVINGS_ACCOUNT"
-    | "STOCK_FUND"
-    | "TREASURY_SECURITIES";
+    | 'CERTIFICATE_OF_DEPOSIT'
+    | 'GOVERNMENT_BOND_FUNDS'
+    | 'MONEY_MARKET_ACCOUNT'
+    | 'OTHER'
+    | 'RENTAL_HOUSING'
+    | 'SAVINGS_ACCOUNT'
+    | 'STOCK_FUND'
+    | 'TREASURY_SECURITIES';
   compoundFrequency: number;
   payment: number;
   paymentFrequency: number;
@@ -102,20 +105,21 @@ export interface Sort {
 }
 
 export interface UpdateBasketRequestDto {
+  description: string;
   name: string;
 }
 
 export interface UpdateInvestmentRequestDto {
   annualInterestRate: number;
   category:
-    | "CERTIFICATE_OF_DEPOSIT"
-    | "GOVERNMENT_BOND_FUNDS"
-    | "MONEY_MARKET_ACCOUNT"
-    | "OTHER"
-    | "RENTAL_HOUSING"
-    | "SAVINGS_ACCOUNT"
-    | "STOCK_FUND"
-    | "TREASURY_SECURITIES";
+    | 'CERTIFICATE_OF_DEPOSIT'
+    | 'GOVERNMENT_BOND_FUNDS'
+    | 'MONEY_MARKET_ACCOUNT'
+    | 'OTHER'
+    | 'RENTAL_HOUSING'
+    | 'SAVINGS_ACCOUNT'
+    | 'STOCK_FUND'
+    | 'TREASURY_SECURITIES';
   compoundFrequency: number;
   payment: number;
   paymentFrequency: number;

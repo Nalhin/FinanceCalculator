@@ -14,9 +14,11 @@ import {
 } from '@chakra-ui/react';
 import AddBasketModal from './add-basket-modal/add-basket-modal';
 import BasketItem from './basket-item/basket-item';
-import { generatePath } from 'react-router-dom';
+import { useHistory, useRouteMatch } from 'react-router-dom';
 import { MAIN_ROUTES } from '../../main.routes';
 import { MY_SPACE_ROUTES } from '../my-space.routers';
+import DeleteBasketModal from './delete-basket-modal/delete-basket-modal';
+import EditBasketModal from './edit-basket-modal/edit-basket-modal';
 
 interface Props {
   isOpen: boolean;
@@ -24,40 +26,68 @@ interface Props {
 }
 
 const BasketDrawer = ({ isOpen, onClose }: Props) => {
-  const modal = useDisclosure({ defaultIsOpen: false });
+  const history = useHistory();
+  const match = useRouteMatch<{ basketId: string }>(
+    MAIN_ROUTES.MY_SPACE + MY_SPACE_ROUTES.BASKET_DETAILS,
+  );
+  const addModal = useDisclosure({ defaultIsOpen: false });
+  const [toDeleteBasket, setToDeleteBasket] = React.useState<number | null>(
+    null,
+  );
+  const [toEditBasket, setToEditBasket] = React.useState<number | null>();
   const { data, refetch } = useQuery('baskets', getMyBaskets, {
     select: (response) => response.data,
     enabled: isOpen,
   });
 
+  const onRemove = React.useCallback(() => {
+    setToDeleteBasket(null);
+    history.push(MAIN_ROUTES.MY_SPACE + MY_SPACE_ROUTES.ROOT);
+    refetch();
+  }, []);
+
+  const onEdit = React.useCallback(() => {
+    setToEditBasket(null);
+    refetch();
+  }, []);
+
   return (
     <>
+      <EditBasketModal
+        isOpen={Boolean(toEditBasket)}
+        onClose={() => setToEditBasket(null)}
+        onEdit={onEdit}
+        basket={data?.content.find((b) => b.id === toEditBasket)}
+      />
+      <DeleteBasketModal
+        isOpen={Boolean(toDeleteBasket)}
+        onClose={() => setToDeleteBasket(null)}
+        onDelete={onRemove}
+        basket={data?.content.find((b) => b.id === toDeleteBasket)}
+      />
       <AddBasketModal
-        isOpen={modal.isOpen}
-        onClose={modal.onClose}
+        isOpen={addModal.isOpen}
+        onClose={addModal.onClose}
         onAdd={refetch}
       />
       <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
         <DrawerOverlay>
           <DrawerContent>
             <DrawerCloseButton />
-            <DrawerHeader>Baskets</DrawerHeader>
+            <DrawerHeader>My Baskets</DrawerHeader>
             <DrawerBody>
               {data?.content.map((item) => (
                 <BasketItem
+                  onDelete={setToDeleteBasket}
+                  onEdit={setToEditBasket}
+                  isSelected={match?.params.basketId === String(item.id)}
                   key={item.id}
                   {...item}
-                  to={generatePath(
-                    MAIN_ROUTES.MY_SPACE + MY_SPACE_ROUTES.BASKET_DETAILS,
-                    {
-                      basketId: item.id,
-                    },
-                  )}
                 />
               ))}
             </DrawerBody>
             <DrawerFooter>
-              <Button colorScheme="teal" onClick={modal.onOpen}>
+              <Button colorScheme="teal" onClick={addModal.onOpen}>
                 Add a basket
               </Button>
             </DrawerFooter>

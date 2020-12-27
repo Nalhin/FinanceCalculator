@@ -2,7 +2,7 @@ import React from 'react';
 import { Control } from 'react-hook-form/dist/types/form';
 import { InvestmentConfig } from '../../../models/interest-calculator/compound-interest-rate-calculator/compound-interest-rate-calculator';
 import { Controller } from 'react-hook-form';
-import NumberInput from '../number-form-control/number-form-control';
+import NumberInput from '../number-input-form-control/number-input-form-control';
 import FrequencySelect from '../frequency-form-select/frequency-select';
 
 interface Props {

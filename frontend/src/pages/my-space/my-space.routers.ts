@@ -3,7 +3,7 @@ import React from 'react';
 
 export const MY_SPACE_ROUTES = {
   ROOT: '/',
-  BASKET_DETAILS: '/basket/:basketId',
+  BASKET_DETAILS: '/baskets/:basketId',
 } as const;
 
 export const MY_SPACE_ROUTING: Route[] = [

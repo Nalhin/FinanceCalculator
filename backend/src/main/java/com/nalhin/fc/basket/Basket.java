@@ -22,6 +22,9 @@ public class Basket {
   @Column(name = "name", nullable = false)
   private String name;
 
+  @Column(name = "description", nullable = false)
+  private String description;
+
   @Column(name = "created_date", nullable = false)
   @CreatedDate
   private LocalDateTime createdDate;

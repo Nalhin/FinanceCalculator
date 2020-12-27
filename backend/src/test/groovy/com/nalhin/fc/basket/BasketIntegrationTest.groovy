@@ -102,7 +102,7 @@ class BasketIntegrationTest extends Specification {
 
   def 'PUT /me/baskets/{basketId} should return NOT_FOUND (404) status code when basket doesnt exist'() {
     given:
-    def body = BasketTestFactory.saveBasketRequestDto()
+    def body = BasketTestFactory.updateBasketRequestDto()
     when:
     def resp = restClient.when().body(body).put('/baskets/' + 1)
     then:
@@ -113,7 +113,7 @@ class BasketIntegrationTest extends Specification {
   def 'PUT /me/baskets/{basketId} should return UNAUTHORIZED (401) status code when user does not own the basket'() {
     given:
     def saved = basketRepository.save(BasketTestFactory.basket(owner: userRepository.save(UserTestFactory.user())))
-    def body = BasketTestFactory.saveBasketRequestDto()
+    def body = BasketTestFactory.updateBasketRequestDto()
     when:
     def resp = restClient.when().body(body).put('/baskets/' + saved.id)
     then:
@@ -123,7 +123,7 @@ class BasketIntegrationTest extends Specification {
   def 'PUT /me/baskets/{basketId} should return OK (200) status code and update basket'() {
     given:
     def saved = basketRepository.save(BasketTestFactory.basket(owner: owner))
-    def body = BasketTestFactory.saveBasketRequestDto()
+    def body = BasketTestFactory.updateBasketRequestDto()
     when:
     def resp = restClient.when().body(body).put('/me/baskets/' + saved.id)
     def respBody = slurper.parseText(resp.body().asString())

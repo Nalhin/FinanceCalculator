@@ -47,6 +47,6 @@ describe('BasketDrawer', () => {
     userEvent.click(screen.getByRole('button', { name: /add a basket/i }));
 
     expect(screen.getByText(/cancel/i)).toBeInTheDocument();
-    expect(screen.getByText(/basket name/i)).toBeInTheDocument();
+    expect(screen.getByText(/name/i)).toBeInTheDocument();
   });
 });

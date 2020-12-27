@@ -7,7 +7,9 @@ import {
 } from '../api.interface';
 
 export const getMyBaskets = () => {
-  return axios.get<PageBasketResponseDto>('/me/baskets');
+  return axios.get<PageBasketResponseDto>('/me/baskets', {
+    params: { sort: 'createdDate,desc' },
+  });
 };
 
 export const saveBasket = (body: SaveBasketRequestDto) => {

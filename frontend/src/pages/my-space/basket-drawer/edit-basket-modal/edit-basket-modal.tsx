@@ -1,3 +1,13 @@
+import React from 'react';
+import * as yup from 'yup';
+import { useForm } from 'react-hook-form';
+import {
+  BasketResponseDto,
+  UpdateBasketRequestDto,
+} from '../../../../core/api/api.interface';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useMutation } from 'react-query';
+import { updateBasket } from '../../../../core/api/basket/basket.api';
 import {
   Button,
   Modal,
@@ -8,13 +18,6 @@ import {
   ModalHeader,
   ModalOverlay,
 } from '@chakra-ui/react';
-import React from 'react';
-import { useForm } from 'react-hook-form';
-import { SaveBasketRequestDto } from '../../../../core/api/api.interface';
-import { useMutation } from 'react-query';
-import { saveBasket } from '../../../../core/api/basket/basket.api';
-import * as yup from 'yup';
-import { yupResolver } from '@hookform/resolvers/yup';
 import InputFormControl from '../../../../shared/components/forms/input-form-control/input-form-control';
 
 const schema = yup.object().shape({
@@ -30,27 +33,39 @@ const DEFAULT_FORM_VALUES = {
 interface Props {
   isOpen: boolean;
   onClose: () => void;
-  onAdd?: () => void;
+  onEdit?: () => void;
+  basket?: BasketResponseDto;
 }
 
-const AddBasketModal = ({ isOpen, onClose, onAdd }: Props) => {
+const EditBasketModal = ({ isOpen, onClose, onEdit, basket }: Props) => {
   const {
     handleSubmit,
     register,
     errors,
-    reset,
-  } = useForm<SaveBasketRequestDto>({
+    setValue,
+  } = useForm<UpdateBasketRequestDto>({
     defaultValues: DEFAULT_FORM_VALUES,
     resolver: yupResolver(schema),
   });
-  const { mutate, isLoading } = useMutation(saveBasket, {
-    onSuccess: () => {
-      onAdd?.();
-      reset();
-    },
-  });
 
-  const addBasket = (form: SaveBasketRequestDto) => {
+  React.useEffect(() => {
+    if (basket) {
+      for (const [key, value] of Object.entries(basket)) {
+        if (DEFAULT_FORM_VALUES.hasOwnProperty(key)) {
+          setValue(key as keyof typeof DEFAULT_FORM_VALUES, value);
+        }
+      }
+    }
+  }, [basket]);
+
+  const { mutate, isLoading } = useMutation(
+    (body: UpdateBasketRequestDto) => updateBasket(body, basket?.id as number),
+    {
+      onSuccess: () => onEdit?.(),
+    },
+  );
+
+  const addBasket = (form: UpdateBasketRequestDto) => {
     mutate(form);
   };
 
@@ -58,12 +73,12 @@ const AddBasketModal = ({ isOpen, onClose, onAdd }: Props) => {
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Add a basket</ModalHeader>
+        <ModalHeader>Edit basket</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <form onSubmit={handleSubmit(addBasket)} id="add-basket">
+          <form onSubmit={handleSubmit(addBasket)} id="edit-basket">
             <InputFormControl
-              label="Name"
+              label="Basket name"
               name="name"
               error={errors.name}
               ref={register}
@@ -84,9 +99,9 @@ const AddBasketModal = ({ isOpen, onClose, onAdd }: Props) => {
             variant="ghost"
             isLoading={isLoading}
             type="submit"
-            form="add-basket"
+            form="edit-basket"
           >
-            Add
+            Confirm
           </Button>
         </ModalFooter>
       </ModalContent>
@@ -94,4 +109,4 @@ const AddBasketModal = ({ isOpen, onClose, onAdd }: Props) => {
   );
 };
 
-export default AddBasketModal;
+export default EditBasketModal;

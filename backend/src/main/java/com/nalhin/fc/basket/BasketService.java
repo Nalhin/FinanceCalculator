@@ -12,6 +12,7 @@ import org.springframework.web.server.ResponseStatusException;
 @RequiredArgsConstructor
 class BasketService {
   private final BasketRepository basketRepository;
+  private final BasketMapper basketMapper;
 
   public Page<Basket> findAll(Pageable page, Long userId) {
     return basketRepository.findAllByOwnerId(page, userId);
@@ -28,8 +29,7 @@ class BasketService {
     if (!basket.getOwner().getId().equals(userId)) {
       throw new ResponseStatusException(HttpStatus.FORBIDDEN);
     }
-
-    basket.setName(updateBasketRequest.getName());
+    basketMapper.updateEntity(basket, updateBasketRequest);
     return basketRepository.save(basket);
   }
 

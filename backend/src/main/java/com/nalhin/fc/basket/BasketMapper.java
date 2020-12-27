@@ -2,9 +2,11 @@ package com.nalhin.fc.basket;
 
 import com.nalhin.fc.basket.dto.BasketResponseDto;
 import com.nalhin.fc.basket.dto.SaveBasketRequestDto;
+import com.nalhin.fc.basket.dto.UpdateBasketRequestDto;
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 
 @Mapper(componentModel = "spring", injectionStrategy = InjectionStrategy.CONSTRUCTOR)
 public interface BasketMapper {
@@ -15,4 +17,9 @@ public interface BasketMapper {
   @Mapping(target = "id", ignore = true)
   @Mapping(target = "createdDate", ignore = true)
   Basket saveBasketRequestDtoToBasket(SaveBasketRequestDto requestDto);
+
+  @Mapping(target = "owner", ignore = true)
+  @Mapping(target = "id", ignore = true)
+  @Mapping(target = "createdDate", ignore = true)
+  void updateEntity(@MappingTarget Basket entity, UpdateBasketRequestDto updateBasket);
 }
