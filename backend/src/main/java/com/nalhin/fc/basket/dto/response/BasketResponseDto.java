@@ -1,4 +1,4 @@
-package com.nalhin.fc.basket.dto;
+package com.nalhin.fc.basket.dto.response;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

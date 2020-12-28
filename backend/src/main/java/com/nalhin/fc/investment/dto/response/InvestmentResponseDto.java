@@ -1,11 +1,10 @@
-package com.nalhin.fc.investment.dto;
+package com.nalhin.fc.investment.dto.response;
 
 import com.nalhin.fc.investment.InvestmentCategory;
 import com.nalhin.fc.investment.InvestmentRisk;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Data

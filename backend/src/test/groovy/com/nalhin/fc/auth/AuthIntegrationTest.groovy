@@ -1,7 +1,7 @@
 package com.nalhin.fc.auth
 
-import com.nalhin.fc.auth.dto.LoginUserRequestDto
-import com.nalhin.fc.auth.dto.SignUpUserRequestDto
+import com.nalhin.fc.auth.dto.request.LoginUserRequestDto
+import com.nalhin.fc.auth.dto.request.SignUpUserRequestDto
 import com.nalhin.fc.core.jwt.JwtService
 import com.nalhin.fc.test.factories.AuthTestFactory
 import com.nalhin.fc.test.factories.UserTestFactory

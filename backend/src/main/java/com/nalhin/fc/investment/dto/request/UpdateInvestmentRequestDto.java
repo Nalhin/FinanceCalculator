@@ -1,4 +1,4 @@
-package com.nalhin.fc.investment.dto;
+package com.nalhin.fc.investment.dto.request;
 
 import com.nalhin.fc.investment.InvestmentCategory;
 import lombok.Data;
@@ -6,7 +6,7 @@ import lombok.Data;
 import javax.validation.constraints.NotNull;
 
 @Data
-public class SaveInvestmentRequestDto {
+public class UpdateInvestmentRequestDto {
 
   @NotNull private Long startAmount;
   @NotNull private Integer yearsOfGrowth;

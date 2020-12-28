@@ -1,4 +1,4 @@
-package com.nalhin.fc.user.dto;
+package com.nalhin.fc.user.dto.response;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

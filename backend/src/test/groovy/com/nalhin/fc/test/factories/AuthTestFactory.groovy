@@ -1,7 +1,7 @@
 package com.nalhin.fc.test.factories
 
-import com.nalhin.fc.auth.dto.LoginUserRequestDto
-import com.nalhin.fc.auth.dto.SignUpUserRequestDto
+import com.nalhin.fc.auth.dto.request.LoginUserRequestDto
+import com.nalhin.fc.auth.dto.request.SignUpUserRequestDto
 import com.nalhin.fc.test.faker.TestFaker
 import com.nalhin.fc.user.User
 import org.springframework.data.util.Pair

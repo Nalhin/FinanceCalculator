@@ -1,12 +1,12 @@
 package com.nalhin.fc.basket;
 
-import com.nalhin.fc.basket.dto.UpdateBasketRequestDto;
+import com.nalhin.fc.basket.dto.request.UpdateBasketRequestDto;
+import com.nalhin.fc.basket.exception.BasketNotFoundException;
+import com.nalhin.fc.basket.exception.BasketNotOwnedException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 @Service
 @RequiredArgsConstructor
@@ -19,16 +19,12 @@ class BasketService {
   }
 
   public Basket update(Long basketId, UpdateBasketRequestDto updateBasketRequest, Long userId) {
-    Basket basket =
-        basketRepository
-            .findById(basketId)
-            .orElseThrow(
-                () ->
-                    new ResponseStatusException(
-                        HttpStatus.NOT_FOUND, "Basket not found with id " + basketId));
+    Basket basket = basketRepository.findById(basketId).orElseThrow(BasketNotFoundException::new);
+
     if (!basket.getOwner().getId().equals(userId)) {
-      throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+      throw new BasketNotOwnedException();
     }
+
     basketMapper.updateEntity(basket, updateBasketRequest);
     return basketRepository.save(basket);
   }
@@ -38,16 +34,10 @@ class BasketService {
   }
 
   public void delete(Long basketId, Long userId) {
-    Basket basket =
-        basketRepository
-            .findById(basketId)
-            .orElseThrow(
-                () ->
-                    new ResponseStatusException(
-                        HttpStatus.NOT_FOUND, "Basket not found with id " + basketId));
+    Basket basket = basketRepository.findById(basketId).orElseThrow(BasketNotFoundException::new);
 
     if (!basket.getOwner().getId().equals(userId)) {
-      throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+      throw new BasketNotOwnedException();
     }
 
     basketRepository.delete(basket);

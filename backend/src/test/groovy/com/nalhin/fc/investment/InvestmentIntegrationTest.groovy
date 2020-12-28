@@ -2,7 +2,7 @@ package com.nalhin.fc.investment
 
 import com.nalhin.fc.basket.BasketRepository
 import com.nalhin.fc.core.jwt.JwtService
-import com.nalhin.fc.investment.dto.UpdateInvestmentRequestDto
+import com.nalhin.fc.investment.dto.request.UpdateInvestmentRequestDto
 import com.nalhin.fc.test.factories.BasketTestFactory
 import com.nalhin.fc.test.factories.InvestmentTestFactory
 import com.nalhin.fc.test.factories.UserTestFactory

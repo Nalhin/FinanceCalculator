@@ -1,4 +1,4 @@
-package com.nalhin.fc.basket.dto;
+package com.nalhin.fc.basket.dto.request;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -7,7 +7,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 @Data
-public class SaveBasketRequestDto {
+public class UpdateBasketRequestDto {
 
   @NotBlank
   @Size(min = 3, max = 100)

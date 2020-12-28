@@ -1,8 +1,10 @@
 package com.nalhin.fc.auth;
 
-import com.nalhin.fc.auth.dto.AuthResponseDto;
-import com.nalhin.fc.auth.dto.LoginUserRequestDto;
-import com.nalhin.fc.auth.dto.SignUpUserRequestDto;
+import com.nalhin.fc.auth.dto.response.AuthResponseDto;
+import com.nalhin.fc.auth.dto.request.LoginUserRequestDto;
+import com.nalhin.fc.auth.dto.request.SignUpUserRequestDto;
+import com.nalhin.fc.auth.exception.UsernameOrEmailTakenException;
+import com.nalhin.fc.common.dto.ApiErrorResponseDto;
 import com.nalhin.fc.user.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -10,12 +12,10 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.util.Pair;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -42,13 +42,13 @@ class AuthController {
     Pair<User, String> result =
         authService.login(loginUserDto.getUsername(), loginUserDto.getPassword());
 
-    return ResponseEntity.ok(authMapper.authPairToResponse(result));
+    return ResponseEntity.ok(authMapper.toResponse(result));
   }
 
   @ApiOperation(value = "Create an account")
   @ApiResponses(
       value = {
-        @ApiResponse(code = 200, message = "Account createdDate"),
+        @ApiResponse(code = 200, message = "Account created"),
         @ApiResponse(code = 400, message = "Request body is invalid"),
         @ApiResponse(code = 409, message = "Username or email is already taken")
       })
@@ -57,8 +57,15 @@ class AuthController {
       @Valid @RequestBody SignUpUserRequestDto signUpUserDto) {
 
     Pair<User, String> result =
-        authService.signUp(authMapper.signUpUserRequestToDomain(signUpUserDto));
+        authService.signUp(authMapper.toEntity(signUpUserDto));
 
-    return ResponseEntity.ok(authMapper.authPairToResponse(result));
+    return ResponseEntity.ok(authMapper.toResponse(result));
+  }
+
+  @ExceptionHandler(UsernameOrEmailTakenException.class)
+  public ResponseEntity<ApiErrorResponseDto> handleAuctionNotFound(
+      UsernameOrEmailTakenException exception) {
+    return new ResponseEntity<>(
+        ApiErrorResponseDto.of(exception.getMessage()), HttpStatus.CONFLICT);
   }
 }

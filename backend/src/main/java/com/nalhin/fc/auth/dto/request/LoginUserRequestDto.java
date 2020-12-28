@@ -1,4 +1,4 @@
-package com.nalhin.fc.auth.dto;
+package com.nalhin.fc.auth.dto.request;
 
 import lombok.Data;
 

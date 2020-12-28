@@ -2,7 +2,7 @@ package com.nalhin.fc.user;
 
 import com.nalhin.fc.common.annotations.CurrentAppUser;
 import com.nalhin.fc.core.security.AppUser;
-import com.nalhin.fc.user.dto.UserResponseDto;
+import com.nalhin.fc.user.dto.response.UserResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +19,6 @@ class UserController {
 
   @GetMapping(path = "/me", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<UserResponseDto> me(@CurrentAppUser AppUser appUser) {
-    return ResponseEntity.ok(userMapper.userToUserResponseDto(appUser.getUser()));
+    return ResponseEntity.ok(userMapper.toResponse(appUser.getUser()));
   }
 }

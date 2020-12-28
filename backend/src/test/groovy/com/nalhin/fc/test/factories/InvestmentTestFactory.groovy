@@ -4,8 +4,8 @@ import com.github.javafaker.Faker
 import com.nalhin.fc.basket.Basket
 import com.nalhin.fc.investment.Investment
 import com.nalhin.fc.investment.InvestmentCategory
-import com.nalhin.fc.investment.dto.SaveInvestmentRequestDto
-import com.nalhin.fc.investment.dto.UpdateInvestmentRequestDto
+import com.nalhin.fc.investment.dto.request.SaveInvestmentRequestDto
+import com.nalhin.fc.investment.dto.request.UpdateInvestmentRequestDto
 import com.nalhin.fc.test.faker.TestFaker
 import com.nalhin.fc.user.User
 

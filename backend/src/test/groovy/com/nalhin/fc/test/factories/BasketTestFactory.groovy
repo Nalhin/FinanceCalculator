@@ -2,8 +2,8 @@ package com.nalhin.fc.test.factories
 
 import com.github.javafaker.Faker
 import com.nalhin.fc.basket.Basket
-import com.nalhin.fc.basket.dto.SaveBasketRequestDto
-import com.nalhin.fc.basket.dto.UpdateBasketRequestDto
+import com.nalhin.fc.basket.dto.request.SaveBasketRequestDto
+import com.nalhin.fc.basket.dto.request.UpdateBasketRequestDto
 import com.nalhin.fc.test.faker.TestFaker
 import com.nalhin.fc.user.User
 

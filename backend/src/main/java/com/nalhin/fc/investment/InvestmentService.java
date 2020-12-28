@@ -2,11 +2,11 @@ package com.nalhin.fc.investment;
 
 import com.nalhin.fc.basket.Basket;
 import com.nalhin.fc.basket.BasketRepository;
-import com.nalhin.fc.investment.dto.UpdateInvestmentRequestDto;
+import com.nalhin.fc.investment.dto.request.UpdateInvestmentRequestDto;
+import com.nalhin.fc.investment.exception.InvestmentNotFoundException;
+import com.nalhin.fc.investment.exception.InvestmentNotOwnedException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -26,11 +26,10 @@ class InvestmentService {
     Investment investment =
         investmentRepository
             .findByBasketIdAndId(investmentId, basketId)
-            .orElseThrow(
-                () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Investment not found"));
+            .orElseThrow(InvestmentNotFoundException::new);
 
     if (!investment.getOwner().getId().equals(userId)) {
-      throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+      throw new InvestmentNotOwnedException();
     }
 
     return investment;
@@ -38,10 +37,7 @@ class InvestmentService {
 
   public Investment saveInvestment(Investment investment, Long basketId) {
     Basket basket =
-        basketRepository
-            .findById(basketId)
-            .orElseThrow(
-                () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Basket not found"));
+        basketRepository.findById(basketId).orElseThrow(InvestmentNotFoundException::new);
 
     investment.setBasket(basket);
     return investmentRepository.save(investment);
@@ -52,14 +48,13 @@ class InvestmentService {
     Investment investment =
         investmentRepository
             .findByBasketIdAndId(basketId, investmentId)
-            .orElseThrow(
-                () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Investment not found"));
+            .orElseThrow(InvestmentNotFoundException::new);
 
     if (!investment.getOwner().getId().equals(userId)) {
-      throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+      throw new InvestmentNotOwnedException();
     }
 
-    investmentMapper.updateInvestmentFromDto(investmentRequest, investment);
+    investmentMapper.updateEntity(investmentRequest, investment);
     return investmentRepository.save(investment);
   }
 
@@ -67,11 +62,10 @@ class InvestmentService {
     Investment investment =
         investmentRepository
             .findByBasketIdAndId(basketId, investmentId)
-            .orElseThrow(
-                () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Investment not found"));
+            .orElseThrow(InvestmentNotFoundException::new);
 
     if (!investment.getOwner().getId().equals(userId)) {
-      throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+      throw new InvestmentNotOwnedException();
     }
 
     investmentRepository.delete(investment);

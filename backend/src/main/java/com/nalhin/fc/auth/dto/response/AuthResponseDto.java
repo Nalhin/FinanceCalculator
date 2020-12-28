@@ -1,6 +1,6 @@
-package com.nalhin.fc.auth.dto;
+package com.nalhin.fc.auth.dto.response;
 
-import com.nalhin.fc.user.dto.UserResponseDto;
+import com.nalhin.fc.user.dto.response.UserResponseDto;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
