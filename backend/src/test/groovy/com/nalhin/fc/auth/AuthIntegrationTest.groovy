@@ -3,6 +3,7 @@ package com.nalhin.fc.auth
 import com.nalhin.fc.auth.dto.request.LoginUserRequestDto
 import com.nalhin.fc.auth.dto.request.SignUpUserRequestDto
 import com.nalhin.fc.core.jwt.JwtService
+import com.nalhin.fc.test.annotations.IntegrationTest
 import com.nalhin.fc.test.factories.AuthTestFactory
 import com.nalhin.fc.test.factories.UserTestFactory
 import com.nalhin.fc.user.UserRepository
@@ -15,12 +16,11 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.web.server.LocalServerPort
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
-import org.springframework.test.context.ActiveProfiles
 import spock.lang.Specification
 
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@ActiveProfiles("test")
+@IntegrationTest
 class AuthIntegrationTest extends Specification {
 
   @LocalServerPort
@@ -45,7 +45,6 @@ class AuthIntegrationTest extends Specification {
   def cleanup() {
     userRepository.deleteAll()
   }
-
 
   def 'POST /auth/sign-up should return BAD_REQUEST (400) status code and user when request body is invalid'() {
     given:

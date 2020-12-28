@@ -1,12 +1,12 @@
 package com.nalhin.fc
 
+import com.nalhin.fc.test.annotations.IntegrationTest
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.test.context.ActiveProfiles
 
 
 @SpringBootTest
-@ActiveProfiles("test")
+@IntegrationTest
 class ApplicationTests {
 
   @Test

@@ -1,6 +1,7 @@
 package com.nalhin.fc.user
 
 import com.nalhin.fc.core.jwt.JwtService
+import com.nalhin.fc.test.annotations.IntegrationTest
 import com.nalhin.fc.test.factories.UserTestFactory
 import groovy.json.JsonSlurper
 import io.restassured.RestAssured
@@ -16,7 +17,7 @@ import spock.lang.Specification
 
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@ActiveProfiles("test")
+@IntegrationTest
 class UserIntegrationTest extends Specification {
 
   @LocalServerPort

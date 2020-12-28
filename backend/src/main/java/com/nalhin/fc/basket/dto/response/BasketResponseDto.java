@@ -3,7 +3,7 @@ package com.nalhin.fc.basket.dto.response;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 @Data
 public class BasketResponseDto {
@@ -18,5 +18,5 @@ public class BasketResponseDto {
   private String description;
 
   @ApiModelProperty(required = true)
-  private LocalDateTime createdDate;
+  private Instant createdDate;
 }

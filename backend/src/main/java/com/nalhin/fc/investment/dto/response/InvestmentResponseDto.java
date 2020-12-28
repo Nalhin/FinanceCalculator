@@ -5,6 +5,7 @@ import com.nalhin.fc.investment.InvestmentRisk;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.time.Instant;
 import java.util.Date;
 
 @Data
@@ -29,7 +30,7 @@ public class InvestmentResponseDto {
   private Integer payment;
 
   @ApiModelProperty(required = true)
-  private Date createdDate;
+  private Instant createdDate;
 
   @ApiModelProperty(required = true)
   private InvestmentCategory category;

@@ -1,6 +1,8 @@
 package com.nalhin.fc.basket
 
 import com.nalhin.fc.core.jwt.JwtService
+import com.nalhin.fc.test.annotations.IntegrationTest
+import com.nalhin.fc.test.clock.TestClock
 import com.nalhin.fc.test.factories.BasketTestFactory
 import com.nalhin.fc.test.factories.UserTestFactory
 import com.nalhin.fc.user.User
@@ -19,7 +21,7 @@ import spock.lang.Specification
 
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@ActiveProfiles("test")
+@IntegrationTest
 class BasketIntegrationTest extends Specification {
 
   @LocalServerPort
@@ -89,6 +91,7 @@ class BasketIntegrationTest extends Specification {
     resp.header("location").contains("/baskets/" + (int) respBody.id)
     and:
     respBody.name == body.name
+    respBody.createdDate == TestClock.TEST_CLOCK_TIME
   }
 
   def 'POST /me/baskets should return BAD_REQUEST (400) status code when body is invalid'() {

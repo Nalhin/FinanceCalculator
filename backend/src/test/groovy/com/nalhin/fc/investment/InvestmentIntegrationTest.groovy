@@ -3,6 +3,8 @@ package com.nalhin.fc.investment
 import com.nalhin.fc.basket.BasketRepository
 import com.nalhin.fc.core.jwt.JwtService
 import com.nalhin.fc.investment.dto.request.UpdateInvestmentRequestDto
+import com.nalhin.fc.test.annotations.IntegrationTest
+import com.nalhin.fc.test.clock.TestClock
 import com.nalhin.fc.test.factories.BasketTestFactory
 import com.nalhin.fc.test.factories.InvestmentTestFactory
 import com.nalhin.fc.test.factories.UserTestFactory
@@ -17,12 +19,11 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.web.server.LocalServerPort
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
-import org.springframework.test.context.ActiveProfiles
 import spock.lang.Specification
 
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@ActiveProfiles("test")
+@IntegrationTest
 class InvestmentIntegrationTest extends Specification {
 
   @LocalServerPort
@@ -83,6 +84,7 @@ class InvestmentIntegrationTest extends Specification {
     resp.statusCode() == HttpStatus.OK.value()
     and:
     respBody.yearsOfGrowth == savedInvestment.yearsOfGrowth
+    respBody.createdDate == TestClock.TEST_CLOCK_TIME
   }
 
   def 'GET /me/baskets/{basketId}/investments/{investmentId} should return NOT_FOUND (404) status code when basket is missing'() {

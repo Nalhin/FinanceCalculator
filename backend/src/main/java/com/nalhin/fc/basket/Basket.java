@@ -7,7 +7,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 @Data
 @Entity
@@ -27,7 +27,7 @@ public class Basket {
 
   @Column(name = "created_date", nullable = false)
   @CreatedDate
-  private LocalDateTime createdDate;
+  private Instant createdDate;
 
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
   @JoinColumn(name = "owner_id", nullable = false)
