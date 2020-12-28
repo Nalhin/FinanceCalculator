@@ -14,7 +14,6 @@ import static com.nalhin.fc.test.factories.BasketTestFactory.saveBasketRequestDt
 import static com.nalhin.fc.test.factories.BasketTestFactory.updateBasketRequestDto
 import static com.nalhin.fc.test.factories.UserTestFactory.user
 
-
 @IntegrationTest
 class BasketIntegrationTest extends IntegrationSpecification {
 
@@ -85,20 +84,20 @@ class BasketIntegrationTest extends IntegrationSpecification {
     given:
     def body = updateBasketRequestDto()
     when:
-    def resp = authenticatedClient(owner).when().body(body).put('/baskets/1')
+    def resp = authenticatedClient(owner).when().body(body).put("/baskets/${1}")
     then:
     resp.statusCode() == HttpStatus.NOT_FOUND.value()
   }
 
 
-  def 'PUT /me/baskets/{basketId} should return UNAUTHORIZED (401) status code when user does not own the basket'() {
+  def 'PUT /me/baskets/{basketId} should return FORBIDDEN (403) status code when user does not own the basket'() {
     given:
     def saved = basketRepository.save(basket(owner: userRepository.save(user())))
     def body = updateBasketRequestDto()
     when:
-    def resp = authenticatedClient(owner).when().body(body).put("/baskets/${saved.id}")
+    def resp = authenticatedClient(owner).when().body(body).put("/me/baskets/${saved.id}")
     then:
-    resp.statusCode() == HttpStatus.NOT_FOUND.value()
+    resp.statusCode() == HttpStatus.FORBIDDEN.value()
   }
 
   def 'PUT /me/baskets/{basketId} should return OK (200) status code and update basket'() {
@@ -129,7 +128,7 @@ class BasketIntegrationTest extends IntegrationSpecification {
 
   def 'DELETE /me/baskets/{basketId} should return NOT_FOUND (404) status code when basket is missing'() {
     when:
-    def resp = authenticatedClient(owner).when().delete('/me/baskets/1')
+    def resp = authenticatedClient(owner).when().delete("/me/baskets/${1}")
     then:
     resp.statusCode() == HttpStatus.NOT_FOUND.value()
   }

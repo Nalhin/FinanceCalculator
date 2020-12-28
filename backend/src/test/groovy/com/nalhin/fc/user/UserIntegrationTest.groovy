@@ -7,9 +7,9 @@ import groovy.json.JsonSlurper
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 
-
 @IntegrationTest
 class UserIntegrationTest extends IntegrationSpecification {
+
   @Autowired
   private UserRepository userRepository
 
@@ -23,8 +23,7 @@ class UserIntegrationTest extends IntegrationSpecification {
     given:
     def user = userRepository.save(UserTestFactory.user())
     when:
-    def resp = authenticatedClient(user)
-        .when().get("/me")
+    def resp = authenticatedClient(user).when().get("/me")
     def respBody = jsonSlurper.parseText(resp.body().asString())
     then:
     resp.statusCode() == HttpStatus.OK.value()

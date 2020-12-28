@@ -1,6 +1,5 @@
 package com.nalhin.fc.common.dto;
 
-import io.swagger.annotations.ApiModelProperty;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

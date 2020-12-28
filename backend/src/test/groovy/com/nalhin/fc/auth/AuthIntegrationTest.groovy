@@ -12,7 +12,6 @@ import org.springframework.http.HttpStatus
 
 import static com.nalhin.fc.test.factories.AuthTestFactory.signUpUserDto
 
-
 @IntegrationTest
 class AuthIntegrationTest extends IntegrationSpecification {
 

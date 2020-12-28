@@ -17,7 +17,6 @@ import static com.nalhin.fc.test.factories.InvestmentTestFactory.saveInvestmentR
 import static com.nalhin.fc.test.factories.InvestmentTestFactory.updateInvestmentRequestDto
 import static com.nalhin.fc.test.factories.UserTestFactory.user
 
-
 @IntegrationTest
 class InvestmentIntegrationTest extends IntegrationSpecification {
 
@@ -42,7 +41,7 @@ class InvestmentIntegrationTest extends IntegrationSpecification {
     userRepository.deleteAll()
   }
 
-  def 'GET /me/baskets/{basketId}/investments should return OK (200) status code and investments belonging to that basket'() {
+  def 'GET /me/baskets/{basketId}/investments should return OK (200) status code and investments that belong to the basket'() {
     given:
     def basket = basketRepository.save(basket(owner: owner))
     def savedInvestment = investmentRepository.save(investment(basket: basket, owner: owner))
@@ -83,9 +82,19 @@ class InvestmentIntegrationTest extends IntegrationSpecification {
     given:
     def basket = basketRepository.save(basket(owner: owner))
     when:
-    def resp = authenticatedClient(owner).when().get("/me/baskets/${basket.id}/investments/1")
+    def resp = authenticatedClient(owner).when().get("/me/baskets/${basket.id}/investments/${1}")
     then:
     resp.statusCode() == HttpStatus.NOT_FOUND.value()
+  }
+
+  def 'GET /me/baskets/{basketId}/investments/{investmentId} should return FORBIDDEN (403) status code when user does not own the investment'() {
+    given:
+    def basket = basketRepository.save(basket(owner: owner))
+    def savedInvestment = investmentRepository.save(investment(basket: basket, owner: userRepository.save(user())))
+    when:
+    def resp = authenticatedClient(owner).when().get("/me/baskets/${basket.id}/investments/${savedInvestment.id}")
+    then:
+    resp.statusCode() == HttpStatus.FORBIDDEN.value()
   }
 
   def 'POST /me/baskets/{basketId}/investments should return CREATED (201) status code and investment details'() {
@@ -142,7 +151,7 @@ class InvestmentIntegrationTest extends IntegrationSpecification {
     respBody.yearsOfGrowth == requestBody.yearsOfGrowth
   }
 
-  def 'PUT /me/baskets/{basketId}/investments/{investmentId} should return NOT_FOUND (404) status code when basket is not found'() {
+  def 'PUT /me/baskets/{basketId}/investments/{investmentId} should return NOT_FOUND (404) status code when investment is not found'() {
     given:
     def requestBody = updateInvestmentRequestDto()
     when:
@@ -151,12 +160,24 @@ class InvestmentIntegrationTest extends IntegrationSpecification {
     resp.statusCode() == HttpStatus.NOT_FOUND.value()
   }
 
+  def 'PUT /me/baskets/{basketId}/investments/{investmentId} should return FORBIDDEN (403) status code when user doesnt own the investment'() {
+    given:
+    def differentUser = userRepository.save(user())
+    def notOwnedBasket = basketRepository.save(basket(owner: differentUser))
+    def notOwnedInvestment = investmentRepository.save(investment(basket: notOwnedBasket, owner: differentUser))
+    def requestBody = updateInvestmentRequestDto()
+    when:
+    def resp = authenticatedClient(owner).when().body(requestBody).put("/me/baskets/${notOwnedBasket.id}/investments/${notOwnedInvestment.id}")
+    then:
+    resp.statusCode() == HttpStatus.FORBIDDEN.value()
+  }
+
   def 'PUT /me/baskets/{basketId}/investments/{investmentId} should return BAD_REQUEST (400) status code when requestBody is invalid'() {
     given:
     def basket = basketRepository.save(basket(owner: owner))
     def requestBody = new UpdateInvestmentRequestDto()
     when:
-    def resp = authenticatedClient(owner).when().body(requestBody).put("/me/baskets/${basket.id}/investments/1")
+    def resp = authenticatedClient(owner).when().body(requestBody).put("/me/baskets/${basket.id}/investments/${1}")
     then:
     resp.statusCode() == HttpStatus.BAD_REQUEST.value()
   }
@@ -165,9 +186,20 @@ class InvestmentIntegrationTest extends IntegrationSpecification {
     given:
     def savedBasket = basketRepository.save(basket(owner: owner))
     when:
-    def resp = authenticatedClient(owner).when().delete("/me/baskets/${savedBasket.id}/investments/1")
+    def resp = authenticatedClient(owner).when().delete("/me/baskets/${savedBasket.id}/investments/${1}")
     then:
     resp.statusCode() == HttpStatus.NOT_FOUND.value()
+  }
+
+  def 'DELETE /me/baskets/{basketId}/investments/{investmentId} should return FORBIDDEN (403) status code when user does not own the investment'() {
+    given:
+    def differentUser = userRepository.save(user())
+    def notOwnedBasket = basketRepository.save(basket(owner: differentUser))
+    def notOwnedInvestment = investmentRepository.save(investment(basket: notOwnedBasket, owner: differentUser))
+    when:
+    def resp = authenticatedClient(owner).when().delete("/me/baskets/${notOwnedBasket.id}/investments/${notOwnedInvestment.id}")
+    then:
+    resp.statusCode() == HttpStatus.FORBIDDEN.value()
   }
 
   def 'DELETE /me/baskets/{basketId}/investments/{investmentId} should return OK (200) status code and delete investment'() {

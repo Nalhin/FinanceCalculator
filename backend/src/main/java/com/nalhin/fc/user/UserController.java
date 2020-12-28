@@ -1,13 +1,10 @@
 package com.nalhin.fc.user;
 
 import com.nalhin.fc.common.annotations.CurrentAppUser;
-import com.nalhin.fc.common.dto.ApiErrorResponseDto;
-import com.nalhin.fc.common.dto.ValidationErrorResponseDto;
 import com.nalhin.fc.core.security.AppUser;
 import com.nalhin.fc.user.dto.response.UserResponseDto;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
