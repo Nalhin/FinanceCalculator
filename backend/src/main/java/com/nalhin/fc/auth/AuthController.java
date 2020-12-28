@@ -5,6 +5,7 @@ import com.nalhin.fc.auth.dto.request.LoginUserRequestDto;
 import com.nalhin.fc.auth.dto.request.SignUpUserRequestDto;
 import com.nalhin.fc.auth.exception.UsernameOrEmailTakenException;
 import com.nalhin.fc.common.dto.ApiErrorResponseDto;
+import com.nalhin.fc.common.dto.ValidationErrorResponseDto;
 import com.nalhin.fc.user.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -32,10 +33,19 @@ class AuthController {
   @ApiResponses(
       value = {
         @ApiResponse(code = 200, message = "Successful Login"),
-        @ApiResponse(code = 400, message = "Request body is invalid"),
-        @ApiResponse(code = 403, message = "Invalid credentials or account does not exist"),
+        @ApiResponse(
+            code = 400,
+            message = "Request body is invalid",
+            response = ValidationErrorResponseDto.class),
+        @ApiResponse(
+            code = 403,
+            message = "Invalid credentials or account does not exist",
+            response = ApiErrorResponseDto.class),
       })
-  @PostMapping(path = "/auth/login", produces = MediaType.APPLICATION_JSON_VALUE)
+  @PostMapping(
+      path = "/auth/login",
+      produces = MediaType.APPLICATION_JSON_VALUE,
+      consumes = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<AuthResponseDto> login(
       @Valid @RequestBody LoginUserRequestDto loginUserDto) {
 
@@ -49,15 +59,23 @@ class AuthController {
   @ApiResponses(
       value = {
         @ApiResponse(code = 200, message = "Account created"),
-        @ApiResponse(code = 400, message = "Request body is invalid"),
-        @ApiResponse(code = 409, message = "Username or email is already taken")
+        @ApiResponse(
+            code = 400,
+            message = "Request body is invalid",
+            response = ValidationErrorResponseDto.class),
+        @ApiResponse(
+            code = 409,
+            message = "Username or email is already taken",
+            response = ApiErrorResponseDto.class)
       })
-  @PostMapping(path = "/auth/sign-up", produces = MediaType.APPLICATION_JSON_VALUE)
+  @PostMapping(
+      path = "/auth/sign-up",
+      produces = MediaType.APPLICATION_JSON_VALUE,
+      consumes = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<AuthResponseDto> signUp(
       @Valid @RequestBody SignUpUserRequestDto signUpUserDto) {
 
-    Pair<User, String> result =
-        authService.signUp(authMapper.toEntity(signUpUserDto));
+    Pair<User, String> result = authService.signUp(authMapper.toEntity(signUpUserDto));
 
     return ResponseEntity.ok(authMapper.toResponse(result));
   }

@@ -1,5 +1,6 @@
-package com.nalhin.fc.core.error.dto;
+package com.nalhin.fc.common.dto;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,7 +12,10 @@ import javax.validation.ConstraintViolation;
 @Getter
 public class ValidationFieldErrorResponseDto {
 
+  @ApiModelProperty(required = true)
   private final String field;
+
+  @ApiModelProperty(required = true)
   private final String message;
 
   public static ValidationFieldErrorResponseDto from(FieldError fieldError) {

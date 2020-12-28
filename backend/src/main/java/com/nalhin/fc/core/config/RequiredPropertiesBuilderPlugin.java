@@ -16,7 +16,7 @@ import java.util.List;
 
 @Component
 @Order(Validators.BEAN_VALIDATOR_PLUGIN_ORDER)
-public class RequiredPropertiesBuilder implements ModelPropertyBuilderPlugin {
+public class RequiredPropertiesBuilderPlugin implements ModelPropertyBuilderPlugin {
 
   private final List<Class<?>> markAsRequired = List.of(Page.class, Pageable.class, Sort.class);
 

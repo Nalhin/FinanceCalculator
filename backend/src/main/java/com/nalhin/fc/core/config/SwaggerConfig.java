@@ -26,13 +26,14 @@ public class SwaggerConfig {
         .apis(RequestHandlerSelectors.withClassAnnotation(RestController.class))
         .paths(PathSelectors.any())
         .build()
+        .useDefaultResponseMessages(false)
         .apiInfo(metadata())
         .securitySchemes(Collections.singletonList(apiKey()));
   }
 
   private ApiInfo metadata() {
     return new ApiInfoBuilder()
-        .title("Financial Calculator")
+        .title("Finance Calculator")
         .description("Financial Calculator REST API")
         .version("1.0.0")
         .license("MIT License")

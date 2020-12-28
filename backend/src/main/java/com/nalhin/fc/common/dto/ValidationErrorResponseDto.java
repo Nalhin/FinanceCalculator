@@ -1,5 +1,6 @@
-package com.nalhin.fc.core.error.dto;
+package com.nalhin.fc.common.dto;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,6 +14,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
 public class ValidationErrorResponseDto {
+
   private final List<ValidationFieldErrorResponseDto> errors;
 
   public static ValidationErrorResponseDto from(List<FieldError> fieldErrors) {

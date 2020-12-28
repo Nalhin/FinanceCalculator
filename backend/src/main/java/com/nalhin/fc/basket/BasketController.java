@@ -7,17 +7,21 @@ import com.nalhin.fc.basket.exception.BasketNotFoundException;
 import com.nalhin.fc.basket.exception.BasketNotOwnedException;
 import com.nalhin.fc.common.annotations.CurrentAppUser;
 import com.nalhin.fc.common.dto.ApiErrorResponseDto;
+import com.nalhin.fc.common.dto.ValidationErrorResponseDto;
 import com.nalhin.fc.core.security.AppUser;
+import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.net.URI;
 
+@Api(tags = "Basket")
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
@@ -26,7 +30,15 @@ class BasketController {
   private final BasketService basketService;
   private final BasketMapper basketMapper;
 
-  @GetMapping("/me/baskets")
+  @ApiOperation(
+      value = "Get baskets that belong to current user",
+      authorizations = {@Authorization(value = "Authorization")})
+  @ApiResponses(
+      value = {
+        @ApiResponse(code = 200, message = "Success"),
+        @ApiResponse(code = 403, message = "Unauthorized"),
+      })
+  @GetMapping(path = "/me/baskets", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Page<BasketResponseDto>> getBaskets(
       Pageable pageable, @CurrentAppUser AppUser appUser) {
 
@@ -35,7 +47,22 @@ class BasketController {
     return ResponseEntity.ok(basketsPage.map(basketMapper::toResponse));
   }
 
-  @PostMapping("/me/baskets")
+  @ApiOperation(
+      value = "Save a basket",
+      authorizations = {@Authorization(value = "Authorization")})
+  @ApiResponses(
+      value = {
+        @ApiResponse(code = 201, message = "Created"),
+        @ApiResponse(
+            code = 400,
+            message = "Invalid request body",
+            response = ValidationErrorResponseDto.class),
+        @ApiResponse(code = 403, message = "Unauthorized"),
+      })
+  @PostMapping(
+      path = "/me/baskets",
+      produces = MediaType.APPLICATION_JSON_VALUE,
+      consumes = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<BasketResponseDto> saveBasket(
       @Valid @RequestBody SaveBasketRequestDto basket) {
 
@@ -45,7 +72,23 @@ class BasketController {
     return ResponseEntity.created(location).body(basketMapper.toResponse(savedBasket));
   }
 
-  @PutMapping("/me/baskets/{basketId}")
+  @ApiOperation(
+      value = "Update a basket",
+      authorizations = {@Authorization(value = "Authorization")})
+  @ApiResponses(
+      value = {
+        @ApiResponse(code = 200, message = "Success"),
+        @ApiResponse(
+            code = 400,
+            message = "Invalid request body",
+            response = ValidationErrorResponseDto.class),
+        @ApiResponse(code = 403, message = "Unauthorized"),
+        @ApiResponse(code = 404, message = "Basket not found", response = ApiErrorResponseDto.class)
+      })
+  @PutMapping(
+      path = "/me/baskets/{basketId}",
+      produces = MediaType.APPLICATION_JSON_VALUE,
+      consumes = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<BasketResponseDto> updateBasket(
       @PathVariable Long basketId,
       @Valid @RequestBody UpdateBasketRequestDto updateBasketRequestDto,
@@ -56,7 +99,16 @@ class BasketController {
     return ResponseEntity.ok(basketMapper.toResponse(updatedBasket));
   }
 
-  @DeleteMapping("/me/baskets/{basketId}")
+  @ApiOperation(
+      value = "Delete a basket",
+      authorizations = {@Authorization(value = "Authorization")})
+  @ApiResponses(
+      value = {
+        @ApiResponse(code = 200, message = "Success"),
+        @ApiResponse(code = 403, message = "Unauthorized"),
+        @ApiResponse(code = 404, message = "Basket not found", response = ApiErrorResponseDto.class)
+      })
+  @DeleteMapping(path = "/me/baskets/{basketId}", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Void> deleteBasket(
       @PathVariable Long basketId, @CurrentAppUser AppUser appUser) {
 

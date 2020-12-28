@@ -2,7 +2,9 @@ package com.nalhin.fc.investment;
 
 import com.nalhin.fc.basket.Basket;
 import com.nalhin.fc.basket.BasketRepository;
+import com.nalhin.fc.basket.exception.BasketNotFoundException;
 import com.nalhin.fc.investment.dto.request.UpdateInvestmentRequestDto;
+import com.nalhin.fc.investment.exception.InvestmentBasketNotFound;
 import com.nalhin.fc.investment.exception.InvestmentNotFoundException;
 import com.nalhin.fc.investment.exception.InvestmentNotOwnedException;
 import lombok.RequiredArgsConstructor;
@@ -36,8 +38,7 @@ class InvestmentService {
   }
 
   public Investment saveInvestment(Investment investment, Long basketId) {
-    Basket basket =
-        basketRepository.findById(basketId).orElseThrow(InvestmentNotFoundException::new);
+    Basket basket = basketRepository.findById(basketId).orElseThrow(InvestmentBasketNotFound::new);
 
     investment.setBasket(basket);
     return investmentRepository.save(investment);
