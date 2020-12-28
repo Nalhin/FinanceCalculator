@@ -19,7 +19,7 @@ interface Props {
   error?: FieldError;
 }
 
-const SliderInput = React.forwardRef(
+const NumberInputFormControl = React.forwardRef(
   (
     { label, onChange, onBlur, name, value, min, max, error }: Props,
     ref: React.Ref<HTMLInputElement>,
@@ -45,4 +45,4 @@ const SliderInput = React.forwardRef(
   },
 );
 
-export default SliderInput;
+export default NumberInputFormControl;

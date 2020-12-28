@@ -1,7 +1,6 @@
 import React from 'react';
-import { Redirect, Route } from 'react-router-dom';
+import { Redirect, Route, RouteProps } from 'react-router-dom';
 import { useUser } from '../../context/auth/use-user/use-user';
-import { RouteProps } from 'react-router-dom';
 import { CanActivate } from '../../types/router';
 
 interface Props extends RouteProps {

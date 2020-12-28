@@ -51,7 +51,7 @@ describe('EditInvestmentModal', () => {
     expect(onClose).toHaveBeenCalledTimes(1);
   });
 
-  it('should set form input values when edited basket is provided', () => {
+  it('should set form input values when edited basket is provided', async () => {
     const providedInvestment = investmentResponseFactory.buildOne({
       id: investmentId,
     });
@@ -64,12 +64,14 @@ describe('EditInvestmentModal', () => {
       />,
     );
 
-    expect(
-      screen.getByDisplayValue(providedInvestment.yearsOfGrowth),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByDisplayValue(providedInvestment.startAmount),
-    ).toBeInTheDocument();
+    await waitFor(() => {
+      expect(
+        screen.getByDisplayValue(providedInvestment.yearsOfGrowth),
+      ).toBeInTheDocument();
+      expect(
+        screen.getByDisplayValue(providedInvestment.startAmount),
+      ).toBeInTheDocument();
+    });
   });
 
   it('should send request when the form is valid and clear form state after a successful response', async () => {

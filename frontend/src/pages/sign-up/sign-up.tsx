@@ -13,11 +13,16 @@ import * as yup from 'yup';
 import InputFormControl from '../../shared/components/forms/input-form-control/input-form-control';
 
 const schema = yup.object().shape({
-  username: yup.string().required('Username is required'),
+  username: yup
+    .string()
+    .required('Username is required')
+    .min(3, 'Username must be at least 3 characters long')
+    .max(30, 'Username must not be longer than 30 characters'),
   password: yup
     .string()
     .required('Password is required')
-    .min(6, 'Password must be at least 6 character long'),
+    .min(6, 'Password must be at least 6 character long')
+    .max(30, 'Password must not be longer than 30 characters'),
   email: yup
     .string()
     .email('Email must be valid')

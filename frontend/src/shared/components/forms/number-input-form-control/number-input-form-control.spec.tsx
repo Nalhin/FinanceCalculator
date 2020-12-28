@@ -2,13 +2,13 @@ import { renderWithProviders } from '../../../../../test/render/render-with-prov
 import userEvent from '@testing-library/user-event';
 import { screen } from '@testing-library/react';
 import React from 'react';
-import SliderInput from './number-input-form-control';
+import NumberInputFormControl from './number-input-form-control';
 
 describe('SliderInput component', () => {
   it('should fire onChange callback after a value is changes', () => {
     const onChange = jest.fn();
     renderWithProviders(
-      <SliderInput
+      <NumberInputFormControl
         label={'input'}
         onChange={onChange}
         name={'input'}

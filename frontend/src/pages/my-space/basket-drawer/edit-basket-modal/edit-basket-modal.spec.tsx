@@ -47,14 +47,16 @@ describe('EditBasketModal component', () => {
     expect(onClose).toHaveBeenCalledTimes(1);
   });
 
-  it('should set form input values when edited basket is provided', () => {
+  it('should set form input values when edited basket is provided', async () => {
     const basket = basketResponseFactory.buildOne();
     renderWithProviders(
       <EditBasketModal isOpen onClose={jest.fn()} basket={basket} />,
     );
 
-    expect(screen.getByDisplayValue(basket.name)).toBeInTheDocument();
-    expect(screen.getByDisplayValue(basket.description)).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByDisplayValue(basket.name)).toBeInTheDocument();
+      expect(screen.getByDisplayValue(basket.description)).toBeInTheDocument();
+    });
   });
 
   it('should display errors and shouldnt send a request when the form is invalid', async () => {

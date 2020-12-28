@@ -19,7 +19,7 @@ const InvestmentConfigFormControlGroup = ({ control, errors }: Props) => {
         render={(props) => (
           <NumberInput
             label="Initial amount"
-            min={1}
+            min={0}
             max={10_000_000}
             error={errors?.startAmount}
             {...props}
@@ -31,8 +31,8 @@ const InvestmentConfigFormControlGroup = ({ control, errors }: Props) => {
         name="annualInterestRate"
         render={(props) => (
           <NumberInput
-            min={1}
-            max={15}
+            min={0}
+            max={30}
             label="Estimated annual rate of return"
             error={errors?.annualInterestRate}
             {...props}
@@ -50,7 +50,7 @@ const InvestmentConfigFormControlGroup = ({ control, errors }: Props) => {
         render={(props) => (
           <NumberInput
             min={1}
-            max={15}
+            max={30}
             label="Years of growth"
             {...props}
             error={errors?.yearsOfGrowth}
@@ -62,7 +62,7 @@ const InvestmentConfigFormControlGroup = ({ control, errors }: Props) => {
         name="payment"
         render={(props) => (
           <NumberInput
-            min={1}
+            min={0}
             max={1_000_000}
             label="Additional payment"
             error={errors?.payment}

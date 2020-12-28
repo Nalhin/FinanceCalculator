@@ -14,10 +14,7 @@ import InputFormControl from '../../shared/components/forms/input-form-control/i
 
 const schema = yup.object().shape({
   username: yup.string().required('Username is required'),
-  password: yup
-    .string()
-    .required('Password is required')
-    .min(6, 'Password must be at least 6 character long'),
+  password: yup.string().required('Password is required'),
 });
 
 interface Props {
