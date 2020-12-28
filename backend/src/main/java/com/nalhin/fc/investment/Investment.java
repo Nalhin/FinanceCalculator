@@ -50,9 +50,9 @@ public class Investment {
   @Enumerated(value = EnumType.STRING)
   private InvestmentCategory category;
 
-  @Column(name = "created", nullable = false)
+  @Column(name = "created_date", nullable = false)
   @CreatedDate
-  private Date created;
+  private Date createdDate;
 
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
   @JoinColumn(name = "owner_id", nullable = false)

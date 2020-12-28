@@ -1,9 +1,11 @@
 package com.nalhin.fc.investment.dto;
 
 import com.nalhin.fc.investment.InvestmentCategory;
+import com.nalhin.fc.investment.InvestmentRisk;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Data
@@ -28,8 +30,14 @@ public class InvestmentResponseDto {
   private Integer payment;
 
   @ApiModelProperty(required = true)
-  private Date created;
+  private Date createdDate;
 
   @ApiModelProperty(required = true)
   private InvestmentCategory category;
+
+  @ApiModelProperty(required = true)
+  private InvestmentRisk risk;
+
+  @ApiModelProperty(required = true)
+  private Integer compoundFrequency;
 }

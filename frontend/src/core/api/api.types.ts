@@ -1,6 +1,5 @@
 /* tslint:disable */
 /* eslint-disable */
-
 /*
  * ---------------------------------------------------------------
  * ## THIS FILE WAS GENERATED VIA SWAGGER-TYPESCRIPT-API        ##
@@ -25,18 +24,21 @@ export interface BasketResponseDto {
 export interface InvestmentResponseDto {
   annualInterestRate: number;
   category:
-    | 'CERTIFICATE_OF_DEPOSIT'
-    | 'GOVERNMENT_BOND_FUNDS'
-    | 'MONEY_MARKET_ACCOUNT'
-    | 'OTHER'
-    | 'RENTAL_HOUSING'
-    | 'SAVINGS_ACCOUNT'
-    | 'STOCK_FUND'
-    | 'TREASURY_SECURITIES';
-  created: string;
+    | "CERTIFICATE_OF_DEPOSIT"
+    | "GOVERNMENT_BOND_FUNDS"
+    | "HEDGE_FUND"
+    | "MONEY_MARKET_ACCOUNT"
+    | "OTHER"
+    | "RENTAL_HOUSING"
+    | "SAVINGS_ACCOUNT"
+    | "STOCK_FUND"
+    | "TREASURY_SECURITIES";
+  compoundFrequency: number;
+  createdDate: string;
   id: number;
   payment: number;
   paymentFrequency: number;
+  risk: "HIGH" | "LOW" | "MEDIUM" | "UNKNOWN";
   startAmount: number;
   yearsOfGrowth: number;
 }
@@ -77,14 +79,15 @@ export interface SaveBasketRequestDto {
 export interface SaveInvestmentDto {
   annualInterestRate: number;
   category:
-    | 'CERTIFICATE_OF_DEPOSIT'
-    | 'GOVERNMENT_BOND_FUNDS'
-    | 'MONEY_MARKET_ACCOUNT'
-    | 'OTHER'
-    | 'RENTAL_HOUSING'
-    | 'SAVINGS_ACCOUNT'
-    | 'STOCK_FUND'
-    | 'TREASURY_SECURITIES';
+    | "CERTIFICATE_OF_DEPOSIT"
+    | "GOVERNMENT_BOND_FUNDS"
+    | "HEDGE_FUND"
+    | "MONEY_MARKET_ACCOUNT"
+    | "OTHER"
+    | "RENTAL_HOUSING"
+    | "SAVINGS_ACCOUNT"
+    | "STOCK_FUND"
+    | "TREASURY_SECURITIES";
   compoundFrequency: number;
   payment: number;
   paymentFrequency: number;
@@ -112,14 +115,15 @@ export interface UpdateBasketRequestDto {
 export interface UpdateInvestmentRequestDto {
   annualInterestRate: number;
   category:
-    | 'CERTIFICATE_OF_DEPOSIT'
-    | 'GOVERNMENT_BOND_FUNDS'
-    | 'MONEY_MARKET_ACCOUNT'
-    | 'OTHER'
-    | 'RENTAL_HOUSING'
-    | 'SAVINGS_ACCOUNT'
-    | 'STOCK_FUND'
-    | 'TREASURY_SECURITIES';
+    | "CERTIFICATE_OF_DEPOSIT"
+    | "GOVERNMENT_BOND_FUNDS"
+    | "HEDGE_FUND"
+    | "MONEY_MARKET_ACCOUNT"
+    | "OTHER"
+    | "RENTAL_HOUSING"
+    | "SAVINGS_ACCOUNT"
+    | "STOCK_FUND"
+    | "TREASURY_SECURITIES";
   compoundFrequency: number;
   payment: number;
   paymentFrequency: number;

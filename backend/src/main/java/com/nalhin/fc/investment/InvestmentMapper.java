@@ -15,17 +15,18 @@ import java.util.List;
 public interface InvestmentMapper {
 
   @Mapping(target = "owner", ignore = true)
-  @Mapping(target = "created", ignore = true)
+  @Mapping(target = "createdDate", ignore = true)
   @Mapping(target = "id", ignore = true)
   @Mapping(target = "basket", ignore = true)
   void updateInvestmentFromDto(
       UpdateInvestmentRequestDto updateInvestmentDto, @MappingTarget Investment investment);
 
+  @Mapping(target = "risk", source = "investment.category.risk")
   InvestmentResponseDto investmentToResponseDto(Investment investment);
 
   @Mapping(target = "owner", ignore = true)
   @Mapping(target = "id", ignore = true)
-  @Mapping(target = "created", ignore = true)
+  @Mapping(target = "createdDate", ignore = true)
   @Mapping(target = "basket", ignore = true)
   Investment saveInvestmentDtoToInvestment(SaveInvestmentDto investment);
 
