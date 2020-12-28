@@ -42,7 +42,7 @@ const InvestmentSummary = ({ config }: Props) => {
         </StatHelpText>
       </Stat>
       <Stat p={2}>
-        <StatLabel>Estimated Yearly Profit</StatLabel>
+        <StatLabel>Estimated Yearly Interest</StatLabel>
         <StatNumber>{yearlyInterest.toFixed(2)} $</StatNumber>
         <StatHelpText>
           <StatArrow type="increase" />

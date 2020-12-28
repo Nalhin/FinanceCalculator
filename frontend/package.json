@@ -8,7 +8,7 @@
     "lint": "eslint \"{src,test}/**/*.{ts,tsx}\" --fix",
     "test": "jest",
     "test:cov": "jest --coverage",
-    "gen-typings": "swagger-typescript-api -p http://localhost:8000/v3/api-docs -o ./src/core/api -n api.interface.ts --no-client"
+    "gen-typings": "swagger-typescript-api -p http://localhost:8000/v3/api-docs -o ./src/core/api -n api.types.ts --no-client"
   },
   "proxy": "http://localhost:8000",
   "eslintConfig": {

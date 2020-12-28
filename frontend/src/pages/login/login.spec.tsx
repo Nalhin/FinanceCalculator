@@ -7,7 +7,7 @@ import { renderWithProviders } from '../../../test/render/render-with-providers'
 import Login from './login';
 import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { LoginUserRequestDto } from '../../core/api/api.interface';
+import { LoginUserRequestDto } from '../../core/api/api.types';
 
 jest.mock('../../shared/context/auth/use-auth/use-auth');
 

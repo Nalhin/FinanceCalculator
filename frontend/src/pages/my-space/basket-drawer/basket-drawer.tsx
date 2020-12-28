@@ -31,39 +31,37 @@ const BasketDrawer = ({ isOpen, onClose }: Props) => {
     MAIN_ROUTES.MY_SPACE + MY_SPACE_ROUTES.BASKET_DETAILS,
   );
   const addModal = useDisclosure({ defaultIsOpen: false });
-  const [toDeleteBasket, setToDeleteBasket] = React.useState<number | null>(
-    null,
-  );
-  const [toEditBasket, setToEditBasket] = React.useState<number | null>();
+  const [toDeleteId, setToDeleteId] = React.useState<number | null>(null);
+  const [toEditId, setToEditId] = React.useState<number | null>();
   const { data, refetch } = useQuery('baskets', getMyBaskets, {
     select: (response) => response.data,
     enabled: isOpen,
   });
 
   const onRemove = React.useCallback(() => {
-    setToDeleteBasket(null);
+    setToDeleteId(null);
     history.push(MAIN_ROUTES.MY_SPACE + MY_SPACE_ROUTES.ROOT);
     refetch();
   }, []);
 
   const onEdit = React.useCallback(() => {
-    setToEditBasket(null);
+    setToEditId(null);
     refetch();
   }, []);
 
   return (
     <>
       <EditBasketModal
-        isOpen={Boolean(toEditBasket)}
-        onClose={() => setToEditBasket(null)}
+        isOpen={Boolean(toEditId)}
+        onClose={() => setToEditId(null)}
         onEdit={onEdit}
-        basket={data?.content.find((b) => b.id === toEditBasket)}
+        basket={data?.content.find((b) => b.id === toEditId)}
       />
       <DeleteBasketModal
-        isOpen={Boolean(toDeleteBasket)}
-        onClose={() => setToDeleteBasket(null)}
+        isOpen={Boolean(toDeleteId)}
+        onClose={() => setToDeleteId(null)}
         onDelete={onRemove}
-        basket={data?.content.find((b) => b.id === toDeleteBasket)}
+        basket={data?.content.find((b) => b.id === toDeleteId)}
       />
       <AddBasketModal
         isOpen={addModal.isOpen}
@@ -78,8 +76,8 @@ const BasketDrawer = ({ isOpen, onClose }: Props) => {
             <DrawerBody>
               {data?.content.map((item) => (
                 <BasketItem
-                  onDelete={setToDeleteBasket}
-                  onEdit={setToEditBasket}
+                  onDelete={setToDeleteId}
+                  onEdit={setToEditId}
                   isSelected={match?.params.basketId === String(item.id)}
                   key={item.id}
                   {...item}

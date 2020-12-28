@@ -1,10 +1,6 @@
 import React from 'react';
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
-import {
-  BasketResponseDto,
-  UpdateBasketRequestDto,
-} from '../../../../core/api/api.interface';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation } from 'react-query';
 import { updateBasket } from '../../../../core/api/basket/basket.api';
@@ -19,6 +15,10 @@ import {
   ModalOverlay,
 } from '@chakra-ui/react';
 import InputFormControl from '../../../../shared/components/forms/input-form-control/input-form-control';
+import {
+  BasketResponseDto,
+  UpdateBasketRequestDto,
+} from '../../../../core/api/api.types';
 
 const schema = yup.object().shape({
   name: yup.string().required('Name is required'),
@@ -42,7 +42,7 @@ const EditBasketModal = ({ isOpen, onClose, onEdit, basket }: Props) => {
     handleSubmit,
     register,
     errors,
-    setValue,
+    reset,
   } = useForm<UpdateBasketRequestDto>({
     defaultValues: DEFAULT_FORM_VALUES,
     resolver: yupResolver(schema),
@@ -50,11 +50,7 @@ const EditBasketModal = ({ isOpen, onClose, onEdit, basket }: Props) => {
 
   React.useEffect(() => {
     if (basket) {
-      for (const [key, value] of Object.entries(basket)) {
-        if (DEFAULT_FORM_VALUES.hasOwnProperty(key)) {
-          setValue(key as keyof typeof DEFAULT_FORM_VALUES, value);
-        }
-      }
+      reset(basket);
     }
   }, [basket]);
 
@@ -65,7 +61,7 @@ const EditBasketModal = ({ isOpen, onClose, onEdit, basket }: Props) => {
     },
   );
 
-  const addBasket = (form: UpdateBasketRequestDto) => {
+  const editBasket = (form: UpdateBasketRequestDto) => {
     mutate(form);
   };
 
@@ -76,7 +72,7 @@ const EditBasketModal = ({ isOpen, onClose, onEdit, basket }: Props) => {
         <ModalHeader>Edit basket</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <form onSubmit={handleSubmit(addBasket)} id="edit-basket">
+          <form onSubmit={handleSubmit(editBasket)} id="edit-basket-form">
             <InputFormControl
               label="Basket name"
               name="name"
@@ -99,7 +95,7 @@ const EditBasketModal = ({ isOpen, onClose, onEdit, basket }: Props) => {
             variant="ghost"
             isLoading={isLoading}
             type="submit"
-            form="edit-basket"
+            form="edit-basket-form"
           >
             Confirm
           </Button>

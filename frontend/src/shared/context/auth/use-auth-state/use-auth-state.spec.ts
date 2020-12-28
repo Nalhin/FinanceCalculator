@@ -1,7 +1,7 @@
 import { cookies } from '../../../models/cookies/app-cookies';
 import { mocked } from 'ts-jest/utils';
 import { getMe } from '../../../../core/api/me/me.api';
-import { UserResponseDto } from '../../../../core/api/api.interface';
+import { UserResponseDto } from '../../../../core/api/api.types';
 import { AxiosResponse } from 'axios';
 import { act, renderHook } from '@testing-library/react-hooks';
 import { useAuthState } from './use-auth-state';

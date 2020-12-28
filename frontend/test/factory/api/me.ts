@@ -1,5 +1,5 @@
 import { FactoryBuilder } from 'factory.io';
-import { UserResponseDto } from '../../../src/core/api/api.interface';
+import { UserResponseDto } from '../../../src/core/api/api.types';
 import * as faker from 'faker';
 
 export const userResponseFactory = FactoryBuilder.of<UserResponseDto>()

@@ -3,7 +3,7 @@ import { renderWithProviders } from '../../../../../test/render/render-with-prov
 import AddBasketModal from './add-basket-modal';
 import { setupServer } from 'msw/node';
 import { rest } from 'msw';
-import { SaveBasketRequestDto } from '../../../../core/api/api.interface';
+import { SaveBasketRequestDto } from '../../../../core/api/api.types';
 import {
   basketResponseFactory,
   saveBasketRequestFactory,

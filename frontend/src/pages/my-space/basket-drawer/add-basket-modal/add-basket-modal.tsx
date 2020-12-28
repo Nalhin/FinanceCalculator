@@ -10,7 +10,7 @@ import {
 } from '@chakra-ui/react';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { SaveBasketRequestDto } from '../../../../core/api/api.interface';
+import { SaveBasketRequestDto } from '../../../../core/api/api.types';
 import { useMutation } from 'react-query';
 import { saveBasket } from '../../../../core/api/basket/basket.api';
 import * as yup from 'yup';

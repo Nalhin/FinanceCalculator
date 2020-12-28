@@ -6,7 +6,7 @@ import lombok.Data;
 import javax.validation.constraints.NotNull;
 
 @Data
-public class SaveInvestmentDto {
+public class SaveInvestmentRequestDto {
 
   @NotNull private Long startAmount;
   @NotNull private Integer yearsOfGrowth;

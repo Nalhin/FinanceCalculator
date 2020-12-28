@@ -1,5 +1,4 @@
-import React from 'react';
-import { BasketResponseDto } from '../../../../core/api/api.types';
+import { useMutation } from 'react-query';
 import {
   Button,
   Modal,
@@ -10,21 +9,31 @@ import {
   ModalHeader,
   ModalOverlay,
 } from '@chakra-ui/react';
-import { useMutation } from 'react-query';
-import { deleteBasket } from '../../../../core/api/basket/basket.api';
+import React from 'react';
+import { deleteInvestment } from '../../../../core/api/investment/investment.api';
 
 interface Props {
   isOpen: boolean;
   onClose: () => void;
   onDelete?: () => void;
-  basket?: BasketResponseDto;
+  basketId: number;
+  investmentId: number | null;
 }
 
-const DeleteBasketModal = ({ isOpen, onClose, onDelete, basket }: Props) => {
+const DeleteInvestmentModal = ({
+  isOpen,
+  onClose,
+  onDelete,
+  basketId,
+  investmentId,
+}: Props) => {
   const { mutate, isLoading } = useMutation(
-    () => deleteBasket(basket?.id as number),
+    () => deleteInvestment(basketId, investmentId as number),
     {
-      onSuccess: onDelete,
+      onSuccess: () => {
+        onDelete?.();
+        onClose();
+      },
     },
   );
 
@@ -36,11 +45,9 @@ const DeleteBasketModal = ({ isOpen, onClose, onDelete, basket }: Props) => {
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Delete basket</ModalHeader>
+        <ModalHeader>Delete investment</ModalHeader>
         <ModalCloseButton />
-        <ModalBody>
-          Are you sure you want to delete basket with name {basket?.name}?
-        </ModalBody>
+        <ModalBody>Are you sure you want to delete the investment?</ModalBody>
         <ModalFooter>
           <Button colorScheme="blue" mr={3} onClick={onClose}>
             No
@@ -54,4 +61,4 @@ const DeleteBasketModal = ({ isOpen, onClose, onDelete, basket }: Props) => {
   );
 };
 
-export default DeleteBasketModal;
+export default DeleteInvestmentModal;

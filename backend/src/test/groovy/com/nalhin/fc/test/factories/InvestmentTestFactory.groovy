@@ -4,11 +4,10 @@ import com.github.javafaker.Faker
 import com.nalhin.fc.basket.Basket
 import com.nalhin.fc.investment.Investment
 import com.nalhin.fc.investment.InvestmentCategory
-import com.nalhin.fc.investment.dto.SaveInvestmentDto
+import com.nalhin.fc.investment.dto.SaveInvestmentRequestDto
 import com.nalhin.fc.investment.dto.UpdateInvestmentRequestDto
 import com.nalhin.fc.test.faker.TestFaker
 import com.nalhin.fc.user.User
-import org.hibernate.sql.Update
 
 class InvestmentTestFactory {
   private static final Faker faker = new TestFaker()
@@ -30,10 +29,10 @@ class InvestmentTestFactory {
     )
   }
 
-  static SaveInvestmentDto saveInvestmentRequestDto(
+  static SaveInvestmentRequestDto saveInvestmentRequestDto(
       Map map = Collections.EMPTY_MAP
   ) {
-    return new SaveInvestmentDto(
+    return new SaveInvestmentRequestDto(
         startAmount: (map.startAmount ?: faker.positiveInt()) as int,
         yearsOfGrowth: (map.yearsOfGrowth ?: faker.positiveInt()) as int,
         paymentFrequency: (map.paymentFrequency ?: 12) as int,

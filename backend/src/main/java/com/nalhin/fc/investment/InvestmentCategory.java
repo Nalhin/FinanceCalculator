@@ -17,6 +17,6 @@ public enum InvestmentCategory {
   private final InvestmentRisk risk;
 
   InvestmentCategory(InvestmentRisk risk) {
-   this.risk = risk;
+    this.risk = risk;
   }
 }

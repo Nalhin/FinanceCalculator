@@ -1,6 +1,6 @@
 import React from 'react';
 import SelectFormControl from '../select-form-control/select-form-control';
-import { INVESTMENT_ENTRIES } from '../../../constants/investment-category';
+import { INVESTMENT_CATEGORY_ENTRIES } from '../../../constants/investment-category';
 
 interface Props {
   label: string;
@@ -10,7 +10,11 @@ interface Props {
 const InvestmentCategoryFormSelect = React.forwardRef(
   (props: Props, ref: React.Ref<HTMLSelectElement>) => {
     return (
-      <SelectFormControl entries={INVESTMENT_ENTRIES} {...props} ref={ref} />
+      <SelectFormControl
+        entries={INVESTMENT_CATEGORY_ENTRIES}
+        {...props}
+        ref={ref}
+      />
     );
   },
 );

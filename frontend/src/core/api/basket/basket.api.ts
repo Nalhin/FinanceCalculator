@@ -4,7 +4,7 @@ import {
   PageBasketResponseDto,
   SaveBasketRequestDto,
   UpdateBasketRequestDto,
-} from '../api.interface';
+} from '../api.types';
 
 export const getMyBaskets = () => {
   return axios.get<PageBasketResponseDto>('/me/baskets', {

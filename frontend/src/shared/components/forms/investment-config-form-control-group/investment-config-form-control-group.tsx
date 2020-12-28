@@ -1,15 +1,16 @@
 import React from 'react';
 import { Control } from 'react-hook-form/dist/types/form';
 import { InvestmentConfig } from '../../../models/interest-calculator/compound-interest-rate-calculator/compound-interest-rate-calculator';
-import { Controller } from 'react-hook-form';
+import { Controller, FieldError } from 'react-hook-form';
 import NumberInput from '../number-input-form-control/number-input-form-control';
 import FrequencySelect from '../frequency-form-select/frequency-select';
 
 interface Props {
   control: Control<InvestmentConfig>;
+  errors?: { [K in keyof InvestmentConfig]?: FieldError };
 }
 
-const InvestmentConfigFormControlGroup = ({ control }: Props) => {
+const InvestmentConfigFormControlGroup = ({ control, errors }: Props) => {
   return (
     <>
       <Controller
@@ -20,6 +21,7 @@ const InvestmentConfigFormControlGroup = ({ control }: Props) => {
             label="Initial amount"
             min={1}
             max={10_000_000}
+            error={errors?.startAmount}
             {...props}
           />
         )}
@@ -32,6 +34,7 @@ const InvestmentConfigFormControlGroup = ({ control }: Props) => {
             min={1}
             max={15}
             label="Estimated annual rate of return"
+            error={errors?.annualInterestRate}
             {...props}
           />
         )}
@@ -45,7 +48,13 @@ const InvestmentConfigFormControlGroup = ({ control }: Props) => {
         control={control}
         name="yearsOfGrowth"
         render={(props) => (
-          <NumberInput min={1} max={15} label="Years of growth" {...props} />
+          <NumberInput
+            min={1}
+            max={15}
+            label="Years of growth"
+            {...props}
+            error={errors?.yearsOfGrowth}
+          />
         )}
       />
       <Controller
@@ -56,6 +65,7 @@ const InvestmentConfigFormControlGroup = ({ control }: Props) => {
             min={1}
             max={1_000_000}
             label="Additional payment"
+            error={errors?.payment}
             {...props}
           />
         )}

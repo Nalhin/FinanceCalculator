@@ -1,7 +1,7 @@
 import { Button, Flex } from '@chakra-ui/react';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { LoginUserRequestDto } from '../../core/api/api.interface';
+import { LoginUserRequestDto } from '../../core/api/api.types';
 import { useMutation } from 'react-query';
 import { postLogin } from '../../core/api/auth/auth.api';
 import { useAuth } from '../../shared/context/auth/use-auth/use-auth';

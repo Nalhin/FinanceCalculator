@@ -5,7 +5,7 @@ import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { setupServer } from 'msw/node';
 import { rest } from 'msw';
-import { SaveInvestmentDto } from '../../../../core/api/api.interface';
+import { SaveInvestmentRequestDto } from '../../../../core/api/api.types';
 import {
   investmentResponseFactory,
   saveInvestmentRequestFactory,
@@ -15,7 +15,7 @@ describe('AddInvestmentModal component', () => {
   const basketId = 1;
 
   const server = setupServer(
-    rest.post<SaveInvestmentDto>(
+    rest.post<SaveInvestmentRequestDto>(
       `/api/me/baskets/${basketId}/investments`,
       (req, res, ctx) => {
         return res(

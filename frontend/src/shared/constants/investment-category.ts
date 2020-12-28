@@ -7,6 +7,7 @@ export const INVESTMENT_CATEGORIES = {
   STOCK_FUND: 'STOCK_FUND',
   TREASURY_SECURITIES: 'TREASURY_SECURITIES',
   OTHER: 'OTHER',
+  HEDGE_FUND: 'HEDGE_FUND',
 } as const;
 
 export type InvestmentCategories = keyof typeof INVESTMENT_CATEGORIES;
@@ -20,11 +21,24 @@ export const INVESTMENT_CATEGORIES_TRANSLATIONS = {
   STOCK_FUND: 'Stock fund',
   TREASURY_SECURITIES: 'Treasury securities',
   OTHER: 'Other',
+  HEDGE_FUND: 'Hedge fund',
 } as const;
 
-export const INVESTMENT_ENTRIES = (Object.keys(
+export const INVESTMENT_CATEGORY_ENTRIES = (Object.keys(
   INVESTMENT_CATEGORIES,
 ) as InvestmentCategories[]).map((val) => ({
   value: val,
   label: INVESTMENT_CATEGORIES_TRANSLATIONS[val],
 }));
+
+export const INVESTMENT_CATEGORY_COLORS = {
+  CERTIFICATE_OF_DEPOSIT: '#333',
+  GOVERNMENT_BOND_FUNDS: '#873',
+  MONEY_MARKET_ACCOUNT: '#415',
+  RENTAL_HOUSING: '#901',
+  SAVINGS_ACCOUNT: '#099',
+  STOCK_FUND: '#009',
+  TREASURY_SECURITIES: '#909',
+  OTHER: '#166',
+  HEDGE_FUND: '#111',
+} as const;

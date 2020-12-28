@@ -1,5 +1,5 @@
 import { FactoryBuilder } from 'factory.io';
-import { AuthResponseDto } from '../../../src/core/api/api.interface';
+import { AuthResponseDto } from '../../../src/core/api/api.types';
 import { userResponseFactory } from './me';
 import * as faker from 'faker';
 

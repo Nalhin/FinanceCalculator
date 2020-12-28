@@ -2,7 +2,8 @@ import { FactoryBuilder } from 'factory.io';
 import {
   BasketResponseDto,
   SaveBasketRequestDto,
-} from '../../../src/core/api/api.interface';
+  UpdateBasketRequestDto,
+} from '../../../src/core/api/api.types';
 import * as faker from 'faker';
 
 export const basketResponseFactory = FactoryBuilder.of<BasketResponseDto>()
@@ -19,4 +20,8 @@ export const saveBasketRequestFactory = FactoryBuilder.of<SaveBasketRequestDto>(
     name: faker.random.word,
     description: faker.random.word,
   })
+  .build();
+
+export const updateBasketRequestFactory = FactoryBuilder.of<UpdateBasketRequestDto>()
+  .mixins([saveBasketRequestFactory])
   .build();

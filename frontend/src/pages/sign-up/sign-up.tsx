@@ -2,7 +2,7 @@ import React from 'react';
 import { useAuth } from '../../shared/context/auth/use-auth/use-auth';
 import { useMutation } from 'react-query';
 import { useForm } from 'react-hook-form';
-import { SignUpUserRequestDto } from '../../core/api/api.interface';
+import { SignUpUserRequestDto } from '../../core/api/api.types';
 import { Button, Flex } from '@chakra-ui/react';
 import { postSignUp } from '../../core/api/auth/auth.api';
 import { useHistory } from 'react-router-dom';

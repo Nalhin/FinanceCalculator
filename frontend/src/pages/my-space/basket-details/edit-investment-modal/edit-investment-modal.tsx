@@ -1,7 +1,13 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { DEFAULT_INVESTMENT_CONFIG } from '../../../../shared/constants/default-investment-config';
-import { SaveInvestmentRequestDto } from '../../../../core/api/api.types';
+import {
+  InvestmentResponseDto,
+  SaveInvestmentRequestDto,
+  UpdateInvestmentRequestDto,
+} from '../../../../core/api/api.types';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useMutation } from 'react-query';
+import { updateInvestment } from '../../../../core/api/investment/investment.api';
 import {
   Box,
   Button,
@@ -13,11 +19,9 @@ import {
   ModalHeader,
   ModalOverlay,
 } from '@chakra-ui/react';
-import InvestmentConfigFormControlGroup from '../../../../shared/components/forms/investment-config-form-control-group/investment-config-form-control-group';
-import { useMutation } from 'react-query';
-import { saveInvestment } from '../../../../core/api/investment/investment.api';
-import { yupResolver } from '@hookform/resolvers/yup';
 import InvestmentCategoryFormSelect from '../../../../shared/components/forms/investment-category-form-select/investment-category-form-select';
+import InvestmentConfigFormControlGroup from '../../../../shared/components/forms/investment-config-form-control-group/investment-config-form-control-group';
+import { DEFAULT_INVESTMENT_CONFIG } from '../../../../shared/constants/default-investment-config';
 import { INVESTMENT_FORM_SCHEMA } from '../../../../shared/models/form/investment-form-schema';
 
 const DEFAULT_FORM_VALUES: SaveInvestmentRequestDto = {
@@ -27,32 +31,45 @@ const DEFAULT_FORM_VALUES: SaveInvestmentRequestDto = {
 
 interface Props {
   basketId: number;
+  investment?: InvestmentResponseDto;
   isOpen: boolean;
   onClose: () => void;
-  onAdd?: () => void;
+  onEdit?: () => void;
 }
 
-const AddInvestmentModal = ({ basketId, isOpen, onClose, onAdd }: Props) => {
+const EditInvestmentModal = ({
+  basketId,
+  onClose,
+  isOpen,
+  investment,
+  onEdit,
+}: Props) => {
   const {
     control,
     register,
     handleSubmit,
     reset,
     errors,
-  } = useForm<SaveInvestmentRequestDto>({
+  } = useForm<UpdateInvestmentRequestDto>({
     defaultValues: DEFAULT_FORM_VALUES,
     resolver: yupResolver(INVESTMENT_FORM_SCHEMA),
   });
   const { mutate, isLoading } = useMutation(
-    (variables: SaveInvestmentRequestDto) =>
-      saveInvestment(variables, basketId),
+    (body: UpdateInvestmentRequestDto) =>
+      updateInvestment(body, basketId, investment?.id as number),
     {
       onSuccess: () => {
-        reset();
-        onAdd?.();
+        onEdit?.();
+        onClose();
       },
     },
   );
+
+  React.useEffect(() => {
+    if (investment) {
+      reset(investment);
+    }
+  }, [investment]);
 
   const sendForm = (form: SaveInvestmentRequestDto) => {
     mutate(form);
@@ -62,14 +79,14 @@ const AddInvestmentModal = ({ basketId, isOpen, onClose, onAdd }: Props) => {
     <Modal isOpen={isOpen} onClose={onClose} scrollBehavior="inside">
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Add an investment</ModalHeader>
+        <ModalHeader>Edit an investment</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
           <Box
             width="100%"
             as="form"
             onSubmit={handleSubmit(sendForm)}
-            id="add-modal"
+            id="edit-investment"
           >
             <InvestmentCategoryFormSelect
               label="Investment category"
@@ -91,10 +108,10 @@ const AddInvestmentModal = ({ basketId, isOpen, onClose, onAdd }: Props) => {
             size="md"
             type="submit"
             width="100%"
-            form="add-modal"
+            form="edit-investment"
             isLoading={isLoading}
           >
-            Add
+            Confirm
           </Button>
         </ModalFooter>
       </ModalContent>
@@ -102,4 +119,4 @@ const AddInvestmentModal = ({ basketId, isOpen, onClose, onAdd }: Props) => {
   );
 };
 
-export default AddInvestmentModal;
+export default EditInvestmentModal;

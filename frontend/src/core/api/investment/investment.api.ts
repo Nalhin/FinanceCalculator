@@ -1,5 +1,9 @@
 import { axios } from '../axios';
-import { InvestmentResponseDto, SaveInvestmentDto } from '../api.interface';
+import {
+  InvestmentResponseDto,
+  SaveInvestmentRequestDto,
+  UpdateInvestmentRequestDto,
+} from '../api.types';
 
 export const getInvestmentsByBasket = (basketId: number) => {
   return axios.get<InvestmentResponseDto[]>(
@@ -13,16 +17,24 @@ export const getInvestmentById = (basketId: number, investmentId: number) => {
   );
 };
 
-export const saveInvestment = (body: SaveInvestmentDto, basketId: number) => {
+export const saveInvestment = (
+  body: SaveInvestmentRequestDto,
+  basketId: number,
+) => {
   return axios.post<InvestmentResponseDto>(
     `/me/baskets/${basketId}/investments`,
     body,
   );
 };
 
-export const updateInvestment = (basketId: number, investmentId: number) => {
+export const updateInvestment = (
+  body: UpdateInvestmentRequestDto,
+  basketId: number,
+  investmentId: number,
+) => {
   return axios.put<InvestmentResponseDto>(
     `/me/baskets/${basketId}/investments/${investmentId}`,
+    body,
   );
 };
 

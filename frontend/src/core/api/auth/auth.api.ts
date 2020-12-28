@@ -3,7 +3,7 @@ import {
   AuthResponseDto,
   LoginUserRequestDto,
   SignUpUserRequestDto,
-} from '../api.interface';
+} from '../api.types';
 
 export const postLogin = (body: LoginUserRequestDto) => {
   return axios.post<AuthResponseDto>('/auth/login', body);

@@ -1,9 +1,9 @@
 import { setupServer } from 'msw/node';
 import { rest } from 'msw';
-import { SaveBasketRequestDto } from '../../../../core/api/api.interface';
+import { SaveBasketRequestDto } from '../../../../core/api/api.types';
 import {
   basketResponseFactory,
-  saveBasketRequestFactory,
+  updateBasketRequestFactory,
 } from '../../../../../test/factory/api/basket';
 import { renderWithProviders } from '../../../../../test/render/render-with-providers';
 import userEvent from '@testing-library/user-event';
@@ -80,30 +80,30 @@ describe('EditBasketModal component', () => {
 
   it('should send request when the form is valid and clear form state after a successful response', async () => {
     jest.spyOn(axios, 'put');
-    const saveBasketRequest = saveBasketRequestFactory.buildOne();
-    const onEdit = jest.fn();
+    const updatedBasket = updateBasketRequestFactory.buildOne();
+    const onEditMock = jest.fn();
     renderWithProviders(
       <EditBasketModal
         isOpen
         onClose={jest.fn()}
-        onEdit={onEdit}
+        onEdit={onEditMock}
         basket={basketResponseFactory.buildOne({ id: basketId })}
       />,
     );
 
     userEvent.type(
       screen.getByLabelText(/name/i),
-      `{selectall}${saveBasketRequest.name}`,
+      `{selectall}${updatedBasket.name}`,
     );
     userEvent.type(
       screen.getByLabelText(/description/i),
-      `{selectall}${saveBasketRequest.description}`,
+      `{selectall}${updatedBasket.description}`,
     );
     userEvent.click(screen.getByRole('button', { name: /confirm/i }));
 
     await waitFor(() => {
-      expect(onEdit).toHaveBeenCalledTimes(1);
+      expect(onEditMock).toHaveBeenCalledTimes(1);
     });
-    expect(axios.put).toBeCalledWith(expect.any(String), saveBasketRequest);
+    expect(axios.put).toBeCalledWith(expect.any(String), updatedBasket);
   });
 });

@@ -2,7 +2,7 @@ package com.nalhin.fc.investment;
 
 import com.nalhin.fc.common.annotations.CurrentAppUser;
 import com.nalhin.fc.investment.dto.InvestmentResponseDto;
-import com.nalhin.fc.investment.dto.SaveInvestmentDto;
+import com.nalhin.fc.investment.dto.SaveInvestmentRequestDto;
 import com.nalhin.fc.investment.dto.UpdateInvestmentRequestDto;
 import com.nalhin.fc.core.security.AppUser;
 import lombok.RequiredArgsConstructor;
@@ -41,7 +41,7 @@ class InvestmentController {
 
   @PostMapping("/me/baskets/{basketId}/investments")
   public ResponseEntity<InvestmentResponseDto> saveInvestment(
-      @PathVariable Long basketId, @Valid @RequestBody SaveInvestmentDto investment) {
+      @PathVariable Long basketId, @Valid @RequestBody SaveInvestmentRequestDto investment) {
     Investment savedInvestment =
         investmentService.saveInvestment(
             investmentMapper.saveInvestmentDtoToInvestment(investment), basketId);
