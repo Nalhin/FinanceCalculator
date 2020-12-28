@@ -29,7 +29,7 @@ public class Investment {
   private Basket basket;
 
   @Column(name = "start_amount", nullable = false)
-  private long startAmount;
+  private int startAmount;
 
   @Column(name = "years_of_growth", nullable = false)
   private int yearsOfGrowth;
@@ -38,7 +38,7 @@ public class Investment {
   private int paymentFrequency;
 
   @Column(name = "annual_interest_rate", nullable = false)
-  private int annualInterestRate;
+  private double annualInterestRate;
 
   @Column(name = "payment", nullable = false)
   private int payment;

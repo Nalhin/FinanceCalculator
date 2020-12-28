@@ -11,22 +11,22 @@ import java.time.Instant;
 public class InvestmentResponseDto {
 
   @ApiModelProperty(required = true)
-  private Long id;
+  private long id;
 
   @ApiModelProperty(required = true)
-  private Long startAmount;
+  private long startAmount;
 
   @ApiModelProperty(required = true)
-  private Integer yearsOfGrowth;
+  private int yearsOfGrowth;
 
   @ApiModelProperty(required = true)
-  private Integer paymentFrequency;
+  private int paymentFrequency;
 
   @ApiModelProperty(required = true)
-  private Integer annualInterestRate;
+  private int annualInterestRate;
 
   @ApiModelProperty(required = true)
-  private Integer payment;
+  private int payment;
 
   @ApiModelProperty(required = true)
   private Instant createdDate;
@@ -38,5 +38,5 @@ public class InvestmentResponseDto {
   private InvestmentRisk risk;
 
   @ApiModelProperty(required = true)
-  private Integer compoundFrequency;
+  private int compoundFrequency;
 }

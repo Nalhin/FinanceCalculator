@@ -16,15 +16,15 @@ class InvestmentTestFactory {
       Map map = Collections.EMPTY_MAP
   ) {
     return new Investment(
-        id: (map.id ?: faker.id()) as Long,
+        id: (map.id ?: faker.id()) as long,
         owner: (map.owner ?: UserTestFactory.user()) as User,
         basket: (map.basket ?: BasketTestFactory.basket()) as Basket,
-        startAmount: (map.startAmount ?: faker.positiveInt()) as int,
-        yearsOfGrowth: (map.yearsOfGrowth ?: faker.positiveInt()) as int,
-        paymentFrequency: (map.paymentFrequency ?: 12) as int,
-        annualInterestRate: (map.annualInterestRate ?: faker.positiveInt()) as int,
-        payment: (map.payment ?: faker.positiveInt()) as int,
-        compoundFrequency: (map.compoundFrequency ?: faker.positiveInt()) as int,
+        startAmount: (map.startAmount ?: faker.random().nextInt(0, 10_000_000)) as int,
+        yearsOfGrowth: (map.yearsOfGrowth ?: faker.random().nextInt(1, 30)) as int,
+        paymentFrequency: (map.paymentFrequency ?: faker.random().nextInt(1, 52)) as int,
+        annualInterestRate: (map.annualInterestRate ?: faker.random().nextInt(1, 30)) as double,
+        payment: (map.payment ?: faker.random().nextInt(0, 1_000_000)) as int,
+        compoundFrequency: (map.compoundFrequency ?: faker.random().nextInt(1, 52)) as int,
         category: (map.category ?: faker.randomEnum(InvestmentCategory)) as InvestmentCategory,
     )
   }
@@ -33,12 +33,12 @@ class InvestmentTestFactory {
       Map map = Collections.EMPTY_MAP
   ) {
     return new SaveInvestmentRequestDto(
-        startAmount: (map.startAmount ?: faker.positiveInt()) as int,
-        yearsOfGrowth: (map.yearsOfGrowth ?: faker.positiveInt()) as int,
-        paymentFrequency: (map.paymentFrequency ?: 12) as int,
-        annualInterestRate: (map.annualInterestRate ?: faker.positiveInt()) as int,
-        compoundFrequency: (map.compoundFrequency ?: faker.positiveInt()) as int,
-        payment: (map.payment ?: faker.positiveInt()) as int,
+        startAmount: (map.startAmount ?: faker.random().nextInt(0, 10_000_000)) as int,
+        yearsOfGrowth: (map.yearsOfGrowth ?: faker.random().nextInt(1, 30)) as int,
+        paymentFrequency: (map.paymentFrequency ?: faker.random().nextInt(1, 52)) as int,
+        annualInterestRate: (map.annualInterestRate ?: faker.random().nextInt(1, 30)) as double,
+        payment: (map.payment ?: faker.random().nextInt(0, 1_000_000)) as int,
+        compoundFrequency: (map.compoundFrequency ?: faker.random().nextInt(1, 52)) as int,
         category: (map.category ?: faker.randomEnum(InvestmentCategory)) as InvestmentCategory,
     )
   }
@@ -47,12 +47,12 @@ class InvestmentTestFactory {
       Map map = Collections.EMPTY_MAP
   ) {
     return new UpdateInvestmentRequestDto(
-        startAmount: (map.startAmount ?: faker.positiveInt()) as int,
-        yearsOfGrowth: (map.yearsOfGrowth ?: faker.positiveInt()) as int,
-        paymentFrequency: (map.paymentFrequency ?: 12) as int,
-        annualInterestRate: (map.annualInterestRate ?: faker.positiveInt()) as int,
-        compoundFrequency: (map.compoundFrequency ?: faker.positiveInt()) as int,
-        payment: (map.payment ?: faker.positiveInt()) as int,
+        startAmount: (map.startAmount ?: faker.random().nextInt(0, 10_000_000)) as int,
+        yearsOfGrowth: (map.yearsOfGrowth ?: faker.random().nextInt(1, 30)) as int,
+        paymentFrequency: (map.paymentFrequency ?: faker.random().nextInt(1, 52)) as int,
+        annualInterestRate: (map.annualInterestRate ?: faker.random().nextInt(1, 30)) as double,
+        payment: (map.payment ?: faker.random().nextInt(0, 1_000_000)) as int,
+        compoundFrequency: (map.compoundFrequency ?: faker.random().nextInt(1, 52)) as int,
         category: (map.category ?: faker.randomEnum(InvestmentCategory)) as InvestmentCategory,
     )
   }

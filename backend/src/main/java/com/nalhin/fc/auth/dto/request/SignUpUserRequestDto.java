@@ -11,9 +11,11 @@ public class SignUpUserRequestDto {
 
   @NotNull @Email private String email;
 
-  @NotNull private String username;
+  @Size(min = 3, max = 30)
+  @NotNull
+  private String username;
 
   @NotNull
-  @Size(min = 6)
+  @Size(min = 6, max = 30)
   private String password;
 }
