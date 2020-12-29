@@ -10,8 +10,10 @@ interface Props {
 const SelectFormControl = React.forwardRef(
   ({ label, name, entries }: Props, ref: React.Ref<HTMLSelectElement>) => {
     return (
-      <FormControl>
-        <FormLabel id={name}>{label}</FormLabel>
+      <FormControl my={1}>
+        <FormLabel id={name} mb={0}>
+          {label}
+        </FormLabel>
         <Select ref={ref} name={name}>
           {entries.map((entry) => (
             <option key={entry.value} value={entry.value}>

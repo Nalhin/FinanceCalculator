@@ -32,7 +32,7 @@ const InvestmentSummary = ({ config }: Props) => {
   return (
     <StatGroup width="100%" as={Flex} justify="space-around" textAlign="center">
       <Stat p={2}>
-        <StatLabel>Estimated Total Interest</StatLabel>
+        <StatLabel>Total Interest</StatLabel>
         <StatNumber aria-label="estimated total interest">
           {totalInterest.toFixed(2)} $
         </StatNumber>
@@ -42,7 +42,7 @@ const InvestmentSummary = ({ config }: Props) => {
         </StatHelpText>
       </Stat>
       <Stat p={2}>
-        <StatLabel>Estimated Yearly Interest</StatLabel>
+        <StatLabel>Yearly Interest</StatLabel>
         <StatNumber>{yearlyInterest.toFixed(2)} $</StatNumber>
         <StatHelpText>
           <StatArrow type="increase" />

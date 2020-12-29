@@ -7,6 +7,6 @@ describe('NotFound page', () => {
   it('should display not found info', () => {
     renderWithProviders(<NotFound />);
 
-    expect(screen.getByText(/not found/i)).toBeInTheDocument();
+    expect(screen.getByAltText(/not found/i)).toBeInTheDocument();
   });
 });

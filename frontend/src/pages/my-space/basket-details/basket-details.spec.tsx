@@ -48,7 +48,7 @@ describe('BasketDetails component', () => {
     });
 
     await waitFor(() => {
-      expect(screen.getAllByText(/certificate of deposit/i)).toHaveLength(4);
+      expect(screen.getAllByText(/certificate of deposit/i)).toHaveLength(5);
     });
   });
 });

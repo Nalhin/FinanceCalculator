@@ -17,6 +17,7 @@ import { FaPlus } from 'react-icons/fa';
 import InvestmentCategoryChart from '../../../shared/components/investment/investment-category-chart';
 import DeleteInvestmentModal from './delete-investment-modal/delete-investment-modal';
 import EditInvestmentModal from './edit-investment-modal/edit-investment-modal';
+import InvestmentRiskChart from '../../../shared/components/investment/investment-risk-chart';
 
 const BasketDetails = () => {
   const { basketId } = useParams<{ basketId: string }>();
@@ -48,10 +49,21 @@ const BasketDetails = () => {
   return (
     <Box>
       <Heading>Basket summary</Heading>
-      <Box width="90%" mx="auto">
-        <InvestmentChart series={joinedSeries} />
-        <InvestmentCategoryChart investments={data} />
-      </Box>
+      {data.length > 0 ? (
+        <Box width="90%" mx="auto">
+          <InvestmentChart series={joinedSeries} />
+          <Flex
+            flexDirection={{ base: 'column', lg: 'row' }}
+            align="center"
+            justify="center"
+          >
+            <InvestmentCategoryChart investments={data} />
+            <InvestmentRiskChart investments={data} />
+          </Flex>
+        </Box>
+      ) : (
+        <Box>No investments</Box>
+      )}
       <EditInvestmentModal
         basketId={Number(basketId)}
         investment={data.find((inv) => inv.id === toEditId)}

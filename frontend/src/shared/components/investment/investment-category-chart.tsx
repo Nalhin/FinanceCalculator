@@ -1,32 +1,33 @@
+import { Box } from '@chakra-ui/react';
 import React from 'react';
-import { Pie, PieChart, ResponsiveContainer, Tooltip } from 'recharts';
+import { Legend, Pie, PieChart, Tooltip } from 'recharts';
 import { InvestmentResponseDto } from '../../../core/api/api.types';
 import {
-  INVESTMENT_CATEGORIES_TRANSLATIONS,
-  INVESTMENT_CATEGORY_COLORS,
-  InvestmentCategories,
-} from '../../constants/investment-category';
+  INVESTMENT_RISK_COLORS,
+  INVESTMENT_RISK_TRANSLATIONS,
+  InvestmentRisk,
+} from '../../constants/investment-risk';
 
-function getCategoriesCounter(investments: InvestmentResponseDto[]) {
-  return investments.reduce<{ [K in InvestmentCategories]?: number }>(
+function getCategoryCounter(investments: InvestmentResponseDto[]) {
+  return investments.reduce<{ [K in InvestmentRisk]?: number }>(
     (prev, curr) => {
-      if (!prev[curr.category]) {
-        prev[curr.category] = 0;
+      if (!prev[curr.risk]) {
+        prev[curr.risk] = 0;
       }
-      (prev[curr.category] as number)++;
+      (prev[curr.risk] as number)++;
       return prev;
     },
     {},
   );
 }
 
-const counterToChart = (counter: { [K in InvestmentCategories]?: number }) => {
-  return (Object.keys(counter) as InvestmentCategories[]).map((category) => ({
-    fill: INVESTMENT_CATEGORY_COLORS[category],
-    name: INVESTMENT_CATEGORIES_TRANSLATIONS[category],
-    count: counter[category],
+function counterToChart(counter: { [K in InvestmentRisk]?: number }) {
+  return (Object.keys(counter) as InvestmentRisk[]).map((risk) => ({
+    fill: INVESTMENT_RISK_COLORS[risk],
+    name: INVESTMENT_RISK_TRANSLATIONS[risk],
+    count: counter[risk],
   }));
-};
+}
 
 interface Props {
   investments: InvestmentResponseDto[];
@@ -34,17 +35,21 @@ interface Props {
 
 const InvestmentCategoryChart = ({ investments }: Props) => {
   const data = React.useMemo(
-    () => counterToChart(getCategoriesCounter(investments)),
+    () => counterToChart(getCategoryCounter(investments)),
     [investments],
   );
 
   return (
-    <ResponsiveContainer aspect={4 / 3} maxHeight={400}>
-      <PieChart width={400} height={400}>
-        <Pie dataKey="count" data={data} cx={200} cy={200} outerRadius={80} />
+    <Box>
+      <Box textAlign="center" fontWeight="bold" fontSize="xl">
+        Category distribution
+      </Box>
+      <PieChart width={320} height={320}>
+        <Pie dataKey="count" data={data} outerRadius={80} label />
+        <Legend />
         <Tooltip />
       </PieChart>
-    </ResponsiveContainer>
+    </Box>
   );
 };
 

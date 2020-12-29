@@ -10,7 +10,7 @@ export const INVESTMENT_CATEGORIES = {
   HEDGE_FUND: 'HEDGE_FUND',
 } as const;
 
-export type InvestmentCategories = keyof typeof INVESTMENT_CATEGORIES;
+export type InvestmentCategory = keyof typeof INVESTMENT_CATEGORIES;
 
 export const INVESTMENT_CATEGORIES_TRANSLATIONS = {
   CERTIFICATE_OF_DEPOSIT: 'Certificate of deposit',
@@ -26,7 +26,7 @@ export const INVESTMENT_CATEGORIES_TRANSLATIONS = {
 
 export const INVESTMENT_CATEGORY_ENTRIES = (Object.keys(
   INVESTMENT_CATEGORIES,
-) as InvestmentCategories[]).map((val) => ({
+) as InvestmentCategory[]).map((val) => ({
   value: val,
   label: INVESTMENT_CATEGORIES_TRANSLATIONS[val],
 }));

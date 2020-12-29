@@ -17,7 +17,7 @@ const Home = () => {
             pellentesque. Quisque nec feugiat dui, eget faucibus velit. Donec
             sollicitudin lacus id ornare luctus.
           </Box>
-          <Button colorScheme="blue" my={2}>
+          <Button colorScheme="blue" my={3}>
             Learn more
           </Button>
         </Box>

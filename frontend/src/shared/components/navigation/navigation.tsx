@@ -5,15 +5,15 @@ import { MAIN_ROUTES } from '../../../pages/main.routes';
 
 const Navigation = () => {
   return (
-    <Flex as={'nav'} mx="10%">
+    <Flex as="nav" justify="flex-start" ml={{ base: 8, lg: '10%' }}>
       <Box
         as={Link}
         to={MAIN_ROUTES.HOME}
         textColor="blue.400"
-        fontSize="xl"
+        fontSize={{ base: 'xl', lg: '2xl' }}
         fontWeight="bold"
         my={4}
-        mr={8}
+        mr={{ base: 2, lg: 4 }}
       >
         Home
       </Box>
@@ -22,9 +22,9 @@ const Navigation = () => {
         to={MAIN_ROUTES.CALCULATOR}
         textColor="blue.400"
         fontWeight="bold"
-        fontSize="xl"
+        fontSize={{ base: 'xl', lg: '2xl' }}
         my={4}
-        mx={8}
+        mx={{ base: 2, lg: 4 }}
       >
         Calculator
       </Box>
@@ -33,9 +33,9 @@ const Navigation = () => {
         to={MAIN_ROUTES.MY_SPACE}
         textColor="blue.400"
         fontWeight="bold"
-        fontSize="xl"
+        fontSize={{ base: 'xl', lg: '2xl' }}
         my={4}
-        mx={8}
+        mx={{ base: 2, lg: 4 }}
       >
         My space
       </Box>

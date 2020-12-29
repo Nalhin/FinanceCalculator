@@ -5,9 +5,10 @@ import { Route } from '../shared/types/router';
 export const MAIN_ROUTES = {
   MY_SPACE: '/my-space',
   CALCULATOR: '/calculator',
-  HOME: '/home',
+  HOME: '/',
   SIGN_UP: '/sign-up',
   LOGIN: '/login',
+  NOT_FOUND: '*',
 } as const;
 
 export type RouteNames = typeof MAIN_ROUTES[keyof typeof MAIN_ROUTES];
@@ -19,6 +20,7 @@ export const MAIN_ROUTING: Route[] = [
   {
     path: MAIN_ROUTES.HOME,
     component: React.lazy(() => import('./home/home')),
+    exact: true,
   },
   {
     path: MAIN_ROUTES.CALCULATOR,
@@ -47,5 +49,9 @@ export const MAIN_ROUTING: Route[] = [
       validation: noAuth,
       redirectTo: MAIN_ROUTES.HOME,
     },
+  },
+  {
+    path: MAIN_ROUTES.NOT_FOUND,
+    component: React.lazy(() => import('./not-found/not-found')),
   },
 ];

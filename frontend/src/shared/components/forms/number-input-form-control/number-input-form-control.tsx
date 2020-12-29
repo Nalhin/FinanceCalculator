@@ -25,8 +25,10 @@ const NumberInputFormControl = React.forwardRef(
     ref: React.Ref<HTMLInputElement>,
   ) => {
     return (
-      <FormControl isInvalid={!!error}>
-        <FormLabel id={name}>{label}</FormLabel>
+      <FormControl isInvalid={!!error} my={1}>
+        <FormLabel id={name} mb={0}>
+          {label}
+        </FormLabel>
         <NumberInput
           min={min}
           max={max}

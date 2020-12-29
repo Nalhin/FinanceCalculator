@@ -15,20 +15,22 @@ const Calculator = () => {
   });
 
   return (
-    <Flex justify="center" align="center" direction="column" mx={'25%'}>
-      <WithInvestmentConfig
-        control={control}
-        render={(config) => <InvestmentSummary config={config} />}
-      />
-      <InvestmentConfigFormControlGroup control={control} />
-      <WithInvestmentConfig
-        control={control}
-        render={(config) => (
-          <InvestmentChart
-            series={calculateCompoundInterestTimeSeries(config)}
-          />
-        )}
-      />
+    <Flex justify="center" align="center">
+      <Flex direction="column" maxWidth="90%">
+        <WithInvestmentConfig
+          control={control}
+          render={(config) => <InvestmentSummary config={config} />}
+        />
+        <InvestmentConfigFormControlGroup control={control} />
+        <WithInvestmentConfig
+          control={control}
+          render={(config) => (
+            <InvestmentChart
+              series={calculateCompoundInterestTimeSeries(config)}
+            />
+          )}
+        />
+      </Flex>
     </Flex>
   );
 };

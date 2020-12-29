@@ -1,11 +1,11 @@
-import { Button, Flex } from '@chakra-ui/react';
+import { Box, Button, Flex, Link, useToast } from '@chakra-ui/react';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { LoginUserRequestDto } from '../../core/api/api.types';
 import { useMutation } from 'react-query';
 import { postLogin } from '../../core/api/auth/auth.api';
 import { useAuth } from '../../shared/context/auth/use-auth/use-auth';
-import { Link, useHistory } from 'react-router-dom';
+import { Link as RouterLink, useHistory } from 'react-router-dom';
 import { MAIN_ROUTES } from '../main.routes';
 import { RouterLocation } from '../../shared/types/router';
 import * as yup from 'yup';
@@ -22,10 +22,12 @@ interface Props {
 }
 
 const Login = ({ location }: Props) => {
+  const toast = useToast();
   const history = useHistory();
   const { authenticateUser } = useAuth();
   const { mutate, isLoading } = useMutation(postLogin, {
     onSuccess: ({ data }) => {
+      toast({ title: `Welcome ${data.user.username}`, status: 'success' });
       authenticateUser(
         { user: data.user, token: data.token },
         {
@@ -40,13 +42,7 @@ const Login = ({ location }: Props) => {
       );
     },
   });
-  const {
-    handleSubmit,
-    register,
-    errors,
-    formState,
-  } = useForm<LoginUserRequestDto>({
-    mode: 'onBlur',
+  const { handleSubmit, register, errors } = useForm<LoginUserRequestDto>({
     resolver: yupResolver(schema),
   });
 
@@ -55,8 +51,15 @@ const Login = ({ location }: Props) => {
   };
 
   return (
-    <Flex justify="center" align="center">
-      <form onSubmit={handleSubmit(onSubmit)}>
+    <Flex justify="center" align="center" mt={8}>
+      <Box
+        as="form"
+        borderWidth="1px"
+        borderRadius="lg"
+        overflow="hidden"
+        p={4}
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <InputFormControl
           label="Username"
           name="username"
@@ -70,7 +73,13 @@ const Login = ({ location }: Props) => {
           error={errors.password}
           ref={register}
         />
-        <Link to={{ pathname: MAIN_ROUTES.SIGN_UP, state: location?.state }}>
+        <Link
+          my={2}
+          display="block"
+          as={RouterLink}
+          color="blue.500"
+          to={{ pathname: MAIN_ROUTES.SIGN_UP, state: location?.state }}
+        >
           No account? Sign up
         </Link>
         <Button
@@ -78,13 +87,11 @@ const Login = ({ location }: Props) => {
           size="md"
           type="submit"
           width="100%"
-          mt={4}
           isLoading={isLoading}
-          disabled={!formState.isValid}
         >
           Login
         </Button>
-      </form>
+      </Box>
     </Flex>
   );
 };
