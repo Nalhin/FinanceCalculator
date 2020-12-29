@@ -4,7 +4,7 @@ import {
 } from '../compound-interest-rate-calculator/compound-interest-rate-calculator';
 import { roundNumber } from '../../../utils/round-number/round-number';
 
-export interface CalculateCompoundInterestTimeSeries {
+export interface CompoundInterestTimeSeries {
   totalInterest: number;
   futureValue: number;
   totalPayments: number;
@@ -13,7 +13,7 @@ export interface CalculateCompoundInterestTimeSeries {
 
 export function calculateCompoundInterestTimeSeries(
   investmentConfig: InvestmentConfig,
-): CalculateCompoundInterestTimeSeries[] {
+): CompoundInterestTimeSeries[] {
   if (investmentConfig.yearsOfGrowth < 0) {
     return [];
   }

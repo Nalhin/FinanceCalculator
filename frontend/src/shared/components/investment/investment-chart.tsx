@@ -9,10 +9,10 @@ import {
   XAxis,
   YAxis,
 } from 'recharts';
-import { CalculateCompoundInterestTimeSeries } from '../../models/interest-calculator/calculate-compound-interest-time-series/calculate-compound-interest-time-series';
+import { CompoundInterestTimeSeries } from '../../models/interest-calculator/calculate-compound-interest-time-series/compound-interest-time-series';
 
 interface Props {
-  series: CalculateCompoundInterestTimeSeries[];
+  series: CompoundInterestTimeSeries[];
 }
 
 const InvestmentChart = ({ series }: Props) => {

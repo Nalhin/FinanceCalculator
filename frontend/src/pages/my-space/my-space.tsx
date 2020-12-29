@@ -1,8 +1,9 @@
-import { Box, Button, Progress, useDisclosure } from '@chakra-ui/react';
+import { Box, IconButton, Progress, useDisclosure } from '@chakra-ui/react';
 import React from 'react';
 import BasketDrawer from './basket-drawer/basket-drawer';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import { MY_SPACE_ROUTING } from './my-space.routers';
+import { FaList } from 'react-icons/fa';
 
 const MySpace = () => {
   const { path } = useRouteMatch();
@@ -10,7 +11,6 @@ const MySpace = () => {
 
   return (
     <Box>
-      <Button onClick={drawer.onOpen}>Open</Button>
       <React.Suspense
         fallback={
           <Progress
@@ -30,6 +30,18 @@ const MySpace = () => {
         </Switch>
       </React.Suspense>
       <BasketDrawer isOpen={drawer.isOpen} onClose={drawer.onClose} />
+      <IconButton
+        width={12}
+        height={12}
+        colorScheme="teal"
+        onClick={drawer.onOpen}
+        icon={<FaList />}
+        aria-label="add an investment"
+        rounded="full"
+        position="fixed"
+        bottom={4}
+        right={4}
+      />
     </Box>
   );
 };

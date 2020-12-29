@@ -44,7 +44,7 @@ const InvestmentRiskChart = ({ investments }: Props) => {
       <Box textAlign="center" fontWeight="bold" fontSize="xl">
         Risk distribution
       </Box>
-      <PieChart width={320} height={320}>
+      <PieChart width={320} height={280}>
         <Pie dataKey="count" data={data} outerRadius={80} label />
         <Legend />
         <Tooltip />

@@ -11,13 +11,10 @@ import {
 } from '@chakra-ui/react';
 import AddInvestmentModal from './add-investment-modal/add-investment-modal';
 import InvestmentListItem from './investment-item/investment-item';
-import InvestmentChart from '../../../shared/components/investment/investment-chart';
-import { calculateJoinedInterestTimeSeries } from '../../../shared/models/interest-calculator/calculate-joined-interest-time-series/calculate-joined-interest-time-series';
 import { FaPlus } from 'react-icons/fa';
-import InvestmentCategoryChart from '../../../shared/components/investment/investment-category-chart';
 import DeleteInvestmentModal from './delete-investment-modal/delete-investment-modal';
 import EditInvestmentModal from './edit-investment-modal/edit-investment-modal';
-import InvestmentRiskChart from '../../../shared/components/investment/investment-risk-chart';
+import BasketSummary from './basket-summary/basket-summary';
 
 const BasketDetails = () => {
   const { basketId } = useParams<{ basketId: string }>();
@@ -33,11 +30,6 @@ const BasketDetails = () => {
     },
   );
 
-  const joinedSeries = React.useMemo(
-    () => calculateJoinedInterestTimeSeries(data),
-    [data],
-  );
-
   const setToEdit = React.useCallback((investmentId: number) => {
     setToEditId(investmentId);
   }, []);
@@ -48,22 +40,10 @@ const BasketDetails = () => {
 
   return (
     <Box>
-      <Heading>Basket summary</Heading>
-      {data.length > 0 ? (
-        <Box width="90%" mx="auto">
-          <InvestmentChart series={joinedSeries} />
-          <Flex
-            flexDirection={{ base: 'column', lg: 'row' }}
-            align="center"
-            justify="center"
-          >
-            <InvestmentCategoryChart investments={data} />
-            <InvestmentRiskChart investments={data} />
-          </Flex>
-        </Box>
-      ) : (
-        <Box>No investments</Box>
-      )}
+      <Heading textAlign="center" mb={6}>
+        Basket summary
+      </Heading>
+      <BasketSummary investments={data} />
       <EditInvestmentModal
         basketId={Number(basketId)}
         investment={data.find((inv) => inv.id === toEditId)}
@@ -104,7 +84,7 @@ const BasketDetails = () => {
         rounded="full"
         position="fixed"
         bottom={4}
-        right={4}
+        right={20}
       />
     </Box>
   );

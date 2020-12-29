@@ -1,5 +1,5 @@
 import { investmentConfigFactory } from '../../../../../test/factory/investment/investment';
-import { calculateCompoundInterestTimeSeries } from './calculate-compound-interest-time-series';
+import { calculateCompoundInterestTimeSeries } from './compound-interest-time-series';
 
 describe('compoundInterestTimeSeries function', () => {
   it('should have length equal to years of growth + 1', () => {

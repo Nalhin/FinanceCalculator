@@ -1,10 +1,13 @@
 import { InvestmentConfig } from '../compound-interest-rate-calculator/compound-interest-rate-calculator';
-import { calculateCompoundInterestTimeSeries } from '../calculate-compound-interest-time-series/calculate-compound-interest-time-series';
+import {
+  CompoundInterestTimeSeries,
+  calculateCompoundInterestTimeSeries,
+} from '../calculate-compound-interest-time-series/compound-interest-time-series';
 import { roundNumber } from '../../../utils/round-number/round-number';
 
 export function calculateJoinedInterestTimeSeries(
   investments: InvestmentConfig[],
-) {
+): CompoundInterestTimeSeries[] {
   const investmentsTimeSeries = investments.map((investment) =>
     calculateCompoundInterestTimeSeries(investment),
   );
@@ -25,8 +28,8 @@ export function calculateJoinedInterestTimeSeries(
     }));
 
   investmentsTimeSeries.forEach((item) => {
-    for (let i = 0; i < item.length; i++) {
-      const curr = item[i];
+    for (let i = 0; i < maxLen; i++) {
+      const curr = i >= item.length ? item[item.length - 1] : item[i];
       result[i].futureValue = roundNumber(
         Number(result[i].futureValue) + Number(curr.futureValue),
       );
@@ -38,5 +41,6 @@ export function calculateJoinedInterestTimeSeries(
       );
     }
   });
+
   return result;
 }

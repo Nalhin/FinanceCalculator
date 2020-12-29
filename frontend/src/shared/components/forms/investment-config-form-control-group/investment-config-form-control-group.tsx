@@ -70,12 +70,10 @@ const InvestmentConfigFormControlGroup = ({ control, errors }: Props) => {
           />
         )}
       />
-      <Controller
-        control={control}
+      <FrequencySelect
         name="paymentFrequency"
-        render={(props) => (
-          <FrequencySelect label="Payment frequency" {...props} />
-        )}
+        label="Payment frequency"
+        ref={control.register({ valueAsNumber: true })}
       />
     </>
   );
