@@ -1,13 +1,17 @@
 import { axios } from '../axios';
 import {
   InvestmentResponseDto,
+  PageInvestmentResponseDto,
   SaveInvestmentRequestDto,
   UpdateInvestmentRequestDto,
 } from '../api.types';
 
 export const getInvestmentsByBasket = (basketId: number) => {
-  return axios.get<InvestmentResponseDto[]>(
+  return axios.get<PageInvestmentResponseDto>(
     `/me/baskets/${basketId}/investments`,
+    {
+      params: { sort: 'createdDate,desc' },
+    },
   );
 };
 

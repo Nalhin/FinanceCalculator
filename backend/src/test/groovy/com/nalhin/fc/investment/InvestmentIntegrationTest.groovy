@@ -51,7 +51,7 @@ class InvestmentIntegrationTest extends IntegrationSpecification {
     then:
     resp.statusCode() == HttpStatus.OK.value()
     and:
-    respBody.get(0).yearsOfGrowth == savedInvestment.yearsOfGrowth
+    respBody.content.get(0).yearsOfGrowth == savedInvestment.yearsOfGrowth
   }
 
   def 'GET /me/baskets/{basketId}/investments/{investmentId} should return OK (200) status code and investment details'() {

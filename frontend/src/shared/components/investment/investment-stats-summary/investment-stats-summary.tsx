@@ -11,14 +11,14 @@ import React from 'react';
 import {
   CompoundInterestRateCalculator,
   InvestmentConfig,
-} from '../../models/interest-calculator/compound-interest-rate-calculator/compound-interest-rate-calculator';
-import { calculateYearlyInvestmentSummary } from '../../models/interest-calculator/calculate-yearly-investment-sumary/calculate-yearly-investment-summary';
+} from '../../../models/interest-calculator/compound-interest-rate-calculator/compound-interest-rate-calculator';
+import { calculateYearlyInvestmentSummary } from '../../../models/interest-calculator/calculate-yearly-investment-sumary/calculate-yearly-investment-summary';
 
 interface Props {
   config: InvestmentConfig;
 }
 
-const InvestmentSummary = ({ config }: Props) => {
+const InvestmentStatsSummary = ({ config }: Props) => {
   const {
     totalInterest,
     percentageInterest,
@@ -42,7 +42,7 @@ const InvestmentSummary = ({ config }: Props) => {
         </StatHelpText>
       </Stat>
       <Stat p={2}>
-        <StatLabel>Yearly Interest</StatLabel>
+        <StatLabel>Interest next year</StatLabel>
         <StatNumber>{yearlyInterest.toFixed(2)} $</StatNumber>
         <StatHelpText>
           <StatArrow type="increase" />
@@ -53,4 +53,4 @@ const InvestmentSummary = ({ config }: Props) => {
   );
 };
 
-export default InvestmentSummary;
+export default InvestmentStatsSummary;

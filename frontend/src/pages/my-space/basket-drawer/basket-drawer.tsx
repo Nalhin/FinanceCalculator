@@ -10,6 +10,7 @@ import {
   DrawerFooter,
   DrawerHeader,
   DrawerOverlay,
+  Flex,
   useDisclosure,
 } from '@chakra-ui/react';
 import AddBasketModal from './add-basket-modal/add-basket-modal';
@@ -19,6 +20,7 @@ import { MAIN_ROUTES } from '../../main.routes';
 import { MY_SPACE_ROUTES } from '../my-space.routers';
 import DeleteBasketModal from './delete-basket-modal/delete-basket-modal';
 import EditBasketModal from './edit-basket-modal/edit-basket-modal';
+import { useAuth } from '../../../shared/context/auth/use-auth/use-auth';
 
 interface Props {
   isOpen: boolean;
@@ -27,10 +29,11 @@ interface Props {
 
 const BasketDrawer = ({ isOpen, onClose }: Props) => {
   const history = useHistory();
+  const auth = useAuth();
   const match = useRouteMatch<{ basketId: string }>(
     MAIN_ROUTES.MY_SPACE + MY_SPACE_ROUTES.BASKET_DETAILS,
   );
-  const addModal = useDisclosure({ defaultIsOpen: false });
+  const addModal = useDisclosure();
   const [toDeleteId, setToDeleteId] = React.useState<number | null>(null);
   const [toEditId, setToEditId] = React.useState<number | null>();
   const { data, refetch } = useQuery('baskets', getMyBaskets, {
@@ -85,9 +88,14 @@ const BasketDrawer = ({ isOpen, onClose }: Props) => {
               ))}
             </DrawerBody>
             <DrawerFooter>
-              <Button colorScheme="teal" onClick={addModal.onOpen}>
-                Add a basket
-              </Button>
+              <Flex justify="space-between" width="100%">
+                <Button colorScheme="teal" onClick={auth.logoutUser}>
+                  Logout
+                </Button>
+                <Button colorScheme="teal" onClick={addModal.onOpen}>
+                  Add a basket
+                </Button>
+              </Flex>
             </DrawerFooter>
           </DrawerContent>
         </DrawerOverlay>

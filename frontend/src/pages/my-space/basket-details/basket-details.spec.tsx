@@ -15,11 +15,11 @@ describe('BasketDetails component', () => {
     rest.get(`/api/me/baskets/${basketId}/investments`, (req, res, ctx) => {
       return res(
         ctx.status(200),
-        ctx.json(
-          investmentResponseFactory.buildMany(4, {
+        ctx.json({
+          content: investmentResponseFactory.buildMany(4, {
             partial: { category: 'CERTIFICATE_OF_DEPOSIT' },
           }),
-        ),
+        }),
       );
     }),
   );

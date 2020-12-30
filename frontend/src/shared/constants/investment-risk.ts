@@ -15,6 +15,13 @@ export const INVESTMENT_RISK_TRANSLATIONS = {
 } as const;
 
 export const INVESTMENT_RISK_COLORS = {
+  LOW: '#38A169',
+  MEDIUM: '#ECC94B',
+  HIGH: '#E53E3E',
+  UNKNOWN: '#718096',
+} as const;
+
+export const INVESTMENT_RISK_SCHEME_COLORS = {
   LOW: 'green',
   MEDIUM: 'yellow',
   HIGH: 'red',

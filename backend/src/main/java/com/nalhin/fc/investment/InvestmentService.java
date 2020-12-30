@@ -7,9 +7,9 @@ import com.nalhin.fc.investment.exception.InvestmentBasketNotFound;
 import com.nalhin.fc.investment.exception.InvestmentNotFoundException;
 import com.nalhin.fc.investment.exception.InvestmentNotOwnedException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -19,8 +19,8 @@ class InvestmentService {
   private final InvestmentMapper investmentMapper;
   private final BasketRepository basketRepository;
 
-  List<Investment> findByBasketId(Long basketId, Long userId) {
-    return this.investmentRepository.findByBasketIdAndOwnerId(basketId, userId);
+  Page<Investment> findByBasketId(Long basketId, Long userId, Pageable pageable) {
+    return investmentRepository.findByBasketIdAndOwnerId(basketId, userId, pageable);
   }
 
   public Investment getByBasketIdAndId(Long investmentId, Long basketId, Long userId) {

@@ -4,31 +4,34 @@ import { useQuery } from 'react-query';
 import { getInvestmentsByBasket } from '../../../core/api/investment/investment.api';
 import {
   Box,
+  Button,
   Flex,
   Heading,
   IconButton,
   useDisclosure,
 } from '@chakra-ui/react';
-import AddInvestmentModal from './add-investment-modal/add-investment-modal';
+import AddInvestmentModal from '../../../shared/components/investment/add-investment-modal/add-investment-modal';
 import InvestmentListItem from './investment-item/investment-item';
 import { FaPlus } from 'react-icons/fa';
-import DeleteInvestmentModal from './delete-investment-modal/delete-investment-modal';
+import DeleteInvestmentModal from '../../../shared/components/investment/delete-investment-modal/delete-investment-modal';
 import EditInvestmentModal from './edit-investment-modal/edit-investment-modal';
 import BasketSummary from './basket-summary/basket-summary';
 
 const BasketDetails = () => {
   const { basketId } = useParams<{ basketId: string }>();
-  const modal = useDisclosure({ defaultIsOpen: false });
+  const addInvestmentModal = useDisclosure({ defaultIsOpen: false });
   const [toEditId, setToEditId] = React.useState<null | number>(null);
   const [toDeleteId, setToDeleteId] = React.useState<null | number>(null);
 
-  const { data = [], refetch } = useQuery(
+  const { data, refetch, isLoading } = useQuery(
     ['baskets', basketId],
     () => getInvestmentsByBasket(Number(basketId)),
     {
       select: (response) => response.data,
     },
   );
+
+  const investments = data?.content ?? [];
 
   const setToEdit = React.useCallback((investmentId: number) => {
     setToEditId(investmentId);
@@ -40,13 +43,12 @@ const BasketDetails = () => {
 
   return (
     <Box>
-      <Heading textAlign="center" mb={6}>
+      <Heading textAlign="center" my={6}>
         Basket summary
       </Heading>
-      <BasketSummary investments={data} />
       <EditInvestmentModal
         basketId={Number(basketId)}
-        investment={data.find((inv) => inv.id === toEditId)}
+        investment={investments.find((inv) => inv.id === toEditId)}
         isOpen={Boolean(toEditId)}
         onEdit={refetch}
         onClose={() => setToEditId(null)}
@@ -60,13 +62,31 @@ const BasketDetails = () => {
       />
       <AddInvestmentModal
         basketId={Number(basketId)}
-        isOpen={modal.isOpen}
+        isOpen={addInvestmentModal.isOpen}
         onAdd={refetch}
-        onClose={modal.onClose}
+        onClose={addInvestmentModal.onClose}
       />
+      {investments.length > 0 || isLoading ? (
+        <BasketSummary investments={investments} />
+      ) : (
+        <Flex justify="center" direction="column" align="center">
+          <Box textAlign="center" fontWeight="bold" fontSize="2xl">
+            No investments
+          </Box>
+          <Button onClick={addInvestmentModal.onOpen} colorScheme="teal" mt={2}>
+            Add an investment
+          </Button>
+        </Flex>
+      )}
       <Flex justify="center" align="center" direction="column">
-        {data.map((investment) => (
+        {investments.length > 0 && (
+          <Box textAlign="center" fontWeight="bold" fontSize="2xl" my={2}>
+            Investments
+          </Box>
+        )}
+        {investments.map((investment) => (
           <InvestmentListItem
+            basketId={Number(basketId)}
             onDelete={setToDelete}
             onEdit={setToEdit}
             investment={investment}
@@ -78,7 +98,7 @@ const BasketDetails = () => {
         width={12}
         height={12}
         colorScheme="teal"
-        onClick={modal.onOpen}
+        onClick={addInvestmentModal.onOpen}
         icon={<FaPlus />}
         aria-label="add an investment"
         rounded="full"

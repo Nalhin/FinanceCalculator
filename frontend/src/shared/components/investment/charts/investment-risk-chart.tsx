@@ -1,31 +1,31 @@
-import { InvestmentResponseDto } from '../../../core/api/api.types';
-import {
-  INVESTMENT_CATEGORIES_TRANSLATIONS,
-  INVESTMENT_CATEGORY_COLORS,
-  InvestmentCategory,
-} from '../../constants/investment-category';
+import { InvestmentResponseDto } from '../../../../core/api/api.types';
 import React from 'react';
 import { Legend, Pie, PieChart, Tooltip } from 'recharts';
 import { Box } from '@chakra-ui/react';
+import {
+  INVESTMENT_RISK_COLORS,
+  INVESTMENT_RISK_TRANSLATIONS,
+  InvestmentRisk,
+} from '../../../constants/investment-risk';
 
 function getRiskCounter(investments: InvestmentResponseDto[]) {
-  return investments.reduce<{ [K in InvestmentCategory]?: number }>(
+  return investments.reduce<{ [K in InvestmentRisk]?: number }>(
     (prev, curr) => {
-      if (!prev[curr.category]) {
-        prev[curr.category] = 0;
+      if (!prev[curr.risk]) {
+        prev[curr.risk] = 0;
       }
-      (prev[curr.category] as number)++;
+      (prev[curr.risk] as number)++;
       return prev;
     },
     {},
   );
 }
 
-function counterToChart(counter: { [K in InvestmentCategory]?: number }) {
-  return (Object.keys(counter) as InvestmentCategory[]).map((category) => ({
-    fill: INVESTMENT_CATEGORY_COLORS[category],
-    name: INVESTMENT_CATEGORIES_TRANSLATIONS[category],
-    count: counter[category],
+function counterToChart(counter: { [K in InvestmentRisk]?: number }) {
+  return (Object.keys(counter) as InvestmentRisk[]).map((risk) => ({
+    fill: INVESTMENT_RISK_COLORS[risk],
+    name: INVESTMENT_RISK_TRANSLATIONS[risk],
+    count: counter[risk],
   }));
 }
 

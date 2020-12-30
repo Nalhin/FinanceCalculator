@@ -12,6 +12,8 @@ import com.nalhin.fc.investment.exception.InvestmentNotFoundException;
 import com.nalhin.fc.investment.exception.InvestmentNotOwnedException;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -41,12 +43,12 @@ class InvestmentController {
   @GetMapping(
       path = "/me/baskets/{basketId}/investments",
       produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<List<InvestmentResponseDto>> getInvestmentsByBasketId(
-      @PathVariable Long basketId, @CurrentAppUser AppUser appUser) {
-    List<Investment> investments = investmentService.findByBasketId(basketId, appUser.getId());
+  public ResponseEntity<Page<InvestmentResponseDto>> getInvestmentsByBasketId(
+      @PathVariable Long basketId, Pageable pageable, @CurrentAppUser AppUser appUser) {
+    Page<Investment> investments =
+        investmentService.findByBasketId(basketId, appUser.getId(), pageable);
 
-    return ResponseEntity.ok()
-        .body(investments.stream().map(mapper::toResponse).collect(Collectors.toList()));
+    return ResponseEntity.ok().body(investments.map(mapper::toResponse));
   }
 
   @ApiOperation(

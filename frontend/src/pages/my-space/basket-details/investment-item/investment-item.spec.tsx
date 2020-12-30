@@ -11,6 +11,7 @@ describe('InvestmentItem', () => {
     const providedInvestment = investmentResponseFactory.buildOne({ id: 1 });
     renderWithProviders(
       <InvestmentItem
+        basketId={1}
         onEdit={jest.fn()}
         onDelete={onDeleteMock}
         investment={providedInvestment}
@@ -28,6 +29,7 @@ describe('InvestmentItem', () => {
     const providedInvestment = investmentResponseFactory.buildOne({ id: 1 });
     renderWithProviders(
       <InvestmentItem
+        basketId={1}
         onEdit={onEditMock}
         onDelete={jest.fn()}
         investment={providedInvestment}
@@ -46,6 +48,7 @@ describe('InvestmentItem', () => {
     });
     renderWithProviders(
       <InvestmentItem
+        basketId={1}
         onEdit={jest.fn()}
         onDelete={jest.fn()}
         investment={providedInvestment}

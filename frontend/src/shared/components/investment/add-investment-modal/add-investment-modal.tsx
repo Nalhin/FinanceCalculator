@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { DEFAULT_INVESTMENT_CONFIG } from '../../../../shared/constants/default-investment-config';
+import { DEFAULT_INVESTMENT_CONFIG } from '../../../constants/default-investment-config';
 import { SaveInvestmentRequestDto } from '../../../../core/api/api.types';
 import {
   Box,
@@ -13,12 +13,12 @@ import {
   ModalHeader,
   ModalOverlay,
 } from '@chakra-ui/react';
-import InvestmentConfigFormControlGroup from '../../../../shared/components/forms/investment-config-form-control-group/investment-config-form-control-group';
+import InvestmentConfigFormControlGroup from '../../forms/investment-config-form-control-group/investment-config-form-control-group';
 import { useMutation } from 'react-query';
 import { saveInvestment } from '../../../../core/api/investment/investment.api';
 import { yupResolver } from '@hookform/resolvers/yup';
-import InvestmentCategoryFormSelect from '../../../../shared/components/forms/investment-category-form-select/investment-category-form-select';
-import { INVESTMENT_FORM_SCHEMA } from '../../../../shared/models/form/investment-form-schema';
+import InvestmentCategoryFormSelect from '../../forms/investment-category-form-select/investment-category-form-select';
+import { INVESTMENT_FORM_SCHEMA } from '../../../models/form/investment-form-schema';
 
 const DEFAULT_FORM_VALUES: SaveInvestmentRequestDto = {
   ...DEFAULT_INVESTMENT_CONFIG,

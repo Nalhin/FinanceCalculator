@@ -9,6 +9,10 @@
  * ---------------------------------------------------------------
  */
 
+export interface ApiErrorResponseDto {
+  message: string;
+}
+
 export interface AuthResponseDto {
   token: string;
   user: UserResponseDto;
@@ -24,21 +28,21 @@ export interface BasketResponseDto {
 export interface InvestmentResponseDto {
   annualInterestRate: number;
   category:
-    | 'CERTIFICATE_OF_DEPOSIT'
-    | 'GOVERNMENT_BOND_FUNDS'
-    | 'HEDGE_FUND'
-    | 'MONEY_MARKET_ACCOUNT'
-    | 'OTHER'
-    | 'RENTAL_HOUSING'
-    | 'SAVINGS_ACCOUNT'
-    | 'STOCK_FUND'
-    | 'TREASURY_SECURITIES';
+    | "CERTIFICATE_OF_DEPOSIT"
+    | "GOVERNMENT_BOND_FUNDS"
+    | "HEDGE_FUND"
+    | "MONEY_MARKET_ACCOUNT"
+    | "OTHER"
+    | "RENTAL_HOUSING"
+    | "SAVINGS_ACCOUNT"
+    | "STOCK_FUND"
+    | "TREASURY_SECURITIES";
   compoundFrequency: number;
   createdDate: string;
   id: number;
   payment: number;
   paymentFrequency: number;
-  risk: 'HIGH' | 'LOW' | 'MEDIUM' | 'UNKNOWN';
+  risk: "HIGH" | "LOW" | "MEDIUM" | "UNKNOWN";
   startAmount: number;
   yearsOfGrowth: number;
 }
@@ -71,23 +75,37 @@ export interface PageBasketResponseDto {
   totalPages: number;
 }
 
+export interface PageInvestmentResponseDto {
+  content: InvestmentResponseDto[];
+  empty: boolean;
+  first: boolean;
+  last: boolean;
+  number: number;
+  numberOfElements: number;
+  pageable: Pageable;
+  size: number;
+  sort: Sort;
+  totalElements: number;
+  totalPages: number;
+}
+
 export interface SaveBasketRequestDto {
   description: string;
-  name: string;
+  name?: string;
 }
 
 export interface SaveInvestmentRequestDto {
   annualInterestRate: number;
   category:
-    | 'CERTIFICATE_OF_DEPOSIT'
-    | 'GOVERNMENT_BOND_FUNDS'
-    | 'HEDGE_FUND'
-    | 'MONEY_MARKET_ACCOUNT'
-    | 'OTHER'
-    | 'RENTAL_HOUSING'
-    | 'SAVINGS_ACCOUNT'
-    | 'STOCK_FUND'
-    | 'TREASURY_SECURITIES';
+    | "CERTIFICATE_OF_DEPOSIT"
+    | "GOVERNMENT_BOND_FUNDS"
+    | "HEDGE_FUND"
+    | "MONEY_MARKET_ACCOUNT"
+    | "OTHER"
+    | "RENTAL_HOUSING"
+    | "SAVINGS_ACCOUNT"
+    | "STOCK_FUND"
+    | "TREASURY_SECURITIES";
   compoundFrequency: number;
   payment: number;
   paymentFrequency: number;
@@ -115,15 +133,15 @@ export interface UpdateBasketRequestDto {
 export interface UpdateInvestmentRequestDto {
   annualInterestRate: number;
   category:
-    | 'CERTIFICATE_OF_DEPOSIT'
-    | 'GOVERNMENT_BOND_FUNDS'
-    | 'HEDGE_FUND'
-    | 'MONEY_MARKET_ACCOUNT'
-    | 'OTHER'
-    | 'RENTAL_HOUSING'
-    | 'SAVINGS_ACCOUNT'
-    | 'STOCK_FUND'
-    | 'TREASURY_SECURITIES';
+    | "CERTIFICATE_OF_DEPOSIT"
+    | "GOVERNMENT_BOND_FUNDS"
+    | "HEDGE_FUND"
+    | "MONEY_MARKET_ACCOUNT"
+    | "OTHER"
+    | "RENTAL_HOUSING"
+    | "SAVINGS_ACCOUNT"
+    | "STOCK_FUND"
+    | "TREASURY_SECURITIES";
   compoundFrequency: number;
   payment: number;
   paymentFrequency: number;
@@ -134,4 +152,13 @@ export interface UpdateInvestmentRequestDto {
 export interface UserResponseDto {
   email: string;
   username: string;
+}
+
+export interface ValidationErrorResponseDto {
+  errors?: ValidationFieldErrorResponseDto[];
+}
+
+export interface ValidationFieldErrorResponseDto {
+  field: string;
+  message: string;
 }
