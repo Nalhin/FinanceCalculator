@@ -18,11 +18,15 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  useToast,
 } from '@chakra-ui/react';
-import InvestmentCategoryFormSelect from '../../../../shared/components/forms/investment-category-form-select/investment-category-form-select';
-import InvestmentConfigFormControlGroup from '../../../../shared/components/forms/investment-config-form-control-group/investment-config-form-control-group';
-import { DEFAULT_INVESTMENT_CONFIG } from '../../../../shared/constants/default-investment-config';
-import { INVESTMENT_FORM_SCHEMA } from '../../../../shared/models/form/investment-form-schema';
+import InvestmentCategoryFormSelect from '../../forms/investment-category-form-select/investment-category-form-select';
+import InvestmentConfigFormControlGroup from '../../forms/investment-config-form-control-group/investment-config-form-control-group';
+import { DEFAULT_INVESTMENT_CONFIG } from '../../../constants/default-investment-config';
+import { INVESTMENT_FORM_SCHEMA } from '../../../models/form/investment-form-schema';
+import type { AxiosError } from 'axios';
+import { onAxiosError } from '../../../utils/on-axios-error/on-axios-error';
+import { populateFormWithApiErrors } from '../../../utils/on-axios-error/populate-form-with-api-errors';
 
 const DEFAULT_FORM_VALUES: SaveInvestmentRequestDto = {
   ...DEFAULT_INVESTMENT_CONFIG,
@@ -44,12 +48,14 @@ const EditInvestmentModal = ({
   investment,
   onEdit,
 }: Props) => {
+  const toast = useToast();
   const {
     control,
     register,
     handleSubmit,
     reset,
     errors,
+    setError,
   } = useForm<UpdateInvestmentRequestDto>({
     defaultValues: DEFAULT_FORM_VALUES,
     resolver: yupResolver(INVESTMENT_FORM_SCHEMA),
@@ -58,6 +64,18 @@ const EditInvestmentModal = ({
     (body: UpdateInvestmentRequestDto) =>
       updateInvestment(body, basketId, investment?.id as number),
     {
+      onError: (error: AxiosError) => {
+        onAxiosError(error, {
+          400: () => populateFormWithApiErrors(error, setError),
+          '*': () => {
+            toast({
+              title: 'Unexpected error occurred',
+              status: 'error',
+              isClosable: true,
+            });
+          },
+        });
+      },
       onSuccess: () => {
         onEdit?.();
         onClose();

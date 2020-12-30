@@ -11,6 +11,9 @@ import { RouterLocation } from '../../shared/types/router';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import InputFormControl from '../../shared/components/forms/input-form-control/input-form-control';
+import type { AxiosError } from 'axios';
+import { onAxiosError } from '../../shared/utils/on-axios-error/on-axios-error';
+import { populateFormWithApiErrors } from '../../shared/utils/on-axios-error/populate-form-with-api-errors';
 
 const schema = yup.object().shape({
   username: yup.string().required('Username is required'),
@@ -25,9 +28,39 @@ const Login = ({ location }: Props) => {
   const toast = useToast();
   const history = useHistory();
   const { authenticateUser } = useAuth();
+  const {
+    handleSubmit,
+    register,
+    errors,
+    setError,
+  } = useForm<LoginUserRequestDto>({
+    resolver: yupResolver(schema),
+  });
   const { mutate, isLoading } = useMutation(postLogin, {
+    onError: (error: AxiosError) =>
+      onAxiosError(error, {
+        403: () =>
+          toast({
+            title: 'Invalid credentials',
+            description: 'Invalid credentials provided.',
+            status: 'error',
+            isClosable: true,
+          }),
+        400: () => populateFormWithApiErrors(error, setError),
+        '*': () => {
+          toast({
+            title: 'Unexpected error occurred',
+            status: 'error',
+            isClosable: true,
+          });
+        },
+      }),
     onSuccess: ({ data }) => {
-      toast({ title: `Welcome ${data.user.username}`, status: 'success' });
+      toast({
+        title: `Welcome ${data.user.username}`,
+        status: 'success',
+        isClosable: true,
+      });
       authenticateUser(
         { user: data.user, token: data.token },
         {
@@ -41,9 +74,6 @@ const Login = ({ location }: Props) => {
         },
       );
     },
-  });
-  const { handleSubmit, register, errors } = useForm<LoginUserRequestDto>({
-    resolver: yupResolver(schema),
   });
 
   const onSubmit = (form: LoginUserRequestDto) => {

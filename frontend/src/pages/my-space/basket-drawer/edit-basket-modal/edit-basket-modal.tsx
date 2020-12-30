@@ -13,12 +13,16 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  useToast,
 } from '@chakra-ui/react';
 import InputFormControl from '../../../../shared/components/forms/input-form-control/input-form-control';
 import {
   BasketResponseDto,
   UpdateBasketRequestDto,
 } from '../../../../core/api/api.types';
+import { AxiosError } from 'axios';
+import { onAxiosError } from '../../../../shared/utils/on-axios-error/on-axios-error';
+import { populateFormWithApiErrors } from '../../../../shared/utils/on-axios-error/populate-form-with-api-errors';
 
 const schema = yup.object().shape({
   name: yup.string().required('Name is required'),
@@ -38,11 +42,13 @@ interface Props {
 }
 
 const EditBasketModal = ({ isOpen, onClose, onEdit, basket }: Props) => {
+  const toast = useToast();
   const {
     handleSubmit,
     register,
     errors,
     reset,
+    setError,
   } = useForm<UpdateBasketRequestDto>({
     defaultValues: DEFAULT_FORM_VALUES,
     resolver: yupResolver(schema),
@@ -57,6 +63,18 @@ const EditBasketModal = ({ isOpen, onClose, onEdit, basket }: Props) => {
   const { mutate, isLoading } = useMutation(
     (body: UpdateBasketRequestDto) => updateBasket(body, basket?.id as number),
     {
+      onError: (error: AxiosError) => {
+        onAxiosError(error, {
+          400: () => populateFormWithApiErrors(error, setError),
+          '*': () => {
+            toast({
+              title: 'Unexpected error occurred',
+              status: 'error',
+              isClosable: true,
+            });
+          },
+        });
+      },
       onSuccess: () => onEdit?.(),
     },
   );

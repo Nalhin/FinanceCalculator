@@ -8,9 +8,12 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  useToast,
 } from '@chakra-ui/react';
 import React from 'react';
 import { deleteInvestment } from '../../../../core/api/investment/investment.api';
+import { AxiosError } from 'axios';
+import { onAxiosError } from '../../../utils/on-axios-error/on-axios-error';
 
 interface Props {
   isOpen: boolean;
@@ -27,9 +30,21 @@ const DeleteInvestmentModal = ({
   basketId,
   investmentId,
 }: Props) => {
+  const toast = useToast();
   const { mutate, isLoading } = useMutation(
     () => deleteInvestment(basketId, investmentId as number),
     {
+      onError: (error: AxiosError) => {
+        onAxiosError(error, {
+          '*': () => {
+            toast({
+              title: 'Unexpected error occurred',
+              status: 'error',
+              isClosable: true,
+            });
+          },
+        });
+      },
       onSuccess: () => {
         onDelete?.();
         onClose();

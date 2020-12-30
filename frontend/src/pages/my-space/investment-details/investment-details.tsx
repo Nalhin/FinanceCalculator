@@ -8,13 +8,17 @@ import {
   IconButton,
   Spinner,
   useDisclosure,
+  useToast,
 } from '@chakra-ui/react';
 import InvestmentStatsSummary from '../../../shared/components/investment/investment-stats-summary/investment-stats-summary';
-import EditInvestmentModal from '../basket-details/edit-investment-modal/edit-investment-modal';
+import EditInvestmentModal from '../../../shared/components/investment/edit-investment-modal/edit-investment-modal';
 import DeleteInvestmentModal from '../../../shared/components/investment/delete-investment-modal/delete-investment-modal';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 import InvestmentSummary from '../../../shared/components/investment/investment-summary/investment-summary';
 import InvestmentDetailsTable from './investment-details-table';
+import type { AxiosError } from 'axios';
+import { onAxiosError } from '../../../shared/utils/on-axios-error/on-axios-error';
+import { MAIN_ROUTES } from '../../main.routes';
 
 const InvestmentDetails = () => {
   const { basketId, investmentId } = useParams<{
@@ -22,12 +26,30 @@ const InvestmentDetails = () => {
     basketId: string;
   }>();
   const history = useHistory();
+  const toast = useToast();
   const deleteModal = useDisclosure();
   const editModal = useDisclosure();
   const { data, isLoading, refetch } = useQuery(
     ['investments', basketId, investmentId],
     () => getInvestmentById(Number(basketId), Number(investmentId)),
     {
+      onError: (error: AxiosError) =>
+        onAxiosError(error, {
+          404: () => {
+            history.push(MAIN_ROUTES.MY_SPACE);
+            toast({
+              title: 'Investment not found',
+              description: 'Investment was not found',
+              status: 'error',
+            });
+          },
+          '*': () =>
+            toast({
+              title: 'Error',
+              description: 'Unexpected error occurred',
+              status: 'error',
+            }),
+        }),
       select: (response) => response.data,
     },
   );

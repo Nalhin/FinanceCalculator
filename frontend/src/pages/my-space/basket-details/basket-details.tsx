@@ -14,7 +14,7 @@ import AddInvestmentModal from '../../../shared/components/investment/add-invest
 import InvestmentListItem from './investment-item/investment-item';
 import { FaPlus } from 'react-icons/fa';
 import DeleteInvestmentModal from '../../../shared/components/investment/delete-investment-modal/delete-investment-modal';
-import EditInvestmentModal from './edit-investment-modal/edit-investment-modal';
+import EditInvestmentModal from '../../../shared/components/investment/edit-investment-modal/edit-investment-modal';
 import BasketSummary from './basket-summary/basket-summary';
 
 const BasketDetails = () => {
@@ -22,7 +22,6 @@ const BasketDetails = () => {
   const addInvestmentModal = useDisclosure({ defaultIsOpen: false });
   const [toEditId, setToEditId] = React.useState<null | number>(null);
   const [toDeleteId, setToDeleteId] = React.useState<null | number>(null);
-
   const { data, refetch, isLoading } = useQuery(
     ['baskets', basketId],
     () => getInvestmentsByBasket(Number(basketId)),

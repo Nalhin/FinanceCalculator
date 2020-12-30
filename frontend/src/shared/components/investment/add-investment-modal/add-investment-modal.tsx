@@ -12,6 +12,7 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  useToast,
 } from '@chakra-ui/react';
 import InvestmentConfigFormControlGroup from '../../forms/investment-config-form-control-group/investment-config-form-control-group';
 import { useMutation } from 'react-query';
@@ -19,6 +20,9 @@ import { saveInvestment } from '../../../../core/api/investment/investment.api';
 import { yupResolver } from '@hookform/resolvers/yup';
 import InvestmentCategoryFormSelect from '../../forms/investment-category-form-select/investment-category-form-select';
 import { INVESTMENT_FORM_SCHEMA } from '../../../models/form/investment-form-schema';
+import { AxiosError } from 'axios';
+import { onAxiosError } from '../../../utils/on-axios-error/on-axios-error';
+import { populateFormWithApiErrors } from '../../../utils/on-axios-error/populate-form-with-api-errors';
 
 const DEFAULT_FORM_VALUES: SaveInvestmentRequestDto = {
   ...DEFAULT_INVESTMENT_CONFIG,
@@ -33,12 +37,14 @@ interface Props {
 }
 
 const AddInvestmentModal = ({ basketId, isOpen, onClose, onAdd }: Props) => {
+  const toast = useToast();
   const {
     control,
     register,
     handleSubmit,
     reset,
     errors,
+    setError,
   } = useForm<SaveInvestmentRequestDto>({
     defaultValues: DEFAULT_FORM_VALUES,
     resolver: yupResolver(INVESTMENT_FORM_SCHEMA),
@@ -47,6 +53,18 @@ const AddInvestmentModal = ({ basketId, isOpen, onClose, onAdd }: Props) => {
     (variables: SaveInvestmentRequestDto) =>
       saveInvestment(variables, basketId),
     {
+      onError: (error: AxiosError) => {
+        onAxiosError(error, {
+          400: () => populateFormWithApiErrors(error, setError),
+          '*': () => {
+            toast({
+              title: 'Unexpected error occurred',
+              status: 'error',
+              isClosable: true,
+            });
+          },
+        });
+      },
       onSuccess: () => {
         reset();
         onAdd?.();

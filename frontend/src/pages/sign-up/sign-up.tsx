@@ -11,6 +11,9 @@ import { RouterLocation } from '../../shared/types/router';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import InputFormControl from '../../shared/components/forms/input-form-control/input-form-control';
+import { AxiosError } from 'axios';
+import { onAxiosError } from '../../shared/utils/on-axios-error/on-axios-error';
+import { populateFormWithApiErrors } from '../../shared/utils/on-axios-error/populate-form-with-api-errors';
 
 const schema = yup.object().shape({
   username: yup
@@ -37,9 +40,46 @@ const SignUp = ({ location }: Props) => {
   const toast = useToast();
   const history = useHistory();
   const { authenticateUser } = useAuth();
+  const {
+    handleSubmit,
+    register,
+    errors,
+    setError,
+  } = useForm<SignUpUserRequestDto>({
+    resolver: yupResolver(schema),
+  });
   const { mutate, isLoading } = useMutation(postSignUp, {
+    onError: (error: AxiosError) =>
+      onAxiosError(error, {
+        403: () =>
+          toast({
+            title: 'Invalid credentials',
+            description: 'Invalid credentials provided.',
+            status: 'error',
+            isClosable: true,
+          }),
+        409: () => {
+          toast({
+            title: 'Username or email is already taken',
+            status: 'error',
+            isClosable: true,
+          });
+        },
+        400: () => populateFormWithApiErrors(error, setError),
+        '*': () => {
+          toast({
+            title: 'Unexpected error occurred',
+            status: 'error',
+            isClosable: true,
+          });
+        },
+      }),
     onSuccess: ({ data }) => {
-      toast({ title: `Welcome ${data.user.username}`, status: 'success' });
+      toast({
+        title: `Welcome ${data.user.username}`,
+        status: 'success',
+        isClosable: true,
+      });
       authenticateUser(
         { user: data.user, token: data.token },
         {
@@ -53,9 +93,6 @@ const SignUp = ({ location }: Props) => {
         },
       );
     },
-  });
-  const { handleSubmit, register, errors } = useForm<SignUpUserRequestDto>({
-    resolver: yupResolver(schema),
   });
 
   const onSubmit = (form: SignUpUserRequestDto) => {
