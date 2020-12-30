@@ -8,22 +8,12 @@ import Login from './login';
 import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { LoginUserRequestDto } from '../../core/api/api.types';
+import { loginUserFactory } from '../../../test/factory/api/auth';
 
 jest.mock('../../shared/context/auth/use-auth/use-auth');
 
 describe('loginPage', () => {
-  const server = setupServer(
-    rest.post<LoginUserRequestDto>('/api/auth/login', (req, res, ctx) => {
-      return res(
-        ctx.status(200),
-        ctx.json({
-          user: { username: req.body.username, email: 'email' },
-          token: 'token',
-        }),
-      );
-    }),
-  );
-
+  const server = setupServer();
   const mockedUseAuth = {
     authenticateUser: jest.fn(),
     logoutUser: jest.fn(),
@@ -39,18 +29,34 @@ describe('loginPage', () => {
   });
   afterAll(() => server.close());
 
+  function submitForm({ username, password }: LoginUserRequestDto) {
+    userEvent.type(screen.getByLabelText(/username/i), username);
+    userEvent.type(screen.getByLabelText(/password/i), password);
+    userEvent.click(screen.getByRole('button', { name: /login/i }));
+  }
+
   it('should authenticate user after successful login', async () => {
+    server.use(
+      rest.post<LoginUserRequestDto>('/api/auth/login', (req, res, ctx) => {
+        return res(
+          ctx.status(200),
+          ctx.json({
+            user: { username: req.body.username, email: 'email' },
+            token: 'token',
+          }),
+        );
+      }),
+    );
+    const formState = loginUserFactory.buildOne();
     renderWithProviders(<Login />);
 
-    userEvent.type(screen.getByLabelText(/username/i), 'username');
-    userEvent.type(screen.getByLabelText(/password/i), 'password');
-    userEvent.click(screen.getByRole('button', { name: /login/i }));
+    submitForm(formState);
 
     await waitFor(() => {
       expect(mockedUseAuth.authenticateUser).toHaveBeenCalledTimes(1);
       expect(mockedUseAuth.authenticateUser).toHaveBeenCalledWith(
         {
-          user: { username: 'username', email: 'email' },
+          user: { username: formState.username, email: 'email' },
           token: 'token',
         },
         { onAuth: expect.any(Function) },
@@ -66,13 +72,10 @@ describe('loginPage', () => {
     );
     renderWithProviders(<Login />);
 
-    userEvent.type(screen.getByLabelText(/username/i), 'username');
-    userEvent.type(screen.getByLabelText(/password/i), 'password');
-    const submitButton = screen.getByRole('button', { name: /login/i });
-    userEvent.click(submitButton);
+    submitForm(loginUserFactory.buildOne());
 
     await waitFor(() => {
-      expect(submitButton).not.toBeDisabled();
+      expect(screen.getByRole('button', { name: /login/i })).not.toBeDisabled();
     });
     expect(mockedUseAuth.authenticateUser).toHaveBeenCalledTimes(0);
   });
@@ -98,5 +101,42 @@ describe('loginPage', () => {
       expect(screen.getByText(/password is required/i)).toBeInTheDocument(),
     );
     expect(mockedUseAuth.authenticateUser).toHaveBeenCalledTimes(0);
+  });
+
+  it('should display toast with invalid credentials', async () => {
+    server.use(
+      rest.post('/api/auth/login', (req, res, ctx) => {
+        return res(ctx.status(403));
+      }),
+    );
+    renderWithProviders(<Login />);
+
+    submitForm(loginUserFactory.buildOne());
+
+    await waitFor(() =>
+      expect(
+        screen.getByText(/Invalid credentials provided/i),
+      ).toBeInTheDocument(),
+    );
+  });
+
+  it('should populate form with errors', async () => {
+    server.use(
+      rest.post('/api/auth/login', (req, res, ctx) => {
+        return res(
+          ctx.status(400),
+          ctx.json({
+            errors: [{ field: 'username', message: 'username error' }],
+          }),
+        );
+      }),
+    );
+    renderWithProviders(<Login />);
+
+    submitForm({ username: 'username', password: 'password' });
+
+    await waitFor(() =>
+      expect(screen.getByText(/username error/i)).toBeInTheDocument(),
+    );
   });
 });

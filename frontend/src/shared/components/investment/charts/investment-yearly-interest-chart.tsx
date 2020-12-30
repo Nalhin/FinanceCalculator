@@ -21,7 +21,7 @@ const InvestmentYearlyInterestChart = ({ series }: Props) => {
   return (
     <Box width="100%">
       <Box textAlign="center" fontWeight="bold" fontSize="xl" mb={1}>
-        Total interest
+        Yearly interest
       </Box>
       <ResponsiveContainer aspect={4 / 3} maxHeight={400}>
         <ComposedChart width={500} height={300} data={series}>

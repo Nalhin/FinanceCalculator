@@ -8,6 +8,7 @@ import { screen, waitFor } from '@testing-library/react';
 import React from 'react';
 import { SignUpUserRequestDto } from '../../core/api/api.types';
 import SignUp from './sign-up';
+import { signUpRequestFactory } from '../../../test/factory/api/auth';
 
 jest.mock('../../shared/context/auth/use-auth/use-auth');
 
@@ -39,19 +40,24 @@ describe('signUp page', () => {
   });
   afterAll(() => server.close());
 
+  function submitForm({ username, email, password }: SignUpUserRequestDto) {
+    userEvent.type(screen.getByLabelText(/username/i), username);
+    userEvent.type(screen.getByLabelText(/password/i), password);
+    userEvent.type(screen.getByLabelText(/email/i), email);
+    userEvent.click(screen.getByRole('button', { name: /sign up/i }));
+  }
+
   it('should authenticate user after successful login', async () => {
+    const formState = signUpRequestFactory.buildOne();
     renderWithProviders(<SignUp />);
 
-    userEvent.type(screen.getByLabelText(/username/i), 'username');
-    userEvent.type(screen.getByLabelText(/password/i), 'password');
-    userEvent.type(screen.getByLabelText(/email/i), 'email@gmail.com');
-    userEvent.click(screen.getByRole('button', { name: /sign up/i }));
+    submitForm(formState);
 
     await waitFor(() => {
       expect(mockedUseAuth.authenticateUser).toHaveBeenCalledTimes(1);
       expect(mockedUseAuth.authenticateUser).toHaveBeenCalledWith(
         {
-          user: { username: 'username', email: 'email@gmail.com' },
+          user: { username: formState.username, email: formState.email },
           token: 'token',
         },
         { onAuth: expect.any(Function) },
@@ -67,14 +73,12 @@ describe('signUp page', () => {
     );
     renderWithProviders(<SignUp />);
 
-    userEvent.type(screen.getByLabelText(/username/i), 'username');
-    userEvent.type(screen.getByLabelText(/password/i), 'password');
-    userEvent.type(screen.getByLabelText(/email/i), 'email@gmail.com');
-    const submitButton = screen.getByRole('button', { name: /sign up/i });
-    userEvent.click(submitButton);
+    submitForm(signUpRequestFactory.buildOne());
 
     await waitFor(() => {
-      expect(submitButton).not.toBeDisabled();
+      expect(
+        screen.getByRole('button', { name: /sign up/i }),
+      ).not.toBeDisabled();
     });
     expect(mockedUseAuth.authenticateUser).toHaveBeenCalledTimes(0);
   });
@@ -100,5 +104,59 @@ describe('signUp page', () => {
       expect(screen.getByText(/password is required/i)).toBeInTheDocument(),
     );
     expect(mockedUseAuth.authenticateUser).toHaveBeenCalledTimes(0);
+  });
+
+  it('should display error when credentials are invalid', async () => {
+    server.use(
+      rest.post('/api/auth/sign-up', (req, res, ctx) => {
+        return res(ctx.status(403));
+      }),
+    );
+    renderWithProviders(<SignUp />);
+
+    submitForm(signUpRequestFactory.buildOne());
+
+    await waitFor(() =>
+      expect(
+        screen.getByText(/invalid credentials provided/i),
+      ).toBeInTheDocument(),
+    );
+  });
+
+  it('should display error when username or password is taken', async () => {
+    server.use(
+      rest.post('/api/auth/sign-up', (req, res, ctx) => {
+        return res(ctx.status(409));
+      }),
+    );
+    renderWithProviders(<SignUp />);
+
+    submitForm(signUpRequestFactory.buildOne());
+
+    await waitFor(() =>
+      expect(
+        screen.getByText(/username or email is already taken/i),
+      ).toBeInTheDocument(),
+    );
+  });
+
+  it('should populate form with errors', async () => {
+    server.use(
+      rest.post('/api/auth/sign-up', (req, res, ctx) => {
+        return res(
+          ctx.status(400),
+          ctx.json({
+            errors: [{ field: 'username', message: 'username error' }],
+          }),
+        );
+      }),
+    );
+    renderWithProviders(<SignUp />);
+
+    submitForm(signUpRequestFactory.buildOne());
+
+    await waitFor(() =>
+      expect(screen.getByText(/username error/i)).toBeInTheDocument(),
+    );
   });
 });

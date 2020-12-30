@@ -5,6 +5,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "format": "prettier write src/**",
     "lint": "eslint \"{src,test}/**/*.{ts,tsx}\" --fix",
     "test": "jest",
     "test:cov": "jest --coverage",
