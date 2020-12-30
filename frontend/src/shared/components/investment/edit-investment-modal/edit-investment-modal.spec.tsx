@@ -54,6 +54,7 @@ describe('EditInvestmentModal', () => {
   it('should set form input values when edited basket is provided', async () => {
     const providedInvestment = investmentResponseFactory.buildOne({
       id: investmentId,
+      startAmount: 100000,
     });
     renderWithProviders(
       <EditInvestmentModal
@@ -65,9 +66,6 @@ describe('EditInvestmentModal', () => {
     );
 
     await waitFor(() => {
-      expect(
-        screen.getByDisplayValue(providedInvestment.yearsOfGrowth),
-      ).toBeInTheDocument();
       expect(
         screen.getByDisplayValue(providedInvestment.startAmount),
       ).toBeInTheDocument();

@@ -85,7 +85,7 @@ describe('AddInvestmentModal component', () => {
   it('should allow to add investment when form is valid', async () => {
     const formState = saveInvestmentRequestFactory.buildOne();
     const onAddMock = jest.fn();
-    const { queryClient } = renderWithProviders(
+    renderWithProviders(
       <AddInvestmentModal
         basketId={basketId}
         isOpen
@@ -96,11 +96,11 @@ describe('AddInvestmentModal component', () => {
 
     submitForm(formState);
 
-    await waitFor(() =>
-      expect(screen.getByRole('button', { name: /add/i })).not.toBeDisabled(),
-    );
-    expect(queryClient.getMutationCache().getAll()).toHaveLength(1);
-    expect(onAddMock).toHaveBeenCalledTimes(1);
+    await waitFor(() => {
+      expect(screen.getByRole('button', { name: /add/i })).not.toBeDisabled();
+      expect(screen.getByText(/investment added!/i)).toBeInTheDocument();
+      expect(onAddMock).toHaveBeenCalledTimes(1);
+    });
   });
 
   it('should display unexpected error when response has error status', async () => {

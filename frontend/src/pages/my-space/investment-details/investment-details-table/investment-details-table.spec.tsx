@@ -9,6 +9,8 @@ describe('InvestmentDetailsTable', () => {
     const providedInvestment = investmentResponseFactory.buildOne({
       risk: 'HIGH',
       category: 'CERTIFICATE_OF_DEPOSIT',
+      payment: 100,
+      startAmount: 150,
     });
     renderWithProviders(
       <InvestmentDetailsTable investment={providedInvestment} />,
