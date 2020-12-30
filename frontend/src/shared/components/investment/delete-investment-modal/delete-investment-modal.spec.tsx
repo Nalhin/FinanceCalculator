@@ -91,4 +91,31 @@ describe('DeleteInvestmentModal component', () => {
     await waitFor(() => expect(deleteButton).not.toBeDisabled());
     expect(onDeleteMock).toBeCalledTimes(0);
   });
+
+  it('should display error message when response returns with error status', async () => {
+    server.use(
+      rest.delete(
+        `/api/me/baskets/${basketId}/investments/${investmentId}`,
+        (req, res, ctx) => {
+          return res(ctx.status(500));
+        },
+      ),
+    );
+    renderWithProviders(
+      <DeleteInvestmentModal
+        isOpen
+        basketId={basketId}
+        investmentId={investmentId}
+        onClose={jest.fn()}
+      />,
+    );
+
+    userEvent.click(screen.getByRole('button', { name: /yes/i }));
+
+    await waitFor(() =>
+      expect(
+        screen.getByText(/unexpected error occurred/i),
+      ).toBeInTheDocument(),
+    );
+  });
 });

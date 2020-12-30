@@ -30,6 +30,35 @@ describe('AddInvestmentModal component', () => {
   afterEach(() => server.resetHandlers());
   afterAll(() => server.close());
 
+  function submitForm(form: SaveInvestmentRequestDto) {
+    userEvent.type(
+      screen.getByLabelText(/initial amount/i),
+      `{selectall}${form.startAmount}`,
+    );
+    userEvent.type(
+      screen.getByLabelText(/estimated annual rate of return/i),
+      `{selectall}${form.annualInterestRate}`,
+    );
+    userEvent.type(
+      screen.getByLabelText(/years of growth/i),
+      `{selectall}${form.yearsOfGrowth}`,
+    );
+    userEvent.type(
+      screen.getByLabelText(/additional payment/i),
+      `{selectall}${form.payment}`,
+    );
+    userEvent.selectOptions(screen.getByLabelText(/category/i), form.category);
+    userEvent.selectOptions(
+      screen.getByLabelText(/payment frequency/i),
+      String(form.paymentFrequency),
+    );
+    userEvent.selectOptions(
+      screen.getByLabelText(/compound frequency/i),
+      String(form.compoundFrequency),
+    );
+    userEvent.click(screen.getByRole('button', { name: /add/i }));
+  }
+
   it('should hide modal when isOpen is false', () => {
     renderWithProviders(
       <AddInvestmentModal
@@ -54,43 +83,69 @@ describe('AddInvestmentModal component', () => {
   });
 
   it('should allow to add investment when form is valid', async () => {
-    const expectedFormValues = saveInvestmentRequestFactory.buildOne();
+    const formState = saveInvestmentRequestFactory.buildOne();
+    const onAddMock = jest.fn();
     const { queryClient } = renderWithProviders(
+      <AddInvestmentModal
+        basketId={basketId}
+        isOpen
+        onClose={jest.fn()}
+        onAdd={onAddMock}
+      />,
+    );
+
+    submitForm(formState);
+
+    await waitFor(() =>
+      expect(screen.getByRole('button', { name: /add/i })).not.toBeDisabled(),
+    );
+    expect(queryClient.getMutationCache().getAll()).toHaveLength(1);
+    expect(onAddMock).toHaveBeenCalledTimes(1);
+  });
+
+  it('should display unexpected error when response has error status', async () => {
+    server.use(
+      rest.post(`/api/me/baskets/${basketId}/investments`, (req, res, ctx) => {
+        return res(ctx.status(500));
+      }),
+    );
+    renderWithProviders(
       <AddInvestmentModal basketId={basketId} isOpen onClose={jest.fn()} />,
     );
 
-    userEvent.type(
-      screen.getByLabelText(/initial amount/i),
-      `{selectall}${expectedFormValues.startAmount}`,
-    );
-    userEvent.type(
-      screen.getByLabelText(/estimated annual rate of return/i),
-      `{selectall}${expectedFormValues.annualInterestRate}`,
-    );
-    userEvent.type(
-      screen.getByLabelText(/years of growth/i),
-      `{selectall}${expectedFormValues.yearsOfGrowth}`,
-    );
-    userEvent.type(
-      screen.getByLabelText(/additional payment/i),
-      `{selectall}${expectedFormValues.payment}`,
-    );
-    userEvent.selectOptions(
-      screen.getByLabelText(/category/i),
-      expectedFormValues.category,
-    );
-    userEvent.selectOptions(
-      screen.getByLabelText(/payment frequency/i),
-      String(expectedFormValues.paymentFrequency),
-    );
-    userEvent.selectOptions(
-      screen.getByLabelText(/compound frequency/i),
-      String(expectedFormValues.compoundFrequency),
-    );
-    const button = screen.getByRole('button', { name: /add/i });
-    userEvent.click(button);
+    submitForm(saveInvestmentRequestFactory.buildOne());
 
-    await waitFor(() => expect(button).not.toBeDisabled());
-    expect(queryClient.getMutationCache().getAll()).toHaveLength(1);
+    await waitFor(() =>
+      expect(
+        screen.getByText(/unexpected error occurred/i),
+      ).toBeInTheDocument(),
+    );
+  });
+
+  it('should display form errors when response has 400 status code', async () => {
+    server.use(
+      rest.post(`/api/me/baskets/${basketId}/investments`, (req, res, ctx) => {
+        return res(
+          ctx.status(400),
+          ctx.json({
+            errors: [
+              {
+                field: 'annualInterestRate',
+                message: 'annual error',
+              },
+            ],
+          }),
+        );
+      }),
+    );
+    renderWithProviders(
+      <AddInvestmentModal basketId={basketId} isOpen onClose={jest.fn()} />,
+    );
+
+    submitForm(saveInvestmentRequestFactory.buildOne());
+
+    await waitFor(() =>
+      expect(screen.getByText(/annual error/i)).toBeInTheDocument(),
+    );
   });
 });

@@ -1,12 +1,12 @@
 import { Box } from '@chakra-ui/react';
 import React from 'react';
 import { Legend, Pie, PieChart, Tooltip } from 'recharts';
-import { InvestmentResponseDto } from '../../../../core/api/api.types';
+import { InvestmentResponseDto } from '../../../../../core/api/api.types';
 import {
   INVESTMENT_CATEGORIES_TRANSLATIONS,
   INVESTMENT_CATEGORY_COLORS,
   InvestmentCategory,
-} from '../../../constants/investment-category';
+} from '../../../../constants/investment-category';
 
 function getCategoryCounter(investments: InvestmentResponseDto[]) {
   return investments.reduce<{ [K in InvestmentCategory]?: number }>(

@@ -14,6 +14,5 @@ export function onAxiosError(error: AxiosError, actions: ErrorActions) {
   }
   if (actions['*']) {
     actions['*']();
-    return;
   }
 }

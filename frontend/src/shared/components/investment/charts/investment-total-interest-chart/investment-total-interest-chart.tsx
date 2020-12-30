@@ -10,36 +10,36 @@ import {
   XAxis,
   YAxis,
 } from 'recharts';
-import { YearlyInterestTimeSeries } from '../../../models/interest-calculator/calculate-yearly-interest-time-series/calculate-yearly-interest-time-series';
+import { CompoundInterestTimeSeries } from '../../../../models/interest-calculator/calculate-compound-interest-time-series/compound-interest-time-series';
 import { Box } from '@chakra-ui/react';
 
 interface Props {
-  series: YearlyInterestTimeSeries[];
+  series: CompoundInterestTimeSeries[];
 }
 
-const InvestmentYearlyInterestChart = ({ series }: Props) => {
+const InvestmentTotalInterestChart = ({ series }: Props) => {
   return (
     <Box width="100%">
       <Box textAlign="center" fontWeight="bold" fontSize="xl" mb={1}>
-        Yearly interest
+        Total interest
       </Box>
       <ResponsiveContainer aspect={4 / 3} maxHeight={400}>
-        <ComposedChart width={500} height={300} data={series}>
+        <ComposedChart data={series}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="year" />
           <YAxis
-            dataKey="yearlyInterest"
+            dataKey="totalInterest"
             tickFormatter={(value) =>
               value >= 1_000_000 ? `${value / 1000}k` : value
             }
           />
           <Tooltip />
           <Legend />
-          <Bar dataKey="yearlyInterest" name="Yearly Interest" fill="#8884d8" />
+          <Bar dataKey="totalInterest" name="Total interest" fill="#8884d8" />
           <Line
             type="monotone"
-            dataKey="yearlyInterest"
-            name="Yearly interest"
+            dataKey="totalInterest"
+            name="Total interest"
             stroke="#ff7300"
           />
         </ComposedChart>
@@ -48,4 +48,4 @@ const InvestmentYearlyInterestChart = ({ series }: Props) => {
   );
 };
 
-export default InvestmentYearlyInterestChart;
+export default InvestmentTotalInterestChart;

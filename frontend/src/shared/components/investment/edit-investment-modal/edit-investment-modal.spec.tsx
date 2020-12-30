@@ -111,4 +111,67 @@ describe('EditInvestmentModal', () => {
       }),
     );
   });
+
+  it('should display error toast when response returns with error', async () => {
+    server.use(
+      rest.put(
+        `/api/me/baskets/${basketId}/investments/${investmentId}`,
+        (req, res, ctx) => {
+          return res(ctx.status(500));
+        },
+      ),
+    );
+
+    renderWithProviders(
+      <EditInvestmentModal
+        isOpen
+        basketId={basketId}
+        onClose={jest.fn()}
+        investment={investmentResponseFactory.buildOne({
+          id: investmentId,
+        })}
+      />,
+    );
+
+    userEvent.click(screen.getByRole('button', { name: /confirm/i }));
+    await waitFor(() =>
+      expect(
+        screen.getByText(/unexpected error occurred/i),
+      ).toBeInTheDocument(),
+    );
+  });
+
+  it('should display form errors response has 400 status', async () => {
+    server.use(
+      rest.put(
+        `/api/me/baskets/${basketId}/investments/${investmentId}`,
+        (req, res, ctx) => {
+          return res(
+            ctx.status(400),
+            ctx.json({
+              errors: [
+                { field: 'annualInterestRate', message: 'annual error' },
+              ],
+            }),
+          );
+        },
+      ),
+    );
+
+    renderWithProviders(
+      <EditInvestmentModal
+        isOpen
+        basketId={basketId}
+        onClose={jest.fn()}
+        investment={investmentResponseFactory.buildOne({
+          id: investmentId,
+        })}
+      />,
+    );
+
+    userEvent.click(screen.getByRole('button', { name: /confirm/i }));
+    await waitFor(() =>
+      expect(screen.getByText(/annual error/i)).toBeInTheDocument(),
+    );
+  });
 });
