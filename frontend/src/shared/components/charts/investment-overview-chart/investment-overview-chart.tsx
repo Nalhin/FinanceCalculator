@@ -9,7 +9,7 @@ import {
   XAxis,
   YAxis,
 } from 'recharts';
-import { CompoundInterestTimeSeries } from '../../../../models/interest-calculator/calculate-compound-interest-time-series/compound-interest-time-series';
+import { CompoundInterestTimeSeries } from '../../../models/interest-calculator/calculate-compound-interest-time-series/compound-interest-time-series';
 import { Box } from '@chakra-ui/react';
 
 interface Props {

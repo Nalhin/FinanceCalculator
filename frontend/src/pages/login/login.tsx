@@ -39,13 +39,6 @@ const Login = ({ location }: Props) => {
   const { mutate, isLoading } = useMutation(postLogin, {
     onError: (error: AxiosError) =>
       onAxiosError(error, {
-        403: () =>
-          toast({
-            title: 'Invalid credentials',
-            description: 'Invalid credentials provided.',
-            status: 'error',
-            isClosable: true,
-          }),
         400: () => populateFormWithApiErrors(error, setError),
         '*': () => {
           toast({
@@ -54,6 +47,13 @@ const Login = ({ location }: Props) => {
             isClosable: true,
           });
         },
+        403: () =>
+          toast({
+            title: 'Invalid credentials',
+            description: 'Invalid credentials provided.',
+            status: 'error',
+            isClosable: true,
+          }),
       }),
     onSuccess: ({ data }) => {
       toast({

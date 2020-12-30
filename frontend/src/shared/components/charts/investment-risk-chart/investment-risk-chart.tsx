@@ -1,4 +1,4 @@
-import { InvestmentResponseDto } from '../../../../../core/api/api.types';
+import { InvestmentResponseDto } from '../../../../core/api/api.types';
 import React from 'react';
 import { Legend, Pie, PieChart, Tooltip } from 'recharts';
 import { Box } from '@chakra-ui/react';
@@ -6,7 +6,7 @@ import {
   INVESTMENT_RISK_COLORS,
   INVESTMENT_RISK_TRANSLATIONS,
   InvestmentRisk,
-} from '../../../../constants/investment-risk';
+} from '../../../constants/investment-risk';
 
 function getRiskCounter(investments: InvestmentResponseDto[]) {
   return investments.reduce<{ [K in InvestmentRisk]?: number }>(
