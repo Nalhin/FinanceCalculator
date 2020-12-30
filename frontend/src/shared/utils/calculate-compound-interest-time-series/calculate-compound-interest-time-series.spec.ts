@@ -1,4 +1,4 @@
-import { investmentConfigFactory } from '../../../../../test/factory/investment/investment';
+import { investmentConfigFactory } from '../../../../test/factory/investment/investment';
 import { calculateCompoundInterestTimeSeries } from './compound-interest-time-series';
 
 describe('compoundInterestTimeSeries function', () => {

@@ -7,8 +7,8 @@ import { FaEdit, FaTrash } from 'react-icons/fa';
 import { generatePath, Link } from 'react-router-dom';
 import { MAIN_ROUTES } from '../../../main.routes';
 import { MY_SPACE_ROUTES } from '../../my-space.routers';
-import InvestmentCategoryBadge from '../../../../shared/components/investment/badges/investment-category-badge';
-import InvestmentRiskBadge from '../../../../shared/components/investment/badges/investment-risk-badge';
+import InvestmentCategoryBadge from '../../../../shared/components/investment/investment-badges/investment-category-badge';
+import InvestmentRiskBadge from '../../../../shared/components/investment/investment-badges/investment-risk-badge';
 
 interface Props {
   investment: InvestmentResponseDto;

@@ -1,4 +1,4 @@
-import { investmentConfigFactory } from '../../../../../test/factory/investment/investment';
+import { investmentConfigFactory } from '../../../../test/factory/investment/investment';
 import { calculateYearlyInvestmentSummary } from './calculate-yearly-investment-summary';
 
 describe('calculateYearlyInvestmentSummary()', () => {

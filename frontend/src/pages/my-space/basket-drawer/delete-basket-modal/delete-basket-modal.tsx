@@ -39,7 +39,14 @@ const DeleteBasketModal = ({ isOpen, onClose, onDelete, basket }: Props) => {
           },
         });
       },
-      onSuccess: onDelete,
+      onSuccess: () => {
+        onDelete?.();
+        toast({
+          title: 'Basket deleted!',
+          status: 'success',
+          isClosable: true,
+        });
+      },
     },
   );
 
@@ -60,7 +67,11 @@ const DeleteBasketModal = ({ isOpen, onClose, onDelete, basket }: Props) => {
           <Button colorScheme="blue" mr={3} onClick={onClose}>
             No
           </Button>
-          <Button variant="ghost" isLoading={isLoading} onClick={handleDelete}>
+          <Button
+            colorScheme="teal"
+            isLoading={isLoading}
+            onClick={handleDelete}
+          >
             Yes
           </Button>
         </ModalFooter>

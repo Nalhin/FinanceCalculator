@@ -1,4 +1,4 @@
-import { roundNumber } from '../../../utils/round-number/round-number';
+import { roundNumber } from '../round-number/round-number';
 
 export interface YearlyInterestTimeSeries {
   year: number;
@@ -11,7 +11,7 @@ export function calculateYearlyInterestTimeSeries(
   }[],
 ) {
   return series.map((value, index, array) => {
-    if (index == 0) {
+    if (index === 0) {
       return { yearlyInterest: 0, year: 0 };
     }
     return {

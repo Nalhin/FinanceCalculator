@@ -82,7 +82,9 @@ const InvestmentDetails = () => {
         <InvestmentStatsSummary config={data} />
         <InvestmentDetailsTable investment={data} />
       </Flex>
-      <InvestmentSummary investment={data} />
+      <Flex width="90%" mx="auto">
+        <InvestmentSummary investment={data} />
+      </Flex>
       <IconButton
         width={12}
         height={12}

@@ -75,7 +75,14 @@ const EditBasketModal = ({ isOpen, onClose, onEdit, basket }: Props) => {
           },
         });
       },
-      onSuccess: () => onEdit?.(),
+      onSuccess: () => {
+        onEdit?.();
+        toast({
+          title: 'Basket updated!',
+          status: 'success',
+          isClosable: true,
+        });
+      },
     },
   );
 
@@ -110,7 +117,7 @@ const EditBasketModal = ({ isOpen, onClose, onEdit, basket }: Props) => {
             Cancel
           </Button>
           <Button
-            variant="ghost"
+            colorScheme="teal"
             isLoading={isLoading}
             type="submit"
             form="edit-basket-form"

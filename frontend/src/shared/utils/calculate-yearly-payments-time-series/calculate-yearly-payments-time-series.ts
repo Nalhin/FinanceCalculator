@@ -1,4 +1,4 @@
-import { roundNumber } from '../../../utils/round-number/round-number';
+import { roundNumber } from '../round-number/round-number';
 
 export interface YearlyPaymentsTimeSeries {
   year: number;
@@ -11,7 +11,7 @@ export function calculateYearlyPaymentsTimeSeries(
   }[],
 ): YearlyPaymentsTimeSeries[] {
   return series.map((value, index, array) => {
-    if (index == 0) {
+    if (index === 0) {
       return { yearlyPayments: 0, year: 0 };
     }
     return {

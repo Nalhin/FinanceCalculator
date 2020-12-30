@@ -64,7 +64,13 @@ const AddBasketModal = ({ isOpen, onClose, onAdd }: Props) => {
     },
     onSuccess: () => {
       onAdd?.();
+      onClose?.();
       reset();
+      toast({
+        title: 'Basket added!',
+        status: 'success',
+        isClosable: true,
+      });
     },
   });
 
@@ -99,7 +105,7 @@ const AddBasketModal = ({ isOpen, onClose, onAdd }: Props) => {
             Cancel
           </Button>
           <Button
-            variant="ghost"
+            colorScheme="teal"
             isLoading={isLoading}
             type="submit"
             form="add-basket"

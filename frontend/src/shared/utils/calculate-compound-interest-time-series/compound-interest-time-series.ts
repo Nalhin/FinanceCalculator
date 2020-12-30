@@ -1,8 +1,8 @@
 import {
   CompoundInterestRateCalculator,
   InvestmentConfig,
-} from '../compound-interest-rate-calculator/compound-interest-rate-calculator';
-import { roundNumber } from '../../../utils/round-number/round-number';
+} from '../../models/interest-calculator/compound-interest-rate-calculator';
+import { roundNumber } from '../round-number/round-number';
 
 export interface CompoundInterestTimeSeries {
   totalInterest: number;

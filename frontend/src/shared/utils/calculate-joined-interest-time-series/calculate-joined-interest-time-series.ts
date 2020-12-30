@@ -1,9 +1,9 @@
-import { InvestmentConfig } from '../compound-interest-rate-calculator/compound-interest-rate-calculator';
+import { InvestmentConfig } from '../../models/interest-calculator/compound-interest-rate-calculator';
 import {
   CompoundInterestTimeSeries,
   calculateCompoundInterestTimeSeries,
 } from '../calculate-compound-interest-time-series/compound-interest-time-series';
-import { roundNumber } from '../../../utils/round-number/round-number';
+import { roundNumber } from '../round-number/round-number';
 
 export function calculateJoinedInterestTimeSeries(
   investments: InvestmentConfig[],

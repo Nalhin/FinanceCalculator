@@ -79,6 +79,11 @@ const EditInvestmentModal = ({
       onSuccess: () => {
         onEdit?.();
         onClose();
+        toast({
+          title: 'Investment updated!',
+          status: 'success',
+          isClosable: true,
+        });
       },
     },
   );
@@ -123,7 +128,6 @@ const EditInvestmentModal = ({
           </Button>
           <Button
             colorScheme="teal"
-            size="md"
             type="submit"
             width="100%"
             form="edit-investment"

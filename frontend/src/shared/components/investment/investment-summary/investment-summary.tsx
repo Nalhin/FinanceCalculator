@@ -1,12 +1,12 @@
 import React from 'react';
-import { InvestmentConfig } from '../../../models/interest-calculator/compound-interest-rate-calculator/compound-interest-rate-calculator';
-import { calculateCompoundInterestTimeSeries } from '../../../models/interest-calculator/calculate-compound-interest-time-series/compound-interest-time-series';
+import { InvestmentConfig } from '../../../models/interest-calculator/compound-interest-rate-calculator';
+import { calculateCompoundInterestTimeSeries } from '../../../utils/calculate-compound-interest-time-series/compound-interest-time-series';
 import { Flex } from '@chakra-ui/react';
 import InvestmentOverviewChart from '../../charts/investment-overview-chart/investment-overview-chart';
 import InvestmentTotalInterestChart from '../../charts/investment-total-interest-chart/investment-total-interest-chart';
 import InvestmentYearlyInterestChart from '../../charts/investment-yearly-interest-chart/investment-yearly-interest-chart';
-import { calculateYearlyInterestTimeSeries } from '../../../models/interest-calculator/calculate-yearly-interest-time-series/calculate-yearly-interest-time-series';
-import { calculateYearlyPaymentsTimeSeries } from '../../../models/interest-calculator/calculate-yearly-payments-time-series/calculate-yearly-payments-time-series';
+import { calculateYearlyInterestTimeSeries } from '../../../utils/calculate-yearly-interest-time-series/calculate-yearly-interest-time-series';
+import { calculateYearlyPaymentsTimeSeries } from '../../../utils/calculate-yearly-payments-time-series/calculate-yearly-payments-time-series';
 import InvestmentYearlyPaymentsChart from '../../charts/investment-yearly-payments-chart/investment-yearly-payments-chart';
 import InvestmentTotalPaymentsChart from '../../charts/investment-total-payments-chart/investment-total-payments-chart';
 
@@ -20,7 +20,7 @@ const InvestmentSummary = ({ investment }: Props) => {
     [investment],
   );
   return (
-    <Flex width="90%" direction="column" mx="auto">
+    <Flex width="100%" direction="column" mx="auto">
       <InvestmentOverviewChart series={series} />
       <Flex direction={{ base: 'column', lg: 'row' }}>
         <InvestmentTotalInterestChart series={series} />

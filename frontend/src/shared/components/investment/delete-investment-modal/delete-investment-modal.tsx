@@ -48,6 +48,11 @@ const DeleteInvestmentModal = ({
       onSuccess: () => {
         onDelete?.();
         onClose();
+        toast({
+          title: 'Investment deleted!',
+          status: 'success',
+          isClosable: true,
+        });
       },
     },
   );
@@ -67,7 +72,11 @@ const DeleteInvestmentModal = ({
           <Button colorScheme="blue" mr={3} onClick={onClose}>
             No
           </Button>
-          <Button variant="ghost" isLoading={isLoading} onClick={handleDelete}>
+          <Button
+            colorScheme="teal"
+            isLoading={isLoading}
+            onClick={handleDelete}
+          >
             Yes
           </Button>
         </ModalFooter>

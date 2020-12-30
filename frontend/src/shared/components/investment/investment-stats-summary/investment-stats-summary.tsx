@@ -11,8 +11,8 @@ import React from 'react';
 import {
   CompoundInterestRateCalculator,
   InvestmentConfig,
-} from '../../../models/interest-calculator/compound-interest-rate-calculator/compound-interest-rate-calculator';
-import { calculateYearlyInvestmentSummary } from '../../../models/interest-calculator/calculate-yearly-investment-sumary/calculate-yearly-investment-summary';
+} from '../../../models/interest-calculator/compound-interest-rate-calculator';
+import { calculateYearlyInvestmentSummary } from '../../../utils/calculate-yearly-investment-sumary/calculate-yearly-investment-summary';
 
 interface Props {
   config: InvestmentConfig;

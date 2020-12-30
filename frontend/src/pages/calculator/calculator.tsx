@@ -1,7 +1,7 @@
 import { Box, Flex } from '@chakra-ui/react';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { InvestmentConfig } from '../../shared/models/interest-calculator/compound-interest-rate-calculator/compound-interest-rate-calculator';
+import { InvestmentConfig } from '../../shared/models/interest-calculator/compound-interest-rate-calculator';
 import WithInvestmentConfig from '../../shared/components/forms/with-investment-config/with-investment-config';
 import { DEFAULT_INVESTMENT_CONFIG } from '../../shared/constants/default-investment-config';
 import InvestmentConfigFormControlGroup from '../../shared/components/forms/investment-config-form-control-group/investment-config-form-control-group';

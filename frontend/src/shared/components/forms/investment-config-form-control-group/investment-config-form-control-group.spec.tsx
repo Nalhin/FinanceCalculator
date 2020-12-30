@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { InvestmentConfig } from '../../../models/interest-calculator/compound-interest-rate-calculator/compound-interest-rate-calculator';
+import { InvestmentConfig } from '../../../models/interest-calculator/compound-interest-rate-calculator';
 import { DEFAULT_INVESTMENT_CONFIG } from '../../../constants/default-investment-config';
 import InvestmentConfigFormControlGroup from './investment-config-form-control-group';
 import { renderWithProviders } from '../../../../../test/render/render-with-providers';

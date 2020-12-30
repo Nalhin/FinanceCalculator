@@ -10,7 +10,7 @@ import {
   XAxis,
   YAxis,
 } from 'recharts';
-import { YearlyInterestTimeSeries } from '../../../models/interest-calculator/calculate-yearly-interest-time-series/calculate-yearly-interest-time-series';
+import { YearlyInterestTimeSeries } from '../../../utils/calculate-yearly-interest-time-series/calculate-yearly-interest-time-series';
 import { Box } from '@chakra-ui/react';
 
 interface Props {

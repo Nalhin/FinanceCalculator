@@ -5,8 +5,8 @@ import {
 } from '../../../../shared/constants/frequency';
 import React from 'react';
 import { InvestmentResponseDto } from '../../../../core/api/api.types';
-import InvestmentCategoryBadge from '../../../../shared/components/investment/badges/investment-category-badge';
-import InvestmentRiskBadge from '../../../../shared/components/investment/badges/investment-risk-badge';
+import InvestmentCategoryBadge from '../../../../shared/components/investment/investment-badges/investment-category-badge';
+import InvestmentRiskBadge from '../../../../shared/components/investment/investment-badges/investment-risk-badge';
 
 interface Props {
   investment: InvestmentResponseDto;

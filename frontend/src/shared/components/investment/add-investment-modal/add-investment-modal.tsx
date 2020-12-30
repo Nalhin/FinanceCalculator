@@ -67,7 +67,13 @@ const AddInvestmentModal = ({ basketId, isOpen, onClose, onAdd }: Props) => {
       },
       onSuccess: () => {
         reset();
+        onClose();
         onAdd?.();
+        toast({
+          title: 'Investment added!',
+          status: 'success',
+          isClosable: true,
+        });
       },
     },
   );

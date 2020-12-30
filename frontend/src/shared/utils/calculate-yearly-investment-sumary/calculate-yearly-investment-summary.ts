@@ -1,7 +1,7 @@
 import {
   CompoundInterestRateCalculator,
   InvestmentConfig,
-} from '../compound-interest-rate-calculator/compound-interest-rate-calculator';
+} from '../../models/interest-calculator/compound-interest-rate-calculator';
 
 export function calculateYearlyInvestmentSummary(config: InvestmentConfig) {
   const yearlyCalculator = new CompoundInterestRateCalculator({
