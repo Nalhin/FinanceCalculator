@@ -15,7 +15,7 @@ import EditInvestmentModal from '../../../shared/components/investment/edit-inve
 import DeleteInvestmentModal from '../../../shared/components/investment/delete-investment-modal/delete-investment-modal';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 import InvestmentSummary from '../../../shared/components/investment/investment-summary/investment-summary';
-import InvestmentDetailsTable from './investment-details-table';
+import InvestmentDetailsTable from './investment-details-table/investment-details-table';
 import type { AxiosError } from 'axios';
 import { onAxiosError } from '../../../shared/utils/on-axios-error/on-axios-error';
 import { MAIN_ROUTES } from '../../main.routes';

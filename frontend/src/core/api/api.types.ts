@@ -91,7 +91,7 @@ export interface PageInvestmentResponseDto {
 
 export interface SaveBasketRequestDto {
   description: string;
-  name?: string;
+  name: string;
 }
 
 export interface SaveInvestmentRequestDto {

@@ -2,11 +2,11 @@ import { Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
 import {
   Frequency,
   FREQUENCY_TRANSLATIONS,
-} from '../../../shared/constants/frequency';
+} from '../../../../shared/constants/frequency';
 import React from 'react';
-import { InvestmentResponseDto } from '../../../core/api/api.types';
-import InvestmentCategoryBadge from '../../../shared/components/investment/badges/investment-category-badge';
-import InvestmentRiskBadge from '../../../shared/components/investment/badges/investment-risk-badge';
+import { InvestmentResponseDto } from '../../../../core/api/api.types';
+import InvestmentCategoryBadge from '../../../../shared/components/investment/badges/investment-category-badge';
+import InvestmentRiskBadge from '../../../../shared/components/investment/badges/investment-risk-badge';
 
 interface Props {
   investment: InvestmentResponseDto;

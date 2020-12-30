@@ -26,7 +26,7 @@ import { DEFAULT_INVESTMENT_CONFIG } from '../../../constants/default-investment
 import { INVESTMENT_FORM_SCHEMA } from '../../../models/form/investment-form-schema';
 import type { AxiosError } from 'axios';
 import { onAxiosError } from '../../../utils/on-axios-error/on-axios-error';
-import { populateFormWithApiErrors } from '../../../utils/on-axios-error/populate-form-with-api-errors';
+import { populateFormWithApiErrors } from '../../../utils/populate-form-with-api-errors/populate-form-with-api-errors';
 
 const DEFAULT_FORM_VALUES: SaveInvestmentRequestDto = {
   ...DEFAULT_INVESTMENT_CONFIG,

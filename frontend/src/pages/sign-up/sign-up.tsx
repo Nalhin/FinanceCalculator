@@ -13,7 +13,7 @@ import * as yup from 'yup';
 import InputFormControl from '../../shared/components/forms/input-form-control/input-form-control';
 import { AxiosError } from 'axios';
 import { onAxiosError } from '../../shared/utils/on-axios-error/on-axios-error';
-import { populateFormWithApiErrors } from '../../shared/utils/on-axios-error/populate-form-with-api-errors';
+import { populateFormWithApiErrors } from '../../shared/utils/populate-form-with-api-errors/populate-form-with-api-errors';
 
 const schema = yup.object().shape({
   username: yup

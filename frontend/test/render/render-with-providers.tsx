@@ -23,7 +23,9 @@ export const renderWithProviders = <Q extends Queries>(
     user = new AnonymousUser(),
   }: CustomRenderOptions<Q> = {},
 ) => {
-  const queryClient = new QueryClient();
+  const queryClient = new QueryClient({
+    defaultOptions: { queries: { retry: false } },
+  });
 
   return {
     ...render(

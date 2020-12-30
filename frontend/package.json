@@ -44,6 +44,7 @@
     "@emotion/react": "^11.1.2",
     "@emotion/styled": "^11.0.0",
     "@hookform/resolvers": "^1.2.0",
+    "axios": "^0.21.1",
     "date-fns": "^2.16.1",
     "framer-motion": "^2.9.5",
     "msw": "^0.24.2",
