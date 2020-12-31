@@ -102,7 +102,7 @@ const EditInvestmentModal = ({
     <Modal isOpen={isOpen} onClose={onClose} scrollBehavior="inside">
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Edit an investment</ModalHeader>
+        <ModalHeader>Edit investment</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
           <Box

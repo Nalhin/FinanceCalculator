@@ -23,10 +23,10 @@ class InvestmentService {
     return investmentRepository.findByBasketIdAndOwnerId(basketId, userId, pageable);
   }
 
-  public Investment getByBasketIdAndId(Long investmentId, Long basketId, Long userId) {
+  public Investment getByBasketIdAndId(Long basketId, Long investmentId, Long userId) {
     Investment investment =
         investmentRepository
-            .findByBasketIdAndId(investmentId, basketId)
+            .findByBasketIdAndId(basketId, investmentId)
             .orElseThrow(InvestmentNotFoundException::new);
 
     if (!investment.getOwner().getId().equals(userId)) {
@@ -43,7 +43,7 @@ class InvestmentService {
     return investmentRepository.save(investment);
   }
 
-  public Investment updateInvestment(
+  public Investment updateInvestmentByBasketIdAndId(
       Long basketId, Long investmentId, UpdateInvestmentRequestDto investmentRequest, Long userId) {
     Investment investment =
         investmentRepository
@@ -58,7 +58,7 @@ class InvestmentService {
     return investmentRepository.save(investment);
   }
 
-  public void deleteByBasketId(Long basketId, Long investmentId, Long userId) {
+  public void deleteByBasketIdAndId(Long basketId, Long investmentId, Long userId) {
     Investment investment =
         investmentRepository
             .findByBasketIdAndId(basketId, investmentId)

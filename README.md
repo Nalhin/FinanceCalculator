@@ -8,7 +8,7 @@
 
 # Finance Calculator
 
-Finance calculator with investment planning, visualization and persistence.
+Finance calculator with investment planning, interactive visualization and persistence.
 
 ## Table of contents
 
@@ -41,7 +41,7 @@ The business logic is based on economic compound interest rate formulas.
 
 <p align="center">
   <a href="https://youtu.be/noUTVgs8gUI">
-    <img src="screenshots/finance-calculator-mobile.gif" alt="mobile overview"/>
+    <img width="240px" src="screenshots/finance-calculator-mobile.gif" alt="mobile overview"/>
   </a>
 </p>
 
@@ -53,39 +53,37 @@ The business logic is based on economic compound interest rate formulas.
   </a>
 </p>
 
-### Screens
-
-#### Landing Page
+### Landing Page
 
 <p align="center">
     <img src="screenshots/landing.png" alt="landing"/>
 </p>
 
-#### Calculator
+### Calculator
 
 <p align="center">
     <img src="screenshots/calculator.png" alt="landing"/>
 </p>
 
-#### Investment summary
+### Investment summary
 
 <p align="center">
     <img src="screenshots/investment-summary.png" alt="investment summary"/>
 </p>
 
-#### Investment distribution
+### Investment distribution
 
 <p align="center">
     <img src="screenshots/investment-distribution.png" alt="investment distribution"/>
 </p>
 
-#### Investments
+### Investments
 
 <p align="center">
     <img src="screenshots/investments.png" alt="investments"/>
 </p>
 
-#### Edit investment
+### Edit investment
 
 <p align="center">
     <img src="screenshots/edit-investment-modal.png" alt="edit investment"/>
@@ -126,6 +124,14 @@ The business logic is based on economic compound interest rate formulas.
 * SonarCloud
 
 ## Architecture
+
+### Frontend
+
+
+
+### Backend
+
+
 
 ## REST API specification
 

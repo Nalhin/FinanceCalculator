@@ -14,11 +14,11 @@ class BasketService {
   private final BasketRepository basketRepository;
   private final BasketMapper basketMapper;
 
-  public Page<Basket> findAll(Pageable page, Long userId) {
+  public Page<Basket> findAllBaskets(Pageable page, Long userId) {
     return basketRepository.findAllByOwnerId(page, userId);
   }
 
-  public Basket update(Long basketId, UpdateBasketRequestDto updateBasketRequest, Long userId) {
+  public Basket updateBasket(Long basketId, UpdateBasketRequestDto updateBasketRequest, Long userId) {
     Basket basket = basketRepository.findById(basketId).orElseThrow(BasketNotFoundException::new);
 
     if (!basket.getOwner().getId().equals(userId)) {
@@ -29,11 +29,11 @@ class BasketService {
     return basketRepository.save(basket);
   }
 
-  public Basket save(Basket basket) {
+  public Basket saveBasket(Basket basket) {
     return basketRepository.save(basket);
   }
 
-  public void delete(Long basketId, Long userId) {
+  public void deleteBasket(Long basketId, Long userId) {
     Basket basket = basketRepository.findById(basketId).orElseThrow(BasketNotFoundException::new);
 
     if (!basket.getOwner().getId().equals(userId)) {

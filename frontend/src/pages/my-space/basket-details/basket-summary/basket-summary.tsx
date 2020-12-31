@@ -44,7 +44,9 @@ const BasketSummary = ({ investments }: Props) => {
         my={6}
       >
         <InvestmentCategoryChart investments={investments} />
-        <InvestmentRiskChart investments={investments} />
+        <Box mt={4}>
+          <InvestmentRiskChart investments={investments} />
+        </Box>
       </Flex>
     </Box>
   );

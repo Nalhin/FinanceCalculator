@@ -128,7 +128,7 @@ class InvestmentController {
       @Valid @RequestBody UpdateInvestmentRequestDto updateInvestmentRequestDto,
       @CurrentAppUser AppUser appUser) {
     Investment updatedInvestment =
-        investmentService.updateInvestment(
+        investmentService.updateInvestmentByBasketIdAndId(
             basketId, investmentId, updateInvestmentRequestDto, appUser.getId());
 
     return ResponseEntity.ok().body(mapper.toResponse(updatedInvestment));
@@ -153,7 +153,7 @@ class InvestmentController {
       @PathVariable Long basketId,
       @PathVariable Long investmentId,
       @CurrentAppUser AppUser appUser) {
-    investmentService.deleteByBasketId(basketId, investmentId, appUser.getId());
+    investmentService.deleteByBasketIdAndId(basketId, investmentId, appUser.getId());
 
     return ResponseEntity.ok().build();
   }

@@ -42,7 +42,7 @@ class BasketController {
   public ResponseEntity<Page<BasketResponseDto>> getBaskets(
       Pageable pageable, @CurrentAppUser AppUser appUser) {
 
-    Page<Basket> basketsPage = basketService.findAll(pageable, appUser.getId());
+    Page<Basket> basketsPage = basketService.findAllBaskets(pageable, appUser.getId());
 
     return ResponseEntity.ok(basketsPage.map(basketMapper::toResponse));
   }
@@ -66,7 +66,7 @@ class BasketController {
   public ResponseEntity<BasketResponseDto> saveBasket(
       @Valid @RequestBody SaveBasketRequestDto basket) {
 
-    Basket savedBasket = basketService.save(basketMapper.toEntity(basket));
+    Basket savedBasket = basketService.saveBasket(basketMapper.toEntity(basket));
     URI location = URI.create("/me/baskets/" + savedBasket.getId());
 
     return ResponseEntity.created(location).body(basketMapper.toResponse(savedBasket));
@@ -94,7 +94,7 @@ class BasketController {
       @Valid @RequestBody UpdateBasketRequestDto updateBasketRequestDto,
       @CurrentAppUser AppUser appUser) {
 
-    Basket updatedBasket = basketService.update(basketId, updateBasketRequestDto, appUser.getId());
+    Basket updatedBasket = basketService.updateBasket(basketId, updateBasketRequestDto, appUser.getId());
 
     return ResponseEntity.ok(basketMapper.toResponse(updatedBasket));
   }
@@ -112,7 +112,7 @@ class BasketController {
   public ResponseEntity<Void> deleteBasket(
       @PathVariable Long basketId, @CurrentAppUser AppUser appUser) {
 
-    basketService.delete(basketId, appUser.getId());
+    basketService.deleteBasket(basketId, appUser.getId());
 
     return ResponseEntity.ok().build();
   }
