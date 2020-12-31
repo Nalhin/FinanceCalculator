@@ -52,25 +52,57 @@ describe('DeleteBasketModal component', () => {
 
     await waitFor(() => {
       expect(onDeleteMock).toBeCalledTimes(1);
+      expect(screen.getByText(/basket deleted!/i)).toBeInTheDocument();
     });
     expect(deleteButton).not.toBeDisabled();
   });
 
   it('should not execute callback when basket is not found', async () => {
+    server.use(
+      rest.delete(`/api/me/baskets/${basketId}`, (req, res, ctx) => {
+        return res(ctx.status(404));
+      }),
+    );
     const onDeleteMock = jest.fn();
     renderWithProviders(
       <DeleteBasketModal
         isOpen
         onClose={jest.fn()}
         onDelete={onDeleteMock}
-        basket={basketResponseFactory.buildOne({ id: 2 })}
+        basket={basketResponseFactory.buildOne({ id: 1 })}
       />,
     );
 
     const deleteButton = screen.getByRole('button', { name: /yes/i });
     userEvent.click(deleteButton);
 
-    await waitFor(() => expect(deleteButton).not.toBeDisabled());
+    await waitFor(() => {
+      expect(deleteButton).not.toBeDisabled();
+    });
+    expect(onDeleteMock).toBeCalledTimes(0);
+  });
+
+  it('should display an error when request was unsuccessful', async () => {
+    server.use(
+      rest.delete(`/api/me/baskets/${basketId}`, (req, res, ctx) => {
+        return res(ctx.status(500));
+      }),
+    );
+    const onDeleteMock = jest.fn();
+    renderWithProviders(
+      <DeleteBasketModal
+        isOpen
+        onClose={jest.fn()}
+        onDelete={onDeleteMock}
+        basket={basketResponseFactory.buildOne({ id: basketId })}
+      />,
+    );
+
+    await waitFor(() => {
+      expect(
+        screen.getByText(/unexpected error occurred/i),
+      ).toBeInTheDocument();
+    });
     expect(onDeleteMock).toBeCalledTimes(0);
   });
 });

@@ -24,8 +24,8 @@ describe('InvestmentDetails component', () => {
 
   it('should display investment summary', async () => {
     const response = investmentResponseFactory.buildOne({
-      startAmount: 150,
-      payment: 100,
+      startAmount: 15_000_000,
+      payment: 10_000_000,
       id: investmentId,
       risk: 'HIGH',
       category: 'CERTIFICATE_OF_DEPOSIT',

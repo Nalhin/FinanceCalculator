@@ -89,10 +89,6 @@ describe('EditInvestmentModal', () => {
     );
 
     userEvent.type(
-      screen.getByLabelText(/years of growth/i),
-      `{selectall}${updatedInvestment.yearsOfGrowth}`,
-    );
-    userEvent.type(
       screen.getByLabelText(/additional payment/i),
       `{selectall}${updatedInvestment.payment}`,
     );
@@ -105,7 +101,6 @@ describe('EditInvestmentModal', () => {
       expect.any(String),
       expect.objectContaining({
         payment: updatedInvestment.payment,
-        yearsOfGrowth: updatedInvestment.yearsOfGrowth,
       }),
     );
   });

@@ -59,7 +59,7 @@ describe('EditBasketModal component', () => {
     });
   });
 
-  it('should display errors and shouldnt send a request when the form is invalid', async () => {
+  it('should display errors and should not send a request when the form is invalid', async () => {
     jest.spyOn(axios, 'put');
     renderWithProviders(
       <EditBasketModal
@@ -104,8 +104,32 @@ describe('EditBasketModal component', () => {
     userEvent.click(screen.getByRole('button', { name: /confirm/i }));
 
     await waitFor(() => {
-      expect(onEditMock).toHaveBeenCalledTimes(1);
+      expect(screen.getByText(/basket updated!/i)).toBeInTheDocument();
     });
+    expect(onEditMock).toHaveBeenCalledTimes(1);
     expect(axios.put).toBeCalledWith(expect.any(String), updatedBasket);
+  });
+
+  it('should display an error when request is unsuccessful', async () => {
+    server.use(
+      rest.put(`/api/me/baskets/${basketId}`, (req, res, ctx) => {
+        return res(ctx.status(500));
+      }),
+    );
+    renderWithProviders(
+      <EditBasketModal
+        isOpen
+        onClose={jest.fn()}
+        basket={basketResponseFactory.buildOne({ id: basketId })}
+      />,
+    );
+
+    userEvent.click(screen.getByRole('button', { name: /confirm/i }));
+
+    await waitFor(() => {
+      expect(
+        screen.getByText(/unexpected error occurred/i),
+      ).toBeInTheDocument();
+    });
   });
 });
