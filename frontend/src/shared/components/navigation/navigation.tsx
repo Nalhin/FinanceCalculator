@@ -5,7 +5,12 @@ import { MAIN_ROUTES } from '../../../pages/main.routes';
 
 const Navigation = () => {
   return (
-    <Flex as="nav" justify="flex-start" ml={{ base: 8, lg: '10%' }}>
+    <Flex
+      as="nav"
+      justify="flex-start"
+      ml={{ base: 8, lg: '10%' }}
+      height="64px"
+    >
       <Box
         as={Link}
         to={MAIN_ROUTES.HOME}

@@ -4,7 +4,7 @@ import accounting from '../../assets/accounting.jpg';
 
 const Home = () => {
   return (
-    <Flex height="calc(100vh - 62px)" flexDir={{ base: 'column', lg: 'row' }}>
+    <Flex height="calc(100vh - 64px)" flexDir={{ base: 'column', lg: 'row' }}>
       <Flex w={{ base: '100%', lg: '50%' }} justify="center" align="center">
         <Box w={{ base: '100%', lg: '60%' }} mx={8}>
           <Heading as="h1" size="3xl" color="blue.400" my={2}>
