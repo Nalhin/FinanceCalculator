@@ -24,16 +24,23 @@ Finance calculator with investment planning, interactive visualization and persi
 
 ## Description
 
-The business logic is based on economic compound interest rate formulas.
+Finance Calculator provides its users with robust and fault-tolerant investment planning tools. Upon visiting the
+website, the user can utilize our investment calculator to plan a real-time investment. The user can then decide to
+create an account to generate investment baskets - groups consisting of multiple assets. The application provides a full
+overview of the whole basket and gives much-needed insights. Interactive and responsive charts enhance user experience
+and provide intuitive visualization tools. Investment statistics are calculated based on economic compound interest
+formulas (the implementation was tested and compared against real data). Due to the confidential nature, the users
+cannot interact with investments and baskets that they do not own directly. The website follows a modern, fully
+responsive mobile-first design approach.
 
 ## Features
 
 * Modular full-stack application
 * Advanced interactive visualization
-* Compound interest rate math formulas implementation
-* Performant and scalable persistence
+* Compound interest rate economic formulas implementation
+* Performant and scalable persistence layer
 * Authentication and authorization
-* Fully responsive mobile first design
+* Fully responsive mobile-first design
 
 ## Presentation
 
@@ -86,7 +93,7 @@ The business logic is based on economic compound interest rate formulas.
 ### Edit investment
 
 <p align="center">
-    <img src="screenshots/edit-investment-modal.png" alt="edit investment"/>
+    <img src="screenshots/edit-investment.png" alt="edit investment"/>
 </p>
 
 ## Technology Stack
@@ -107,11 +114,12 @@ The business logic is based on economic compound interest rate formulas.
 ### Backend
 
 * Java 11
-* Spring (web, data, security)
+* Spring (Web, Data, Security)
 * Groovy
 * Spock
+* PostgreSQL
 * Flyway
-* Mapstruct
+* MapStruct
 * Testcontainers
 * REST-assured
 * Springfox
@@ -127,11 +135,40 @@ The business logic is based on economic compound interest rate formulas.
 
 ### Frontend
 
+Frontend architecture follows modern React trends. React context and React Query is used instead of the global state
+libraries such as Redux. Such a design decision reduces clutter and allows the application to be tested with mock REST
+API server making the tests more reliable and robust.
 
+```
+src
+├── core (communication with backend)
+├── pages (routes with page specific components)
+└── shared (shared elements)
+    ├── components (reusable components - used in more than one place)
+    ├── constants (hard coded constants and translations)
+    ├── context (react context providers and hooks)
+    ├── models (classes that encapsulate business logic)
+    ├── types (TypeScript types)
+    └── utils (reusable, pure functions)
+```
 
 ### Backend
 
+Backend application follows a feature first folder structure similar to hexagonal architecture with a few twists.
 
+```
+root
+├── core (configs, authentication and global error handlers)
+├── common (reusable functionality)
+└── feature module 
+    ├── dto (data transfer objects)
+    ├── exception (domain exceptions)
+    ├── Entity (database entity - table)
+    ├── Controller (communication layer)
+    ├── Mapper (mappings between entity and dto)
+    ├── Repository (data access layer)
+    └── Service (business logic)
+```
 
 ## REST API specification
 
