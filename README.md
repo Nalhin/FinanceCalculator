@@ -115,6 +115,7 @@ responsive mobile-first design approach.
 
 * Java 11
 * Spring (Web, Data, Security)
+* Hibernate  
 * Groovy
 * Spock
 * PostgreSQL
