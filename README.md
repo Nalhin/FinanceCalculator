@@ -214,6 +214,7 @@ docker-compose --version
 Run the following commands before proceeding to the sections below.
 
 ```bash
+cd docker
 docker-compose up -d
 ```
 
