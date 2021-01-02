@@ -155,13 +155,13 @@ src
 
 ### Backend
 
-Backend application follows a feature first folder structure similar to hexagonal architecture with a few twists.
+Backend application structure follows a feature-first module structure.
 
 ```
 root
 ├── core (configs, authentication and global error handlers)
 ├── common (reusable functionality)
-└── feature module 
+└── feature modules 
     ├── dto (data transfer objects)
     ├── exception (domain exceptions)
     ├── Entity (database entity - table)
