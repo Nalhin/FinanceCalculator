@@ -115,7 +115,7 @@ responsive mobile-first design approach.
 
 * Java 11
 * Spring (Web, Data, Security)
-* Hibernate  
+* Hibernate
 * Groovy
 * Spock
 * PostgreSQL
@@ -155,7 +155,9 @@ src
 
 ### Backend
 
-Backend application structure follows a feature-first module structure.
+Backend application structure follows a feature-first module structure. Due to the CRUDish nature of the project,
+database model representation is coupled with its REST API counterparts. The design abstracts unstable features (like time)
+to make the code more testable.
 
 ```
 root
