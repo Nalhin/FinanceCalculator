@@ -155,9 +155,9 @@ src
 
 ### Backend
 
-Backend application structure follows a feature-first module structure. Due to the CRUDish nature of the project,
-database model representation is coupled with its REST API counterparts. The design abstracts unstable properties (like time)
-to make the code more testable.
+Backend application follows a feature-first module structure. Due to the CRUDish nature of the project, database model
+representation is coupled with its REST API counterparts. Unstable factors like time are abstracted to make the code
+more testable.
 
 ```
 root
