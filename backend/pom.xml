@@ -21,7 +21,7 @@
         <javafaker.version>1.0.2</javafaker.version>
         <jjwt.version>0.9.1</jjwt.version>
         <groovy.version>3.0.6</groovy.version>
-        <testcontainers.version>1.14.3</testcontainers.version>
+        <testcontainers.version>1.15.1</testcontainers.version>
         <rest-assured.version>4.3.1</rest-assured.version>
         <spock.version>2.0-M3-groovy-3.0</spock.version>
         <springfox.version>3.0.0</springfox.version>

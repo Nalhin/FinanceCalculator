@@ -4,7 +4,7 @@
 [![CodeFactor](https://www.codefactor.io/repository/github/nalhin/financecalculator/badge)](https://www.codefactor.io/repository/github/nalhin/financecalculator)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=FinanceCalculator_frontend&metric=alert_status)](https://sonarcloud.io/dashboard?id=FinanceCalculator_frontend)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=FinanceCalculator_backend&metric=alert_status)](https://sonarcloud.io/dashboard?id=FinanceCalculator_backend)
-[![License](https://img.shields.io/github/license/nalhin/Chess)](LICENSE.md)
+[![License](https://img.shields.io/github/license/nalhin/FinanceCalculator)](LICENSE.md)
 
 # Finance Calculator
 
