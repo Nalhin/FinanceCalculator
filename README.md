@@ -44,7 +44,7 @@ responsive mobile-first design approach.
 
 ## Presentation
 
-### Mobile
+#### Mobile
 
 <p align="center">
   <a href="https://youtu.be/noUTVgs8gUI">
@@ -52,7 +52,7 @@ responsive mobile-first design approach.
   </a>
 </p>
 
-### Desktop
+#### Desktop
 
 <p align="center">
   <a href="https://youtu.be/WaprKZioiMg">
@@ -60,40 +60,40 @@ responsive mobile-first design approach.
   </a>
 </p>
 
-### Landing Page
+#### Landing Page
 
 <p align="center">
-    <img src="screenshots/landing.png" alt="landing"/>
+    <img src="screenshots/landing.png" alt="landing" width="400px" />
 </p>
 
-### Calculator
+#### Calculator
 
 <p align="center">
-    <img src="screenshots/calculator.png" alt="landing"/>
+    <img src="screenshots/calculator.png" alt="landing" width="400px" />
 </p>
 
-### Investment summary
+#### Investment summary
 
 <p align="center">
-    <img src="screenshots/investment-summary.png" alt="investment summary"/>
+    <img src="screenshots/investment-summary.png" alt="investment summary" width="400px" />
 </p>
 
-### Investment distribution
+#### Investment distribution
 
 <p align="center">
-    <img src="screenshots/investment-distribution.png" alt="investment distribution"/>
+    <img src="screenshots/investment-distribution.png" alt="investment distribution" width="400px" />
 </p>
 
-### Investments
+#### Investments
 
 <p align="center">
-    <img src="screenshots/investments.png" alt="investments"/>
+    <img src="screenshots/investments.png" alt="investments" width="400px" />
 </p>
 
-### Edit investment
+#### Edit investment
 
 <p align="center">
-    <img src="screenshots/edit-investment.png" alt="edit investment"/>
+    <img src="screenshots/edit-investment.png" alt="edit investment" width="400px" />
 </p>
 
 ## Technology Stack
