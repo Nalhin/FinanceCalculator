@@ -182,7 +182,7 @@ server has to be up and running in for the documentation to be available
 
 ### Frontend
 
-Install (node)[https://nodejs.org/en], (npm)[https://www.npmjs.com]  and [yarn](https://yarnpkg.com). You should be able
+Install [node](https://nodejs.org/en), [npm](https://www.npmjs.com)  and [yarn](https://yarnpkg.com). You should be able
 to run the following commands.
 
 ```bash
